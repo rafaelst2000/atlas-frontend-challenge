@@ -28,8 +28,6 @@ defineProps<{ professional: Professional }>()
       </li>
     </ul>
 
-    <p class="meta-line">{{ professional.code }} // MATCH: {{ professional.match }}% // RESP: {{ professional.responseHours }}H</p>
-
     <div class="flex flex-col gap-[7px] text-[12.5px] text-body">
       <div class="flex items-center gap-[7px]">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--color-accent)" class="shrink-0" aria-hidden="true"><polygon points="12,2.5 14.9,9 22,9.8 16.7,14.5 18.2,21.5 12,17.9 5.8,21.5 7.3,14.5 2,9.8 9.1,9" /></svg>
