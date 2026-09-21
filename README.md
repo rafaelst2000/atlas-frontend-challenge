@@ -15,7 +15,7 @@ npm run preview    # serve o build
 npx nuxi typecheck # checagem de tipos
 ```
 
-Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticamente; defina também `NUXT_PUBLIC_SITE_URL` (ex.: `https://devmatch.example.com`) para canonical, sitemap e robots.
+Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticamente; a URL do site (canonical, sitemap e robots) vem de `NUXT_PUBLIC_SITE_URL` ou, na falta dela, de `VERCEL_PROJECT_PRODUCTION_URL`, que a Vercel injeta.
 
 ## O que foi entregue
 
