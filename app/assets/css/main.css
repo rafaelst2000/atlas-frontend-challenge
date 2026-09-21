@@ -89,6 +89,13 @@
 @layer base {
   html {
     background: var(--color-base);
+    scroll-behavior: smooth;
+    /* Sticky header height, so anchors do not land underneath it */
+    scroll-padding-top: 72px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
   }
 
   body {
