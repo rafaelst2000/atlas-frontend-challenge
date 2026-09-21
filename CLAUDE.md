@@ -30,7 +30,8 @@ Typecheck with `npx nuxi typecheck` (TypeScript is pinned to 5.x because `vue-ts
 Nuxt 4 layout: application source lives under `app/` (not the repo root), and static assets under `public/`. Config is in `nuxt.config.ts`.
 
 - `shared/professional.ts`: types plus filter/sort option constants, imported by both sides via `#shared/professional`.
-- `server/data/professionals.ts`: deterministic generator (524 professionals, the 12 from the design first) and per-profile detail builder. `server/api/professionals/` exposes the list (server-side filter/sort/pagination via `server/utils/professionalQuery.ts`) and the detail; `server/api/__sitemap__/urls.ts` feeds the sitemap.
+- Data lives in Neon Postgres via Drizzle (`server/db/schema.ts`, client in `server/utils/db.ts` using the HTTP driver for serverless). `.env` holds `DATABASE_URL` (pooled, runtime) and `DATABASE_URL_UNPOOLED` (drizzle-kit and seed); it is git-ignored, never commit or print credentials. `npm run db:push` syncs the schema and `npm run db:seed` reseeds (truncates) the table from `server/data/professionals.ts`, a deterministic generator (524 professionals, the 12 from the design first) that also builds each profile's detail content.
+- `server/api/professionals/` exposes the list (search, filters, sort and pagination done in SQL by `server/utils/professionalQuery.ts`, search uses the `unaccent` extension) and the detail; `server/api/__sitemap__/urls.ts` feeds the sitemap.
 - Filters live in the URL query (`app/composables/useProfessionalFilters.ts`); the home page (`app/pages/index.vue`) fetches with `useFetch` on that query and appends extra pages on "Carregar mais". Profiles are `app/pages/profissionais/[id].vue`.
 - SEO/performance is a first-class requirement: follow the `nuxt-seo-performance` skill (`.claude/skills/nuxt-seo-performance/SKILL.md`) for every route, component and asset.
 

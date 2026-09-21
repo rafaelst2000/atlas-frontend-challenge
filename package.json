@@ -7,12 +7,16 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db:push": "node --env-file=.env node_modules/drizzle-kit/bin.cjs push",
+    "db:seed": "tsx --env-file=.env scripts/seed.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "@nuxt/fonts": "^0.14.0",
     "@nuxtjs/robots": "^6.2.3",
     "@nuxtjs/sitemap": "^8.5.1",
+    "drizzle-orm": "^0.45.3",
     "nuxt": "^4.5.2",
     "vue": "^3.5.43",
     "vue-router": "^5.3.1"
@@ -20,7 +24,9 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.6.2",
+    "drizzle-kit": "^0.31.11",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
     "typescript": "~5.9",
     "vue-tsc": "^3.3.11"
   }

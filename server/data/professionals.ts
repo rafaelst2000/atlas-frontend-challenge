@@ -5,7 +5,7 @@ import type {
   ProfessionalReview,
   ProfessionalService,
   Specialty
-} from '#shared/professional'
+} from '../../shared/professional'
 
 const TOTAL = 524
 
@@ -34,22 +34,11 @@ const LAST_NAMES = [
   'Araújo', 'Pinto', 'Monteiro', 'Cavalcanti', 'Freitas', 'Rocha', 'Batista', 'Nunes', 'Vieira', 'Machado'
 ]
 
-const LOCATIONS: { city: string, distanceKm: number, remote: boolean }[] = [
-  { city: 'São Paulo, SP', distanceKm: 8, remote: false },
-  { city: 'São Paulo, SP', distanceKm: 18, remote: false },
-  { city: 'São Paulo, SP', distanceKm: 35, remote: false },
-  { city: 'Rio de Janeiro, RJ', distanceKm: 430, remote: false },
-  { city: 'Curitiba, PR', distanceKm: 340, remote: false },
-  { city: 'Belo Horizonte, MG', distanceKm: 490, remote: false },
-  { city: 'Florianópolis, SC', distanceKm: 700, remote: false },
-  { city: 'Porto Alegre, RS', distanceKm: 850, remote: false },
-  { city: 'Campinas, SP', distanceKm: 95, remote: false },
-  { city: 'Recife, PE', distanceKm: 2100, remote: false },
-  { city: 'Salvador, BA', distanceKm: 1960, remote: false },
-  { city: 'Fortaleza, CE', distanceKm: 2380, remote: false },
-  { city: 'Remoto · Brasil', distanceKm: 0, remote: true },
-  { city: 'Remoto · Brasil', distanceKm: 0, remote: true }
-]
+const LOCATIONS = [
+  'São Paulo, SP', 'São Paulo, SP', 'São Paulo, SP', 'Rio de Janeiro, RJ', 'Curitiba, PR',
+  'Belo Horizonte, MG', 'Florianópolis, SC', 'Porto Alegre, RS', 'Campinas, SP', 'Recife, PE',
+  'Salvador, BA', 'Fortaleza, CE', 'Remoto · Brasil', 'Remoto · Brasil'
+] as const
 
 interface SpecProfile {
   roles: string[]
@@ -154,20 +143,11 @@ const FEATURED: { name: string, specialty: Specialty, role: string, bio: string,
 const initialsOf = (name: string) =>
   name.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()
 
-const codeOf = (id: number) => `DM-${(id * 2654435761 % 0xfffff).toString(16).toUpperCase().padStart(5, '0')}`
-
-function locationFor(city: string, rand: () => number) {
-  const known = LOCATIONS.find(l => l.city === city)
-  if (known && !(city === 'São Paulo, SP')) return known
-  return { city, distanceKm: between(rand, 4, city === 'São Paulo, SP' ? 40 : 120), remote: city.startsWith('Remoto') }
-}
-
 function build(): Professional[] {
   const list: Professional[] = []
 
   FEATURED.forEach((f, index) => {
     const id = index + 1
-    const loc = locationFor(f.location, mulberry32(id))
     list.push({
       id,
       name: f.name,
@@ -178,14 +158,11 @@ function build(): Professional[] {
       techs: f.techs,
       rating: f.rating,
       reviews: f.reviews,
-      location: loc.city,
-      remote: loc.remote,
-      distanceKm: loc.distanceKm,
+      location: f.location,
       years: f.years,
       price: f.price,
       match: f.match,
-      responseHours: f.resp,
-      code: codeOf(id)
+      responseHours: f.resp
     })
   })
 
@@ -196,7 +173,6 @@ function build(): Professional[] {
     const profile = SPECS[specialty]
     const name = `${pick(rand, FIRST_NAMES)} ${pick(rand, LAST_NAMES)}`
     const techs = [...profile.techs].sort(() => rand() - 0.5).slice(0, 3)
-    const loc = pick(rand, LOCATIONS)
     const years = between(rand, 1, 14)
     list.push({
       id,
@@ -208,25 +184,19 @@ function build(): Professional[] {
       techs,
       rating: Math.round((4 + rand()) * 10) / 10,
       reviews: between(rand, 8, 140),
-      location: loc.city,
-      remote: loc.remote,
-      distanceKm: loc.remote ? 0 : loc.distanceKm + between(rand, 0, 12),
+      location: pick(rand, LOCATIONS),
       years,
       price: Math.round((profile.price[0] + (profile.price[1] - profile.price[0]) * (0.3 * rand() + 0.7 * Math.min(years / 14, 1))) / 5) * 5,
       match: between(rand, 55, 95),
-      responseHours: between(rand, 1, 8),
-      code: codeOf(id)
+      responseHours: between(rand, 1, 8)
     })
   }
 
   return list
 }
 
-let cache: Professional[] | undefined
-
-export const getProfessionals = () => (cache ??= build())
-
-export const getProfessional = (id: number) => getProfessionals().find(p => p.id === id)
+/** Deterministic dataset used to seed the database (`npm run db:seed`). */
+export const generateProfessionals = build
 
 const REVIEWERS: { author: string, role: string }[] = [
   { author: 'Mariana Silva', role: 'Product Manager' },

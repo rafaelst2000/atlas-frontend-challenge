@@ -1,47 +1,47 @@
-import type { Professional, ProfessionalFilters, SortValue } from '#shared/professional'
+import { and, asc, desc, eq, gt, gte, lte, sql, type SQL } from 'drizzle-orm'
+import type { ProfessionalFilters, SortValue } from '#shared/professional'
+import { professionals } from '../db/schema'
 
-const normalize = (value: string) =>
-  value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+const escapeLike = (value: string) => value.replace(/[\\%_]/g, char => `\\${char}`)
 
-const priceMatches = (price: number, range?: string) => {
-  switch (range) {
-    case 'ate-100': return price <= 100
-    case '100-180': return price >= 100 && price <= 180
-    case '180-250': return price >= 180 && price <= 250
-    case 'acima-250': return price > 250
-    default: return true
+const PRICE_RANGES: Record<string, (col: typeof professionals.price) => SQL> = {
+  'ate-100': col => lte(col, 100),
+  '100-180': col => and(gte(col, 100), lte(col, 180))!,
+  '180-250': col => and(gte(col, 180), lte(col, 250))!,
+  'acima-250': col => gt(col, 250)
+}
+
+const EXPERIENCE_RANGES: Record<string, (col: typeof professionals.years) => SQL> = {
+  '1-3': col => and(gte(col, 1), lte(col, 3))!,
+  '3-6': col => and(gte(col, 3), lte(col, 6))!,
+  '6+': col => gte(col, 6),
+  '10+': col => gte(col, 10)
+}
+
+const ORDER: Record<SortValue, SQL[]> = {
+  'relevance': [desc(professionals.match), desc(professionals.rating), asc(professionals.id)],
+  'price-asc': [asc(professionals.price), asc(professionals.id)],
+  'price-desc': [desc(professionals.price), asc(professionals.id)],
+  'rating': [desc(professionals.rating), desc(professionals.reviews), asc(professionals.id)],
+  'experience': [desc(professionals.years), asc(professionals.id)]
+}
+
+export const orderFor = (sort: SortValue = 'relevance') => ORDER[sort] ?? ORDER.relevance
+
+export function buildWhere(filters: ProfessionalFilters): SQL | undefined {
+  const conditions: (SQL | undefined)[] = []
+
+  const q = filters.q?.trim()
+  if (q) {
+    // unaccent + ILIKE: accent- and case-insensitive search over name, role and technologies
+    const pattern = `%${escapeLike(q)}%`
+    conditions.push(sql`unaccent(${professionals.name} || ' ' || ${professionals.role} || ' ' || array_to_string(${professionals.techs}, ' ')) ILIKE unaccent(${pattern})`)
   }
-}
+  if (filters.spec) conditions.push(eq(professionals.specialty, filters.spec))
+  if (filters.price && PRICE_RANGES[filters.price]) conditions.push(PRICE_RANGES[filters.price]!(professionals.price))
+  if (filters.exp && EXPERIENCE_RANGES[filters.exp]) conditions.push(EXPERIENCE_RANGES[filters.exp]!(professionals.years))
+  const minRating = Number(filters.rating)
+  if (minRating > 0) conditions.push(gte(professionals.rating, minRating))
 
-const experienceMatches = (years: number, range?: string) => {
-  switch (range) {
-    case '1-3': return years >= 1 && years <= 3
-    case '3-6': return years >= 3 && years <= 6
-    case '6+': return years >= 6
-    case '10+': return years >= 10
-    default: return true
-  }
-}
-
-const SORTERS: Record<SortValue, (a: Professional, b: Professional) => number> = {
-  'relevance': (a, b) => b.match - a.match || b.rating - a.rating,
-  'price-asc': (a, b) => a.price - b.price,
-  'price-desc': (a, b) => b.price - a.price,
-  'rating': (a, b) => b.rating - a.rating || b.reviews - a.reviews,
-  'experience': (a, b) => b.years - a.years
-}
-
-export function queryProfessionals(all: Professional[], filters: ProfessionalFilters) {
-  const q = filters.q ? normalize(filters.q.trim()) : ''
-  const minRating = filters.rating ? Number(filters.rating) : 0
-
-  const result = all.filter((p) => {
-    if (q && !normalize(`${p.name} ${p.role} ${p.techs.join(' ')}`).includes(q)) return false
-    if (filters.spec && p.specialty !== filters.spec) return false
-    if (minRating && p.rating < minRating) return false
-    return priceMatches(p.price, filters.price)
-      && experienceMatches(p.years, filters.exp)
-  })
-
-  return result.sort(SORTERS[filters.sort ?? 'relevance'] ?? SORTERS.relevance)
+  return and(...conditions)
 }

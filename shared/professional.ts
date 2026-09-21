@@ -61,13 +61,10 @@ export interface Professional {
   rating: number
   reviews: number
   location: string
-  remote: boolean
-  distanceKm: number
   years: number
   price: number
   match: number
   responseHours: number
-  code: string
 }
 
 export interface ProfessionalService {

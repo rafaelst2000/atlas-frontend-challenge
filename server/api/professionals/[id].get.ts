@@ -1,11 +1,16 @@
-import { buildDetail, getProfessional } from '../../data/professionals'
+import { eq } from 'drizzle-orm'
+import { professionals } from '../../db/schema'
+import { buildDetail } from '../../data/professionals'
+import type { Professional } from '#shared/professional'
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const id = Number(getRouterParam(event, 'id'))
-  const professional = Number.isInteger(id) ? getProfessional(id) : undefined
+  const [row] = Number.isInteger(id) && id > 0
+    ? await useDb().select().from(professionals).where(eq(professionals.id, id)).limit(1)
+    : []
 
-  if (!professional) {
+  if (!row) {
     throw createError({ statusCode: 404, statusMessage: 'Profissional não encontrado' })
   }
-  return buildDetail(professional)
+  return buildDetail(row as Professional)
 })

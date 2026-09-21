@@ -1,34 +1,39 @@
-import { getProfessionals } from '../../data/professionals'
-import { queryProfessionals } from '../../utils/professionalQuery'
-import type { ProfessionalsPage, SortValue } from '#shared/professional'
+import { count } from 'drizzle-orm'
+import { professionals } from '../../db/schema'
+import { buildWhere, orderFor } from '../../utils/professionalQuery'
+import type { Professional, ProfessionalsPage, SortValue } from '#shared/professional'
 import { SORT_OPTIONS } from '#shared/professional'
 
 const PAGE_SIZE = 12
 
-export default defineEventHandler((event): ProfessionalsPage => {
+export default defineEventHandler(async (event): Promise<ProfessionalsPage> => {
   const query = getQuery(event)
   const str = (key: string) => (typeof query[key] === 'string' && query[key] ? (query[key] as string) : undefined)
 
   const sort = SORT_OPTIONS.some(o => o.value === str('sort')) ? (str('sort') as SortValue) : 'relevance'
-  const page = Math.max(1, Number.parseInt(str('page') ?? '1', 10) || 1)
-
-  const all = getProfessionals()
-  const filtered = queryProfessionals(all, {
+  const page = Math.min(Math.max(1, Number.parseInt(str('page') ?? '1', 10) || 1), 1000)
+  const where = buildWhere({
     q: str('q')?.slice(0, 80),
     spec: str('spec'),
     price: str('price'),
     rating: str('rating'),
-    exp: str('exp'),
-    sort
+    exp: str('exp')
   })
 
-  const start = (page - 1) * PAGE_SIZE
+  const db = useDb()
+  const [items, [filtered], [catalog]] = await Promise.all([
+    db.select().from(professionals).where(where).orderBy(...orderFor(sort)).limit(PAGE_SIZE).offset((page - 1) * PAGE_SIZE),
+    db.select({ total: count() }).from(professionals).where(where),
+    db.select({ total: count() }).from(professionals)
+  ])
+
+  const total = filtered?.total ?? 0
   return {
-    items: filtered.slice(start, start + PAGE_SIZE),
-    total: filtered.length,
+    items: items as Professional[],
+    total,
     page,
     pageSize: PAGE_SIZE,
-    totalPages: Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)),
-    catalogTotal: all.length
+    totalPages: Math.max(1, Math.ceil(total / PAGE_SIZE)),
+    catalogTotal: catalog?.total ?? 0
   }
 })

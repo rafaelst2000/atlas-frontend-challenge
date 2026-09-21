@@ -6,13 +6,16 @@ Solução do desafio técnico front-end da Atlas Technologies (enunciado em [`do
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+cp .env.example .env   # preencha DATABASE_URL e DATABASE_URL_UNPOOLED (Neon Postgres)
+npm run db:push        # cria a tabela
+npm run db:seed        # popula os 524 profissionais
+npm run dev            # http://localhost:3000
 npm run build      # build de produção
 npm run preview    # serve o build
 npx nuxi typecheck # checagem de tipos
 ```
 
-Em produção, defina `NUXT_PUBLIC_SITE_URL` (ex.: `https://devmatch.example.com`) para canonical, sitemap e robots.
+Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticamente; defina também `NUXT_PUBLIC_SITE_URL` (ex.: `https://devmatch.example.com`) para canonical, sitemap e robots.
 
 ## O que foi entregue
 
@@ -23,7 +26,8 @@ Em produção, defina `NUXT_PUBLIC_SITE_URL` (ex.: `https://devmatch.example.com
 ## Decisões técnicas
 
 **Dados e arquitetura**
-- Os dados são gerados de forma determinística no servidor (`server/data`) e expostos por `GET /api/professionals` (filtros, ordenação e paginação no servidor) e `GET /api/professionals/:id`. O cliente nunca recebe o catálogo inteiro.
+- Os dados ficam em **Postgres (Neon)**, acessados com **Drizzle ORM** pelo driver HTTP serverless (sem pool de conexões, ideal para a Vercel). O seed (`npm run db:seed`) gera 524 profissionais de forma determinística.
+- A API (`GET /api/professionals` e `GET /api/professionals/:id`) faz busca (`unaccent` + `ILIKE`, ignorando acentos), filtros, ordenação e paginação **no banco**, com índices nas colunas usadas. O cliente nunca recebe o catálogo inteiro.
 - Tipos e constantes de filtros ficam em `shared/` e são usados por servidor e cliente.
 - Os filtros vivem na **query string** (`/?spec=QA&sort=rating`): URL compartilhável, botão voltar funcional e uma única fonte de verdade (`useProfessionalFilters`).
 
