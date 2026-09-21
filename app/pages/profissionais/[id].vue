@@ -83,7 +83,6 @@ const infos = [
           </span>
           <h1 class="text-[clamp(28px,6vw,44px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-primary">{{ p.name }}</h1>
           <p class="mt-2 text-[clamp(14px,3.6vw,17px)] text-body">{{ p.role }}</p>
-          <p class="meta-line mt-2.5 !whitespace-normal">{{ p.code }} // RESPOSTA MÉDIA: {{ p.responseHours }}H // ENTREGAS: {{ p.delivered }}</p>
 
           <div class="mt-4 flex flex-wrap gap-x-[22px] gap-y-3.5 text-[13.5px] text-body">
             <div class="flex items-center gap-[7px]">
