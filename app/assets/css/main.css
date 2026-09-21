@@ -253,3 +253,25 @@
   .btn-primary, .hero-orb { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+@layer components {
+  .skeleton {
+    background: linear-gradient(90deg, #1c1a17 0%, #242118 50%, #1c1a17 100%);
+    background-size: 320px 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: -320px 0; }
+  to { background-position: 320px 0; }
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
