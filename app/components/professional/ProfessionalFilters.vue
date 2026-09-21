@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {
-  EXPERIENCE_OPTIONS, LOCATION_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SORT_OPTIONS, SPECIALTIES, TECH_OPTIONS
+  EXPERIENCE_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SORT_OPTIONS, SPECIALTIES
 } from '#shared/professional'
 
 const { filters, activeCount, update, clear } = useProfessionalFilters()
 
 const specOptions = SPECIALTIES.map(value => ({ value, label: value }))
-const techOptions = TECH_OPTIONS.map(value => ({ value, label: value }))
 
 const sheetOpen = ref(false)
 </script>
@@ -35,11 +34,9 @@ const sheetOpen = ref(false)
     <!-- Desktop: inline bar -->
     <div class="hidden flex-wrap items-center gap-2.5 rounded-card bg-card p-3.5 shadow-card md:flex">
       <ProfessionalFilterSelect label="Especialidade" placeholder="Especialidade" :options="specOptions" :model-value="filters.spec" @update:model-value="update({ spec: $event })" />
-      <ProfessionalFilterSelect label="Tecnologias" placeholder="Tecnologias" :options="techOptions" :model-value="filters.tech" @update:model-value="update({ tech: $event })" />
       <ProfessionalFilterSelect label="Faixa de preço" placeholder="Faixa de preço" :options="PRICE_OPTIONS" :model-value="filters.price" @update:model-value="update({ price: $event })" />
       <ProfessionalFilterSelect label="Avaliação mínima" placeholder="Avaliação mínima" :options="RATING_OPTIONS" :model-value="filters.rating" @update:model-value="update({ rating: $event })" />
       <ProfessionalFilterSelect label="Experiência" placeholder="Experiência" :options="EXPERIENCE_OPTIONS" :model-value="filters.exp" @update:model-value="update({ exp: $event })" />
-      <ProfessionalFilterSelect label="Localização / distância" placeholder="Localização / distância" :options="LOCATION_OPTIONS" :model-value="filters.loc" @update:model-value="update({ loc: $event })" />
       <button type="button" class="ml-auto rounded-button border border-subtle px-4 py-2.5 text-[13px] font-medium text-body transition-colors hover:text-primary" @click="clear()">
         Limpar filtros
       </button>

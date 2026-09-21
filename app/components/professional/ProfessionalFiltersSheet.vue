@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {
-  EXPERIENCE_OPTIONS, LOCATION_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SPECIALTIES, TECH_OPTIONS
+  EXPERIENCE_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SPECIALTIES
 } from '#shared/professional'
 
 const emit = defineEmits<{ close: [] }>()
 
 const { filters, update, clear } = useProfessionalFilters()
-const techOptions = TECH_OPTIONS.map(value => ({ value, label: value }))
 
 const total = useState<number>('professionals-total', () => 0)
 
@@ -45,11 +44,9 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="flex flex-col gap-3.5">
-        <ProfessionalFilterSelect label="Tecnologias" placeholder="Todas" :options="techOptions" :model-value="filters.tech" @update:model-value="update({ tech: $event })" />
         <ProfessionalFilterSelect label="Faixa de preço" placeholder="Qualquer" :options="PRICE_OPTIONS" :model-value="filters.price" @update:model-value="update({ price: $event })" />
         <ProfessionalFilterSelect label="Avaliação mínima" placeholder="Qualquer" :options="RATING_OPTIONS" :model-value="filters.rating" @update:model-value="update({ rating: $event })" />
         <ProfessionalFilterSelect label="Experiência" placeholder="Qualquer" :options="EXPERIENCE_OPTIONS" :model-value="filters.exp" @update:model-value="update({ exp: $event })" />
-        <ProfessionalFilterSelect label="Localização / distância" placeholder="Qualquer" :options="LOCATION_OPTIONS" :model-value="filters.loc" @update:model-value="update({ loc: $event })" />
       </div>
 
       <div class="mt-5 flex gap-2.5">

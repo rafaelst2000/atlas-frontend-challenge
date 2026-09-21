@@ -23,16 +23,6 @@ const experienceMatches = (years: number, range?: string) => {
   }
 }
 
-const locationMatches = (p: Professional, loc?: string) => {
-  switch (loc) {
-    case 'remoto': return p.remote
-    case 'ate-20km': return !p.remote && p.distanceKm <= 20
-    case 'sp': return p.location === 'São Paulo, SP'
-    case 'rj': return p.location === 'Rio de Janeiro, RJ'
-    default: return true
-  }
-}
-
 const SORTERS: Record<SortValue, (a: Professional, b: Professional) => number> = {
   'relevance': (a, b) => b.match - a.match || b.rating - a.rating,
   'price-asc': (a, b) => a.price - b.price,
@@ -48,11 +38,9 @@ export function queryProfessionals(all: Professional[], filters: ProfessionalFil
   const result = all.filter((p) => {
     if (q && !normalize(`${p.name} ${p.role} ${p.techs.join(' ')}`).includes(q)) return false
     if (filters.spec && p.specialty !== filters.spec) return false
-    if (filters.tech && !p.techs.includes(filters.tech)) return false
     if (minRating && p.rating < minRating) return false
     return priceMatches(p.price, filters.price)
       && experienceMatches(p.years, filters.exp)
-      && locationMatches(p, filters.loc)
   })
 
   return result.sort(SORTERS[filters.sort ?? 'relevance'] ?? SORTERS.relevance)

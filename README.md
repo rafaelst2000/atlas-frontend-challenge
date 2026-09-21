@@ -16,7 +16,7 @@ Em produção, defina `NUXT_PUBLIC_SITE_URL` (ex.: `https://devmatch.example.com
 
 ## O que foi entregue
 
-- **Listagem** com 524 profissionais, busca por nome, profissão ou tecnologia, 6 filtros (especialidade, tecnologia, preço, avaliação, experiência, localização/distância), 5 ordenações e botão "Carregar mais" (12 por página).
+- **Listagem** com 524 profissionais, busca por nome, profissão ou tecnologia, 4 filtros (especialidade, faixa de preço, avaliação mínima e experiência), 5 ordenações e botão "Carregar mais" (12 por página).
 - **Perfil** em página dedicada (`/profissionais/:id`) com sobre, tecnologias, serviços, portfólio, avaliações e CTA fixo no mobile.
 - Design system "Dark Luxury" ([`DESIGN.md`](DESIGN.md)), mobile first e responsivo.
 

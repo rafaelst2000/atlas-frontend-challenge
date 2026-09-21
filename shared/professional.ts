@@ -21,8 +21,6 @@ export const SORT_OPTIONS = [
 
 export type SortValue = (typeof SORT_OPTIONS)[number]['value']
 
-export const TECH_OPTIONS = ['React', 'Node.js', 'Python', 'Kubernetes', 'Figma'] as const
-
 export const PRICE_OPTIONS = [
   { value: 'ate-100', label: 'Até R$ 100/h' },
   { value: '100-180', label: 'R$ 100–180/h' },
@@ -43,21 +41,12 @@ export const EXPERIENCE_OPTIONS = [
   { value: '10+', label: '10+ anos' }
 ] as const
 
-export const LOCATION_OPTIONS = [
-  { value: 'remoto', label: 'Remoto' },
-  { value: 'ate-20km', label: 'Até 20 km' },
-  { value: 'sp', label: 'São Paulo, SP' },
-  { value: 'rj', label: 'Rio de Janeiro, RJ' }
-] as const
-
 export interface ProfessionalFilters {
   q?: string
   spec?: string
-  tech?: string
   price?: string
   rating?: string
   exp?: string
-  loc?: string
   sort?: SortValue
 }
 

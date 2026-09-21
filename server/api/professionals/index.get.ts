@@ -16,11 +16,9 @@ export default defineEventHandler((event): ProfessionalsPage => {
   const filtered = queryProfessionals(all, {
     q: str('q')?.slice(0, 80),
     spec: str('spec'),
-    tech: str('tech'),
     price: str('price'),
     rating: str('rating'),
     exp: str('exp'),
-    loc: str('loc'),
     sort
   })
 

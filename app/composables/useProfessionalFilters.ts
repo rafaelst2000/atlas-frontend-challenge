@@ -1,6 +1,6 @@
 import type { ProfessionalFilters } from '#shared/professional'
 
-const FILTER_KEYS = ['q', 'spec', 'tech', 'price', 'rating', 'exp', 'loc', 'sort'] as const
+const FILTER_KEYS = ['q', 'spec', 'price', 'rating', 'exp', 'sort'] as const
 type FilterKey = (typeof FILTER_KEYS)[number]
 
 /**
