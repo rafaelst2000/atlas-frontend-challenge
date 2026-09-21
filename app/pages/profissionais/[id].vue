@@ -23,6 +23,7 @@ useSeoMeta({
   ogDescription: description,
   ogType: 'profile',
   ogUrl: url,
+  ogImage: p.photo,
   twitterCard: 'summary'
 })
 useHead({
@@ -37,6 +38,7 @@ useHead({
         'name': p.name,
         'jobTitle': p.role,
         'description': p.bio,
+        'image': p.photo,
         'url': url,
         'knowsAbout': p.techs,
         'address': { '@type': 'PostalAddress', 'addressLocality': p.location },
@@ -76,7 +78,7 @@ const infos = [
     <section class="relative overflow-hidden rounded-card bg-card p-6 shadow-card">
       <div class="pointer-events-none absolute -bottom-[220px] left-1/2 h-[380px] w-[760px] max-w-[150vw] -translate-x-1/2 rounded-full opacity-90 blur-[40px] [background:radial-gradient(ellipse_at_center_bottom,rgba(180,100,15,0.22)_0%,rgba(150,75,10,0.10)_35%,transparent_70%)]" aria-hidden="true" />
       <div class="relative flex flex-wrap items-start gap-5">
-        <div class="flex size-24 shrink-0 items-center justify-center rounded-card border border-accent-border bg-surface font-mono text-[28px] text-accent shadow-[0_0_30px_rgba(212,160,60,0.12)]" aria-hidden="true">{{ p.initials }}</div>
+        <ProfessionalAvatar :src="p.photo" :name="p.name" :initials="p.initials" :size="96" eager />
         <div class="min-w-0 flex-[1_1_260px]">
           <span class="mb-3 inline-flex items-center gap-1.5 rounded-full border border-success/30 bg-success/10 px-[11px] py-[5px] text-[11.5px] text-[#6dc48b]">
             <span class="size-[5px] rounded-full bg-success" aria-hidden="true" />Disponível para projetos

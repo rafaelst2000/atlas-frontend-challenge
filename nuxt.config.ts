@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/fonts', '@nuxtjs/sitemap', '@nuxtjs/robots'],
+  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxtjs/sitemap', '@nuxtjs/robots'],
 
   css: ['~/assets/css/main.css'],
 
@@ -19,6 +19,12 @@ export default defineNuxtConfig({
       { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700, 800] },
       { name: 'JetBrains Mono', provider: 'google', weights: [400, 500] }
     ]
+  },
+
+  // Remote portraits are resized and served as WebP by the image optimizer (Vercel provider in production)
+  image: {
+    domains: ['randomuser.me'],
+    format: ['webp']
   },
 
   site: {

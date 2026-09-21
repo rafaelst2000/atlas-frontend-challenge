@@ -40,7 +40,8 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 
 **Performance e Core Web Vitals**
 - **LCP:** conteúdo principal renderizado no servidor; fontes autohospedadas com `@nuxt/fonts` (sem stylesheet de terceiros bloqueante) e fallbacks com métricas ajustadas.
-- **CLS:** skeletons com altura reservada, grid estável, sem imagens que carreguem depois (avatares por iniciais, sem fotos de banco de imagens, conforme o design system).
+- **CLS:** skeletons com altura reservada, grid estável e `width`/`height` explícitos em todas as fotos.
+- **Imagens:** fotos dos profissionais (coluna `photo` no banco) servidas por `@nuxt/image`: redimensionadas por densidade (`1x`/`2x`), em WebP, com `loading="lazy"` nos cards e `eager` + `fetchpriority="high"` só na foto do perfil (imagem principal da página). Se a foto falhar, o avatar de iniciais aparece como fallback. Na Vercel, o otimizador nativo é usado automaticamente.
 - **INP:** busca com debounce de 300 ms, listas com `shallowRef`, sem watchers desnecessários.
 - **Menos JS:** o painel de filtros mobile é carregado sob demanda (`LazyProfessionalFiltersSheet`), e portfólio e avaliações do perfil usam hidratação preguiçosa (`hydrate-on-visible`). Breakpoints são resolvidos só com CSS.
 - **Cache:** `routeRules` com `swr` para páginas e API públicas.
@@ -54,4 +55,4 @@ Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a 
 
 - Testes automatizados (Vitest para a lógica de filtros, Playwright para os fluxos principais) e lint.
 - Persistência real dos favoritos e formulário de orçamento.
-- Fotos reais otimizadas com `@nuxt/image` e medição contínua de Web Vitals em produção.
+- Upload de fotos reais (Vercel Blob) no lugar dos retratos de exemplo e medição contínua de Web Vitals em produção.

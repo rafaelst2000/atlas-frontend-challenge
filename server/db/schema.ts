@@ -4,6 +4,7 @@ export const professionals = pgTable('professionals', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   initials: text('initials').notNull(),
+  photo: text('photo').notNull().default(''),
   role: text('role').notNull(),
   specialty: text('specialty').notNull(),
   bio: text('bio').notNull(),

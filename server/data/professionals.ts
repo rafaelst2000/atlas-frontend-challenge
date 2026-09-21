@@ -140,6 +140,18 @@ const FEATURED: { name: string, specialty: Specialty, role: string, bio: string,
   { name: 'Bianca Lopes', specialty: 'Back-end', role: 'Back-end Engineer · Python', bio: 'Serviços em Django e FastAPI para produtos com regras de negócio densas.', techs: ['Python', 'FastAPI', 'Redis'], rating: 4.7, reviews: 49, location: 'Fortaleza, CE', years: 5, price: 155, match: 74, resp: 3 }
 ]
 
+// First names that map to the "women" portrait set; everything else uses "men"
+const FEMALE_NAMES = new Set([
+  'Juliana', 'Marina', 'Letícia', 'Aline', 'Sofia', 'Bianca', 'Camila', 'Fernanda', 'Beatriz',
+  'Larissa', 'Amanda', 'Carolina', 'Patrícia', 'Renata', 'Isabela'
+])
+
+// randomuser.me hosts 100 portraits per set; the index is deterministic so a person keeps the same photo
+const photoFor = (name: string, id: number) => {
+  const set = FEMALE_NAMES.has(name.split(' ')[0]!) ? 'women' : 'men'
+  return `https://randomuser.me/api/portraits/${set}/${id % 100}.jpg`
+}
+
 const initialsOf = (name: string) =>
   name.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()
 
@@ -152,6 +164,7 @@ function build(): Professional[] {
       id,
       name: f.name,
       initials: initialsOf(f.name),
+      photo: photoFor(f.name, id),
       role: f.role,
       specialty: f.specialty,
       bio: f.bio,
@@ -178,6 +191,7 @@ function build(): Professional[] {
       id,
       name,
       initials: initialsOf(name),
+      photo: photoFor(name, id),
       role: pick(rand, profile.roles),
       specialty,
       bio: pick(rand, profile.bios),

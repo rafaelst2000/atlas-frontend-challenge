@@ -135,7 +135,8 @@ Examples: `[Features]` `[Pricing]` `[Foundation]` `[Achievements]`
 ## Imagery & Illustration
 - Abstract technical imagery: circuit boards, neural network nodes, particle systems — dark-tinted, used as section backgrounds at low opacity
 - Dark-treated product screenshots: `brightness(0.85) contrast(1.1)`
-- No stock photography of people, no lifestyle photos, no bright-color illustrations
+- No bright-color illustrations
+- Portrait photos (e.g. professional avatars) are allowed; keep them consistent with the dark treatment (`brightness(0.85) contrast(1.1)`)
 - Logo strip: grayscale, 30% opacity
 
 ---

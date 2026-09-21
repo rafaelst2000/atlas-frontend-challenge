@@ -54,6 +54,7 @@ export interface Professional {
   id: number
   name: string
   initials: string
+  photo: string
   role: string
   specialty: Specialty
   bio: string

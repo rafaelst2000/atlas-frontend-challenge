@@ -8,9 +8,7 @@ defineProps<{ professional: Professional }>()
 <template>
   <article class="card flex flex-col gap-3.5 p-5">
     <div class="flex items-start gap-3">
-      <div class="flex size-[46px] shrink-0 items-center justify-center rounded-xl border border-medium bg-surface font-mono text-sm text-accent" aria-hidden="true">
-        {{ professional.initials }}
-      </div>
+      <ProfessionalAvatar :src="professional.photo" :name="professional.name" :initials="professional.initials" :size="46" />
       <div class="min-w-0 flex-1">
         <h3 class="text-base font-semibold tracking-[-0.02em] text-primary">{{ professional.name }}</h3>
         <p class="mt-[3px] text-[13px] text-body">{{ professional.role }}</p>
