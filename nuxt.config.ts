@@ -1,5 +1,9 @@
 import tailwindcss from '@tailwindcss/vite'
 
+// Explicit NUXT_PUBLIC_SITE_URL wins; on Vercel fall back to the production domain it injects (host only, no scheme)
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL
+  || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -28,7 +32,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    url: siteUrl,
     name: 'DevMatch',
     defaultLocale: 'pt-BR'
   },
