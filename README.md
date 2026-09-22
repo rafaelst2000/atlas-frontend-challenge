@@ -54,6 +54,9 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 - **Cache:** `routeRules` com `swr` para páginas e API públicas.
 - Animações usam apenas `transform`/`opacity` e respeitam `prefers-reduced-motion`.
 
+**Observabilidade**
+- **Vercel Speed Insights** mede Core Web Vitals de usuários reais em produção (não só em auditoria local/Lighthouse), e **Vercel Analytics** dá visão de tráfego e das páginas mais acessadas — ambos via o módulo Nuxt oficial (`@vercel/speed-insights/nuxt`, `@vercel/analytics/nuxt`), zero-config, sem cookies e sem impacto de bundle relevante (scripts carregados sob demanda pela própria Vercel). Só coletam dado quando servidos pela Vercel; não rodam em `npm run dev`/`preview` local.
+
 ## Uso de IA
 
 Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a documentação. Todas as decisões foram revisadas por mim.

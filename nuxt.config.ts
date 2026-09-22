@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxtjs/sitemap', '@nuxtjs/robots'],
+  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxtjs/sitemap', '@nuxtjs/robots', '@vercel/speed-insights/nuxt', '@vercel/analytics/nuxt'],
 
   css: ['~/assets/css/main.css'],
 
