@@ -11,7 +11,7 @@ const sheetOpen = ref(false)
 </script>
 
 <template>
-  <section aria-labelledby="filtros-heading" class="mx-auto max-w-[1200px] px-5 pb-5 pt-2">
+  <section aria-labelledby="filtros-heading" class="mx-auto max-w-300 px-5 pb-5 pt-2">
     <h2 id="filtros-heading" class="section-label !mb-3 !text-xs">[Filtros]</h2>
 
     <!-- Mobile: filters open in a bottom sheet -->
@@ -19,7 +19,7 @@ const sheetOpen = ref(false)
       <button type="button" class="flex flex-1 items-center justify-center gap-2 rounded-button border border-medium bg-card p-3 text-sm font-semibold text-primary" @click="sheetOpen = true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16" /><path d="M7 12h10" /><path d="M10 17h4" /></svg>
         Filtros
-        <span v-if="activeCount" class="font-mono text-[11px] text-accent">{{ activeCount }}</span>
+        <span v-if="activeCount" class="font-mono text-label text-accent">{{ activeCount }}</span>
       </button>
       <select
         class="flex-1 cursor-pointer rounded-button border border-medium bg-card p-3 text-[13px] text-primary"
@@ -47,7 +47,7 @@ const sheetOpen = ref(false)
         v-for="spec in SPECIALTIES"
         :key="spec"
         type="button"
-        class="rounded-full border px-3.5 py-[7px] text-[12.5px] transition-colors"
+        class="rounded-full border px-3.5 py-1.75 text-[12.5px] transition-colors"
         :class="filters.spec === spec ? 'border-accent-border bg-accent-subtle text-accent' : 'border-subtle text-body hover:text-primary'"
         :aria-pressed="filters.spec === spec"
         @click="update({ spec: filters.spec === spec ? undefined : spec })"

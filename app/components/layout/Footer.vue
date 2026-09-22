@@ -1,7 +1,7 @@
 <template>
   <div class="bg-base px-4 pb-6 pt-6">
     <footer
-      class="mx-auto max-w-[1200px] rounded-panel bg-footer px-6 pb-5 pt-8 shadow-panel"
+      class="mx-auto max-w-300 rounded-panel bg-footer px-6 pb-5 pt-8 shadow-panel"
     >
       <div
         class="grid gap-7 [grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))]"
@@ -30,13 +30,13 @@
               >DevMatch</span
             >
           </div>
-          <p class="max-w-[260px] text-[13px] leading-[1.65] text-body">
+          <p class="max-w-65 text-[13px] leading-relaxed text-body">
             O marketplace de profissionais de tecnologia avaliados por quem
             contrata.
           </p>
         </div>
         <nav class="flex flex-col gap-2.5" aria-label="Produto">
-          <span class="font-mono text-[11px] tracking-[0.06em] text-accent"
+          <span class="font-mono text-label tracking-[0.06em] text-accent"
             >[PRODUTO]</span
           >
           <NuxtLink to="/" class="text-[13px] text-body hover:text-primary"
@@ -45,13 +45,13 @@
         </nav>
       </div>
       <div
-        class="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-subtle pt-[18px]"
+        class="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-subtle pt-4.5"
       >
-        <span class="font-mono text-[11px] text-tertiary"
+        <span class="font-mono text-label text-tertiary"
           >© 2026 DEVMATCH TECNOLOGIA LTDA</span
         >
         <span
-          class="inline-flex items-center gap-2 font-mono text-[11px] text-success"
+          class="inline-flex items-center gap-2 font-mono text-label text-success"
         >
           <span
             class="size-1.5 rounded-full bg-success"

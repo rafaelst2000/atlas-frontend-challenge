@@ -64,6 +64,7 @@
   --animate-btn-pulse: btn-pulse 2.8s ease-in-out infinite;
   --animate-orb-breathe: orb-breathe 8s ease-in-out infinite alternate;
   --animate-marquee: marquee 45s linear infinite;
+  --animate-sheet-up: sheet-up 260ms var(--ease-out-expo);
 
   @keyframes btn-pulse {
     0%, 100% {

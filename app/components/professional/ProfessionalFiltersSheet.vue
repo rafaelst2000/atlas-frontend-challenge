@@ -20,10 +20,10 @@ onBeforeUnmount(() => {
 <template>
   <div class="fixed inset-0 z-[500] flex items-end bg-[rgba(6,5,4,0.72)]" role="dialog" aria-modal="true" aria-label="Filtros" @keydown.esc="emit('close')">
     <div class="absolute inset-0" @click="emit('close')" />
-    <div class="relative max-h-[88vh] w-full animate-[sheet-up_260ms_var(--ease-out-expo)] overflow-y-auto rounded-t-panel bg-footer p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-[inset_0_1px_0_rgba(255,248,230,0.08),0_-12px_40px_rgba(0,0,0,0.6)]">
+    <div class="relative max-h-[88vh] w-full animate-sheet-up overflow-y-auto rounded-t-panel bg-footer p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-[inset_0_1px_0_rgba(255,248,230,0.08),0_-12px_40px_rgba(0,0,0,0.6)]">
       <div class="mb-5 flex items-center">
         <span class="font-mono text-xs tracking-[0.06em] text-accent">[Filtros]</span>
-        <button type="button" class="ml-auto flex size-[34px] items-center justify-center rounded-button border border-medium bg-card" aria-label="Fechar" @click="emit('close')">
+        <button type="button" class="ml-auto flex size-8.5 items-center justify-center rounded-button border border-medium bg-card" aria-label="Fechar" @click="emit('close')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12" /><path d="M18 6 6 18" /></svg>
         </button>
       </div>
@@ -34,7 +34,7 @@ onBeforeUnmount(() => {
           v-for="spec in SPECIALTIES"
           :key="spec"
           type="button"
-          class="rounded-full border px-[15px] py-[9px] text-[13px]"
+          class="rounded-full border px-3.75 py-2.25 text-[13px]"
           :class="filters.spec === spec ? 'border-accent-border bg-accent-subtle text-accent' : 'border-subtle text-body'"
           :aria-pressed="filters.spec === spec"
           @click="update({ spec: filters.spec === spec ? undefined : spec })"

@@ -85,29 +85,29 @@ useHead({
   <main>
     <section class="relative overflow-hidden px-5 pb-10 pt-14">
       <div class="hero-orb" aria-hidden="true" />
-      <div class="relative mx-auto max-w-[820px] text-center">
+      <div class="relative mx-auto max-w-205 text-center">
         <p class="hero-badge mb-6 !text-[13px]">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m9 12 2 2 4-4" /></svg>
           <span>{{ data.catalogTotal }} profissionais verificados</span>
         </p>
-        <h1 class="text-[clamp(32px,7vw,64px)] font-extrabold leading-[1.08] tracking-[-0.03em] [text-wrap:pretty]">
+        <h1 class="text-[clamp(32px,7vw,64px)] font-extrabold leading-[1.08] tracking-tight [text-wrap:pretty]">
           <span class="hl-muted">Encontre o profissional de </span><span class="hl-bright">tecnologia ideal</span><span class="hl-muted"> para o seu projeto</span>
         </h1>
-        <p class="mx-auto mt-5 max-w-[560px] text-[clamp(14px,3.4vw,17px)] leading-[1.65] text-body">
+        <p class="mx-auto mt-5 max-w-140 text-[clamp(14px,3.4vw,17px)] leading-relaxed text-body">
           Conecte-se com especialistas avaliados em desenvolvimento, design, dados, infraestrutura e muito mais.
         </p>
 
-        <form role="search" class="mt-[30px] flex flex-wrap gap-2.5 rounded-card bg-card p-2.5 shadow-card" @submit.prevent="update({ q: search.trim() || undefined })">
+        <form role="search" class="mt-7.5 flex flex-wrap gap-2.5 rounded-card bg-card p-2.5 shadow-card" @submit.prevent="update({ q: search.trim() || undefined })">
           <label class="flex min-w-0 flex-[1_1_220px] items-center gap-2.5 px-3">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-tertiary)" stroke-width="1.7" stroke-linecap="round" class="shrink-0" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
             <span class="sr-only">Buscar profissionais</span>
             <input v-model="search" type="search" placeholder="Busque por nome, profissão ou tecnologia..." class="min-w-0 flex-1 bg-transparent py-3 text-[15px] text-primary outline-none placeholder:text-tertiary" autocomplete="off">
           </label>
-          <button type="submit" class="btn btn-primary ml-auto hidden w-full max-w-[180px] flex-[1_1_100%] !bg-surface !py-[13px] md:inline-flex">Buscar</button>
+          <button type="submit" class="btn btn-primary ml-auto hidden w-full max-w-45 flex-[1_1_100%] !bg-surface !py-3.25 md:inline-flex">Buscar</button>
         </form>
 
         <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <span class="font-mono text-[11px] tracking-[0.04em] text-tertiary">POPULARES //</span>
+          <span class="font-mono text-label tracking-[0.04em] text-tertiary">POPULARES //</span>
           <button v-for="s in suggestions" :key="s" type="button" class="rounded-full border border-subtle px-3 py-1.5 text-xs text-body transition-colors hover:text-primary" @click="search = s; update({ q: s })">
             {{ s }}
           </button>
@@ -117,9 +117,9 @@ useHead({
 
     <ProfessionalFilters />
 
-    <section id="profissionais" class="mx-auto flex max-w-[1200px] flex-wrap items-end gap-3 px-5 pt-3" aria-labelledby="resultados-heading">
+    <section id="profissionais" class="mx-auto flex max-w-300 flex-wrap items-end gap-3 px-5 pt-3" aria-labelledby="resultados-heading">
       <div class="min-w-0 flex-[1_1_200px]">
-        <h2 id="resultados-heading" class="text-[clamp(20px,5vw,28px)] font-bold tracking-[-0.03em] text-primary" aria-live="polite">
+        <h2 id="resultados-heading" class="text-[clamp(20px,5vw,28px)] font-bold tracking-tight text-primary" aria-live="polite">
           {{ data.total }} {{ data.total === 1 ? 'profissional encontrado' : 'profissionais encontrados' }}
         </h2>
         <p class="meta-line mt-1.5 !whitespace-normal">ORDENADO POR {{ sortLabel.toUpperCase() }} // ATUALIZADO HÁ 4 MIN</p>
@@ -132,7 +132,7 @@ useHead({
       </div>
     </section>
 
-    <section class="mx-auto max-w-[1200px] px-5 pb-10 pt-5">
+    <section class="mx-auto max-w-300 px-5 pb-10 pt-5">
       <div v-if="isLoading && !items.length" class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
         <ProfessionalCardSkeleton v-for="n in 6" :key="n" />
       </div>
@@ -145,19 +145,19 @@ useHead({
         </ul>
 
         <div class="mt-8 flex flex-col items-center gap-4">
-          <button v-if="hasMore" type="button" class="btn btn-primary w-full max-w-[280px] !py-3.5" :disabled="loadingMore" @click="loadMore">
+          <button v-if="hasMore" type="button" class="btn btn-primary w-full max-w-70 !py-3.5" :disabled="loadingMore" @click="loadMore">
             {{ loadingMore ? 'Carregando...' : 'Carregar mais profissionais' }}
           </button>
-          <p class="font-mono text-[11px] tracking-[0.04em] text-tertiary">MOSTRANDO {{ items.length }} DE {{ data.total }}</p>
+          <p class="font-mono text-label tracking-[0.04em] text-tertiary">MOSTRANDO {{ items.length }} DE {{ data.total }}</p>
         </div>
       </div>
 
       <div v-else class="rounded-card bg-card px-6 py-12 text-center shadow-card">
-        <div class="mx-auto mb-5 flex size-[52px] items-center justify-center rounded-xl border border-medium bg-surface">
+        <div class="mx-auto mb-5 flex size-13 items-center justify-center rounded-xl border border-medium bg-surface">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /><path d="M8.5 11h5" /></svg>
         </div>
         <h3 class="text-xl font-bold tracking-[-0.02em] text-primary">Nenhum profissional encontrado</h3>
-        <p class="mx-auto mt-2.5 max-w-[400px] text-sm leading-[1.65] text-body">
+        <p class="mx-auto mt-2.5 max-w-100 text-sm leading-relaxed text-body">
           Tente remover alguns filtros ou buscar por outra tecnologia. Você também pode ampliar a faixa de preço ou a distância.
         </p>
         <button v-if="hasFilters" type="button" class="btn btn-primary mt-6" @click="clear(); search = ''">Limpar filtros</button>
