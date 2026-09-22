@@ -3,7 +3,7 @@ import type { NuxtError } from '#app'
 
 const props = defineProps<{ error: NuxtError }>()
 
-const isNotFound = computed(() => props.error.statusCode === 404)
+const isNotFound = computed(() => props.error.status === 404)
 
 useSeoMeta({
   title: isNotFound.value ? 'Página não encontrada · DevMatch' : 'Erro · DevMatch',
@@ -22,7 +22,7 @@ useSeoMeta({
 
         <span class="section-label !mb-4">{{ isNotFound ? '[Erro 404]' : '[Erro]' }}</span>
 
-        <p class="text-[clamp(64px,14vw,120px)] font-extrabold leading-none tracking-tight text-accent">{{ error.statusCode }}</p>
+        <p class="text-[clamp(64px,14vw,120px)] font-extrabold leading-none tracking-tight text-accent">{{ error.status }}</p>
 
         <h1 class="mt-4 text-[clamp(28px,5vw,44px)] font-extrabold leading-tight tracking-tight [text-wrap:pretty]">
           <template v-if="isNotFound"><span class="hl-muted">Essa página </span><span class="hl-bright">não existe</span></template>
