@@ -41,7 +41,7 @@ export default defineNuxtConfig({
     '/': { headers: { 'cache-control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=300' } },
     '/professionals/**': { swr: 3600 },
     '/api/professionals': { headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
-    '/api/professionals/**': { swr: 300, headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
+    '/api/professionals/**': { headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
     '/profissionais/**': { redirect: { to: '/professionals/**', statusCode: 301 } }
   },
 
