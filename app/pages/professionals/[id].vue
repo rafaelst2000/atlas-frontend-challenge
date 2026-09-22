@@ -12,7 +12,7 @@ if (!pro.value) {
 }
 
 const p = pro.value
-const url = `${useSiteConfig().url}/profissionais/${p.id}`
+const url = `${useSiteConfig().url}/professionals/${p.id}`
 const title = `${p.name} · ${p.role} | DevMatch`
 const description = `${p.name}, ${p.role} em ${p.location}. ${p.years} anos de experiência, nota ${p.rating.toFixed(1)} (${p.reviews} avaliações) e valor a partir de ${formatPrice(p.price)}/h.`
 

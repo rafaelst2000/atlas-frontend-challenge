@@ -20,7 +20,7 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 ## O que foi entregue
 
 - **Listagem** com 524 profissionais, busca por nome, profissão ou tecnologia, 4 filtros (especialidade, faixa de preço, avaliação mínima e experiência), 5 ordenações e botão "Carregar mais" (12 por página).
-- **Perfil** em página dedicada (`/profissionais/:id`) com sobre, tecnologias, serviços, portfólio, avaliações e CTA fixo no mobile.
+- **Perfil** em página dedicada (`/professionals/:id`) com sobre, tecnologias, serviços, portfólio, avaliações e CTA fixo no mobile.
 - Design system "Dark Luxury" ([`DESIGN.md`](DESIGN.md)), mobile first e responsivo.
 
 ## Decisões técnicas

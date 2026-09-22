@@ -44,8 +44,10 @@ export default defineNuxtConfig({
   routeRules: {
     // Public catalog pages are cacheable at the edge and revalidated in the background
     '/': { swr: 300 },
-    '/profissionais/**': { swr: 3600 },
-    '/api/professionals/**': { swr: 300, headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } }
+    '/professionals/**': { swr: 3600 },
+    '/api/professionals/**': { swr: 300, headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
+    // Old Portuguese route kept as a permanent redirect for anyone with an indexed/bookmarked link
+    '/profissionais/**': { redirect: { to: '/professionals/**', statusCode: 301 } }
   },
 
   app: {
