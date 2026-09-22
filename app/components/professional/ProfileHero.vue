@@ -4,7 +4,6 @@ import { formatPrice } from '#shared/professional'
 
 const props = defineProps<{ professional: ProfessionalDetail }>()
 
-const favorite = ref(false)
 const stars = computed(() => Array.from({ length: 5 }, (_, index) => index < Math.round(props.professional.rating)))
 </script>
 
@@ -43,12 +42,7 @@ const stars = computed(() => Array.from({ length: 5 }, (_, index) => index < Mat
           <strong class="text-[clamp(26px,6vw,34px)] font-extrabold tracking-tight text-primary">{{ formatPrice(professional.price) }}</strong>
           <span class="text-sm text-tertiary">/hora</span>
         </div>
-        <div class="flex gap-2.5">
-          <button type="button" class="btn btn-primary flex-1 !bg-surface !py-3.25">Solicitar orçamento</button>
-          <button type="button" class="flex w-11.5 shrink-0 items-center justify-center rounded-button border bg-surface" :class="favorite ? 'border-accent' : 'border-medium'" aria-label="Favoritar" :aria-pressed="favorite" @click="favorite = !favorite">
-            <svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--color-accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" :fill="favorite ? 'var(--color-accent)' : 'none'" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7 3.1C19 15.6 12 20 12 20Z" /></svg>
-          </button>
-        </div>
+        <button type="button" class="btn btn-primary !bg-surface !py-3.25">Solicitar orçamento</button>
         <p class="text-center text-xs text-tertiary">Resposta média em {{ professional.responseHours }} {{ professional.responseHours === 1 ? 'hora' : 'horas' }} · Sem taxa de contato</p>
       </div>
     </div>

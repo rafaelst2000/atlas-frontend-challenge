@@ -61,5 +61,5 @@ Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a 
 ## Melhorias futuras
 
 - Testes end-to-end (Playwright) para os fluxos principais, e lint/format (ESLint + Prettier) — hoje a consistência de estilo é manual.
-- Persistência real dos favoritos e formulário de orçamento.
+- Formulário de orçamento real (hoje o botão "Solicitar orçamento" é apenas visual).
 - Upload de fotos reais (Vercel Blob) no lugar dos retratos de exemplo e medição contínua de Web Vitals em produção.

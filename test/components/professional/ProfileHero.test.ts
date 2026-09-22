@@ -1,6 +1,6 @@
 // @vitest-environment nuxt
 import { describe, expect, it } from 'vitest'
-import { fireEvent, screen } from '@testing-library/vue'
+import { screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
 import ProfileHero from '~/components/professional/ProfileHero.vue'
 import { makeProfessionalDetail } from '~~/test/fixtures'
@@ -29,19 +29,13 @@ describe('ProfessionalProfileHero', () => {
     expect(empty).toHaveLength(2)
   })
 
-  it('toggles the favourite button state when pressed', async () => {
+  it('offers a single quote CTA, with no favourite toggle', async () => {
     await renderSuspended(ProfileHero, {
       props: { professional: makeProfessionalDetail() }
     })
 
-    const favourite = screen.getByRole('button', { name: 'Favoritar' })
-    expect(favourite.getAttribute('aria-pressed')).toBe('false')
-
-    await fireEvent.click(favourite)
-    expect(favourite.getAttribute('aria-pressed')).toBe('true')
-
-    await fireEvent.click(favourite)
-    expect(favourite.getAttribute('aria-pressed')).toBe('false')
+    expect(screen.getAllByRole('button', { name: 'Solicitar orçamento' })).toHaveLength(1)
+    expect(screen.queryByRole('button', { name: 'Favoritar' })).toBeNull()
   })
 
   it('uses singular wording for one year and one response hour', async () => {
