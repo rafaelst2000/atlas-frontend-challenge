@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, screen, within } from '@testing-library/vue'
 import { mockNuxtImport, renderSuspended } from '@nuxt/test-utils/runtime'
-import ProfessionalFilters from './ProfessionalFilters.vue'
+import ProfessionalFilters from '~/components/professional/ProfessionalFilters.vue'
 
 const mocks = vi.hoisted(() => ({
   filters: {} as Record<string, string | undefined>,

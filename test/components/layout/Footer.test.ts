@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import Footer from './Footer.vue'
+import Footer from '~/components/layout/Footer.vue'
 
 describe('LayoutFooter', () => {
   it('renders the product nav as a labelled landmark', async () => {

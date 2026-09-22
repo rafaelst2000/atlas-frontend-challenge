@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { fireEvent, screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import ProfileHero from './ProfileHero.vue'
+import ProfileHero from '~/components/professional/ProfileHero.vue'
 import { makeProfessionalDetail } from '~~/test/fixtures'
 
 describe('ProfessionalProfileHero', () => {

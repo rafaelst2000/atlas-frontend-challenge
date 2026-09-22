@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, screen } from '@testing-library/vue'
 import { mockNuxtImport, renderSuspended } from '@nuxt/test-utils/runtime'
 import type { Professional } from '#shared/professional'
-import ResultsGrid from './ResultsGrid.vue'
+import ResultsGrid from '~/components/home/ResultsGrid.vue'
 import { makeProfessional } from '~~/test/fixtures'
 
 const mocks = vi.hoisted(() => ({

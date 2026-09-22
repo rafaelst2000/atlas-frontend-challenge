@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { fireEvent, screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import ProfessionalAvatar from './ProfessionalAvatar.vue'
+import ProfessionalAvatar from '~/components/professional/ProfessionalAvatar.vue'
 
 const BASE_PROPS = { src: 'https://example.com/photo.jpg', name: 'Rafael Martins', initials: 'RM', size: 46 }
 

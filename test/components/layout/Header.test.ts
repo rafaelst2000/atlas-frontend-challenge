@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import Header from './Header.vue'
+import Header from '~/components/layout/Header.vue'
 
 describe('LayoutHeader', () => {
   it('links the brand back to the home page with an accessible name', async () => {

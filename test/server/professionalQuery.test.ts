@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildWhere, escapeLike } from './professionalQuery'
+import { buildWhere, escapeLike } from '~~/server/utils/professionalQuery'
 
 describe('escapeLike', () => {
   it('escapes SQL LIKE wildcards so a search term cannot match everything', () => {

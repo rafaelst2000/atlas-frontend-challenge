@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import ProfileSidebar from './ProfileSidebar.vue'
+import ProfileSidebar from '~/components/professional/ProfileSidebar.vue'
 import { makeProfessionalDetail } from '~~/test/fixtures'
 
 describe('ProfessionalProfileSidebar', () => {

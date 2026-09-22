@@ -3,7 +3,7 @@ import { computed, nextTick, shallowRef } from 'vue'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, screen } from '@testing-library/vue'
 import { mockNuxtImport, renderSuspended } from '@nuxt/test-utils/runtime'
-import Hero from './Hero.vue'
+import Hero from '~/components/home/Hero.vue'
 
 const mocks = vi.hoisted(() => ({
   filters: {} as Record<string, string | undefined>,

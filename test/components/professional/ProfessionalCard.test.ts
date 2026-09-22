@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import ProfessionalCard from './ProfessionalCard.vue'
+import ProfessionalCard from '~/components/professional/ProfessionalCard.vue'
 import { makeProfessional } from '~~/test/fixtures'
 
 describe('ProfessionalCard', () => {

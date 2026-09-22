@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import ProfessionalPortfolioAndReviews from './ProfessionalPortfolioAndReviews.vue'
+import ProfessionalPortfolioAndReviews from '~/components/professional/ProfessionalPortfolioAndReviews.vue'
 import { makeProfessionalDetail } from '~~/test/fixtures'
 
 const { projects, reviewsList } = makeProfessionalDetail()

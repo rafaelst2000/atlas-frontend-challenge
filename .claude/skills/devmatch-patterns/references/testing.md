@@ -14,6 +14,20 @@ What this means in practice:
 
 Non-component code (composables, `server/`) isn't under the threshold, but the "what to cover" list below still applies to it.
 
+## Where tests live
+
+All tests live under `test/`, **mirroring the tree they cover**, so `app/` and `server/` hold only code that ships:
+
+```
+app/components/professional/ProfessionalCard.vue  →  test/components/professional/ProfessionalCard.test.ts
+app/composables/useProfessionals.ts               →  test/composables/useProfessionals.test.ts
+server/utils/professionalQuery.ts                 →  test/server/professionalQuery.test.ts
+```
+
+`vitest.config.ts` enforces this with `include: ['test/**/*.test.ts']` — a test written next to its source simply won't run. Name the file after the unit under test (`<Name>.test.ts`).
+
+Because a test no longer sits next to its subject, import through the Nuxt aliases rather than long relative paths: `~/components/...` for app code, `~~/server/...` for server code, `~~/test/fixtures` for fixtures.
+
 ## Stack
 
 - **Vitest** (`npm run test` / `npm run test:watch`) — matches the Vite/Nuxt toolchain already in use.
@@ -22,13 +36,13 @@ Non-component code (composables, `server/`) isn't under the threshold, but the "
 
 ## Environment: per-file, not global
 
-`vitest.config.ts` defaults to `environment: 'node'` (fast, no DOM) — that's right for pure logic (`professionalQuery.test.ts` doesn't need a DOM at all). A file that needs Nuxt's context (auto-imports, `<NuxtImg>`, `<NuxtLink>`, composables) opts in with a pragma as its **first line**:
+`vitest.config.ts` defaults to `environment: 'node'` (fast, no DOM) — that's right for pure logic (`test/server/professionalQuery.test.ts` doesn't need a DOM at all). A file that needs Nuxt's context (auto-imports, `<NuxtImg>`, `<NuxtLink>`, composables) opts in with a pragma as its **first line**:
 
 ```ts
 // @vitest-environment nuxt
 ```
 
-See `ProfessionalAvatar.test.ts` for the shape: the pragma, then `renderSuspended(Component, { props })` from `@nuxt/test-utils/runtime`, then querying with `screen` from `@testing-library/vue`. There's no `@testing-library/jest-dom` installed, so assert with plain Vitest matchers (`toBeTruthy()`, `toBe(...)`) rather than `toBeInTheDocument()` — Testing Library's `getBy*` queries already throw if nothing matches, so a query call itself is most of the assertion.
+See `test/components/professional/ProfessionalAvatar.test.ts` for the shape: the pragma, then `renderSuspended(Component, { props })` from `@nuxt/test-utils/runtime`, then querying with `screen` from `@testing-library/vue`. There's no `@testing-library/jest-dom` installed, so assert with plain Vitest matchers (`toBeTruthy()`, `toBe(...)`) rather than `toBeInTheDocument()` — Testing Library's `getBy*` queries already throw if nothing matches, so a query call itself is most of the assertion.
 
 ## The rule to carry over: never mount without the Nuxt context
 
@@ -53,7 +67,7 @@ mockNuxtImport('useProfessionalFilters', () => () => ({
 }))
 ```
 
-If a test needs the mocked value to change *after* mount (to exercise a `watch`), build the reactive source inside the factory and expose a setter on `mocks` — see `Hero.test.ts`, which uses that to prove the search input re-syncs when the query is cleared elsewhere.
+If a test needs the mocked value to change *after* mount (to exercise a `watch`), build the reactive source inside the factory and expose a setter on `mocks` — see `test/components/home/Hero.test.ts`, which uses that to prove the search input re-syncs when the query is cleared elsewhere.
 
 ## Mocking the data layer
 
@@ -75,10 +89,6 @@ There's no global query-client mock to reach for (no React Query here) — the n
 ## Accessibility
 
 There's no design-system package here to blanket-cover the way Zenity covers `@zenity-ui`. Add an `axe-core`-based check (e.g. via `vitest-axe`) for a component only when it introduces real accessible surface of its own: a form with inputs/labels (search bar, filter selects), a modal/dialog triggered by an action (`ProfessionalFiltersSheet`), a page shell with landmarks/heading hierarchy. Skip it for a component that only composes other already-covered pieces without adding structural HTML of its own.
-
-## File naming
-
-Colocated next to the source file, `<Name>.test.ts` (or `.test.ts` next to a `.vue` file for a component test) — not a separate `__tests__`/`test/` folder.
 
 ## Running
 

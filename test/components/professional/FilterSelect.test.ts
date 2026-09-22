@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { fireEvent, screen } from '@testing-library/vue'
 import { renderSuspended } from '@nuxt/test-utils/runtime'
-import FilterSelect from './FilterSelect.vue'
+import FilterSelect from '~/components/professional/FilterSelect.vue'
 
 const OPTIONS = [
   { value: 'ate-100', label: 'Até R$ 100/h' },
