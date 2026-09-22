@@ -22,5 +22,3 @@ export const professionals = pgTable('professionals', {
   index('professionals_rating_idx').on(t.rating),
   index('professionals_match_idx').on(t.match)
 ])
-
-export type ProfessionalRow = typeof professionals.$inferSelect

@@ -7,7 +7,6 @@ const props = withDefaults(defineProps<{
   eager?: boolean
 }>(), { eager: false })
 
-// If the photo fails to load, fall back to the initials avatar
 const failed = ref(false)
 </script>
 

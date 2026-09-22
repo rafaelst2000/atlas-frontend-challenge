@@ -20,7 +20,6 @@ export function useProfessionalFilters() {
     return parsedFilters as ProfessionalFilters
   })
 
-  // Everything except search text and sort counts as an "active filter"
   const activeCount = computed(
     () => FILTER_KEYS.filter(key => key !== 'q' && key !== 'sort' && filters.value[key]).length
   )

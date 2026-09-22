@@ -14,4 +14,3 @@ function createDb() {
 }
 
 export const useDb = () => (db ??= createDb())
-export { schema }

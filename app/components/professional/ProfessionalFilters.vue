@@ -14,7 +14,6 @@ const sheetOpen = ref(false)
   <section aria-labelledby="filtros-heading" class="mx-auto max-w-300 px-5 pb-5 pt-2">
     <h2 id="filtros-heading" class="section-label !mb-3 !text-xs">[Filtros]</h2>
 
-    <!-- Mobile: filters open in a bottom sheet -->
     <div class="flex gap-2.5 md:hidden">
       <button type="button" class="flex flex-1 items-center justify-center gap-2 rounded-button border border-medium bg-card p-3 text-sm font-semibold text-primary" @click="sheetOpen = true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16" /><path d="M7 12h10" /><path d="M10 17h4" /></svg>
@@ -31,7 +30,6 @@ const sheetOpen = ref(false)
       </select>
     </div>
 
-    <!-- Desktop: inline bar -->
     <div class="hidden flex-wrap items-center gap-2.5 rounded-card bg-card p-3.5 shadow-card md:flex">
       <ProfessionalFilterSelect label="Especialidade" placeholder="Especialidade" :options="specOptions" :model-value="filters.spec" @update:model-value="update({ spec: $event })" />
       <ProfessionalFilterSelect label="Faixa de preço" placeholder="Faixa de preço" :options="PRICE_OPTIONS" :model-value="filters.price" @update:model-value="update({ price: $event })" />
