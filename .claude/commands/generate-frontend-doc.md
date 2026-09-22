@@ -4,7 +4,7 @@ description: Document a frontend topic (tools, environment, conventions, setup, 
 
 # /generate-frontend-doc — document a frontend topic in docs/frontend/
 
-Generates and saves Markdown documentation under **`docs/frontend/`**. This is for **anything frontend-related that isn't Claude-specific**: tools, environment, conventions, setup, process. Adapted from a `generate-frontend-doc` command used on another project (there it published to a ClickUp wiki via MCP; here there's no ClickUp, so it writes a file straight into the repo).
+Generates and saves Markdown documentation under **`docs/frontend/`**. This is for **anything frontend-related that isn't Claude-specific**: tools, environment, conventions, setup, process.
 
 > Scope:
 >

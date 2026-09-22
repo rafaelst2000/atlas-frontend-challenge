@@ -20,7 +20,7 @@ Quando alguém pede para documentar uma skill, um comando, ou uma decisão de wo
 
 ## Pré-requisitos
 
-Nenhum — não depende de nenhuma integração externa (diferente da versão original, que publicava numa wiki do ClickUp via MCP).
+Nenhum — não depende de nenhuma integração externa.
 
 ## Referência
 

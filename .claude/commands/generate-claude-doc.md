@@ -4,7 +4,7 @@ description: Document anything about how Claude Code is set up/used in this repo
 
 # /generate-claude-doc — document a Claude Code asset in docs/claude/
 
-Generates and saves Markdown documentation under **`docs/claude/`**. This is for **anything that comes from/about Claude Code in this repo**: a skill, a command, `CLAUDE.md` itself, a saved memory, or a workflow convention we've settled on for how Claude works here. Adapted from a `generate-frontend-doc` command used on another project (there Claude skills were one section of a ClickUp wiki, published via MCP; here there's no ClickUp, so it writes a file straight into the repo, and gets its own folder since the scope is "Claude", not "frontend").
+Generates and saves Markdown documentation under **`docs/claude/`**. This is for **anything that comes from/about Claude Code in this repo**: a skill, a command, `CLAUDE.md` itself, a saved memory, or a workflow convention we've settled on for how Claude works here. Split from `/generate-frontend-doc` into its own folder since the scope is "Claude", not "frontend".
 
 > Scope:
 >

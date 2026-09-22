@@ -2,7 +2,7 @@
 
 ## Para que serve
 
-Gera e salva documentação em Markdown sob `docs/frontend/` para **qualquer conhecimento de frontend que não seja específico do Claude**: ferramentas, ambiente, convenções, setup, processo. É a adaptação de um comando usado em outro projeto que publicava no ClickUp via MCP — aqui, sem ClickUp, ele escreve o arquivo direto no repositório.
+Gera e salva documentação em Markdown sob `docs/frontend/` para **qualquer conhecimento de frontend que não seja específico do Claude**: ferramentas, ambiente, convenções, setup, processo. Escreve o arquivo direto no repositório, sem depender de nenhuma integração externa.
 
 ## Quando usar
 
@@ -17,7 +17,7 @@ Quando alguém pede para documentar algo do frontend que não é uma skill/coman
 
 ## Pré-requisitos
 
-Nenhum — não depende de nenhuma integração externa (diferente da versão original, que exigia o MCP do ClickUp conectado).
+Nenhum — não depende de nenhuma integração externa.
 
 ## Referência
 
