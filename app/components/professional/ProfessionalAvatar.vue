@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   src: string
   name: string
   initials: string
@@ -30,7 +30,12 @@ const failed = ref(false)
       class="size-full object-cover brightness-[0.85] contrast-[1.1]"
       @error="failed = true"
     />
-    <span v-else class="flex size-full items-center justify-center font-mono text-accent" :class="size >= 80 ? 'text-[28px]' : 'text-sm'" aria-hidden="true">
+    <span
+      v-else
+      class="flex size-full items-center justify-center font-mono text-accent"
+      :class="size >= 80 ? 'text-[28px]' : 'text-sm'"
+      aria-hidden="true"
+    >
       {{ initials }}
     </span>
   </div>

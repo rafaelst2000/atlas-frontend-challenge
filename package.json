@@ -8,6 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "db:push": "node --env-file=.env node_modules/drizzle-kit/bin.cjs push",
     "db:seed": "tsx --env-file=.env scripts/seed.ts",
     "test": "vitest run",
@@ -28,6 +30,7 @@
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
     "@nuxt/test-utils": "^4.3.2",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/vue": "^8.1.0",
@@ -35,6 +38,7 @@
     "@vitest/coverage-v8": "^5.0.1",
     "@vue/test-utils": "^2.5.1",
     "drizzle-kit": "^0.31.11",
+    "eslint": "^10.11.0",
     "happy-dom": "^20.14.5",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",

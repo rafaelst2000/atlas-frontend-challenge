@@ -17,9 +17,12 @@ npx nuxi typecheck # checagem de tipos
 npm run test           # suíte de testes (Vitest)
 npm run test:watch     # modo watch
 npm run test:coverage  # testes + relatório de cobertura (falha abaixo de 90% por componente)
+
+npm run lint       # ESLint (typescript-eslint + eslint-plugin-vue + regras de formatação)
+npm run lint:fix   # aplica as correções automáticas
 ```
 
-Não há lint configurado: `typecheck`, testes e build são as checagens automatizadas do projeto — rodam em CI ([GitHub Actions](.github/workflows/ci.yml)) a cada push/PR em `main`, além de localmente antes de cada commit.
+`typecheck`, lint, testes e build são as checagens automatizadas do projeto — rodam em CI ([GitHub Actions](.github/workflows/ci.yml)) a cada push/PR em `main`, além de localmente antes de cada commit. O lint usa o módulo oficial `@nuxt/eslint` com `stylistic: true`: um único config (gerado a partir da própria estrutura do projeto) cobre lint e formatação, sem precisar manter Prettier à parte nem arbitrar entre os dois quando divergem.
 
 Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticamente; a URL do site (canonical, sitemap e robots) vem de `NUXT_PUBLIC_SITE_URL` ou, na falta dela, de `VERCEL_PROJECT_PRODUCTION_URL`, que a Vercel injeta.
 
@@ -63,6 +66,6 @@ Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a 
 
 ## Melhorias futuras
 
-- Testes end-to-end (Playwright) para os fluxos principais, e lint/format (ESLint + Prettier) — hoje a consistência de estilo é manual.
+- Testes end-to-end (Playwright) para os fluxos principais.
 - Formulário de orçamento real (hoje o botão "Solicitar orçamento" é apenas visual).
-- Upload de fotos reais (Vercel Blob) no lugar dos retratos de exemplo e medição contínua de Web Vitals em produção.
+- Upload de fotos reais (Vercel Blob) no lugar dos retratos de exemplo.

@@ -8,7 +8,7 @@ import type {
   ProfessionalProject,
   ProfessionalReview,
   ProfessionalService,
-  Specialty
+  Specialty,
 } from '../shared/professional'
 
 const TOTAL = 524
@@ -30,18 +30,18 @@ const between = (rand: () => number, min: number, max: number) => min + Math.flo
 const FIRST_NAMES = [
   'Rafael', 'Juliana', 'Diego', 'Marina', 'Caio', 'Letícia', 'Tomás', 'Aline', 'Henrique', 'Sofia',
   'Vitor', 'Bianca', 'Lucas', 'Camila', 'Gabriel', 'Fernanda', 'Pedro', 'Beatriz', 'Mateus', 'Larissa',
-  'Bruno', 'Amanda', 'Felipe', 'Carolina', 'Thiago', 'Patrícia', 'André', 'Renata', 'Rodrigo', 'Isabela'
+  'Bruno', 'Amanda', 'Felipe', 'Carolina', 'Thiago', 'Patrícia', 'André', 'Renata', 'Rodrigo', 'Isabela',
 ]
 const LAST_NAMES = [
   'Martins', 'Prado', 'Almeida', 'Okada', 'Bernardes', 'Ramos', 'Figueira', 'Costa', 'Dias', 'Menezes',
   'Nakamura', 'Lopes', 'Ferreira', 'Souza', 'Ribeiro', 'Carvalho', 'Moreira', 'Teixeira', 'Barbosa', 'Cardoso',
-  'Araújo', 'Pinto', 'Monteiro', 'Cavalcanti', 'Freitas', 'Rocha', 'Batista', 'Nunes', 'Vieira', 'Machado'
+  'Araújo', 'Pinto', 'Monteiro', 'Cavalcanti', 'Freitas', 'Rocha', 'Batista', 'Nunes', 'Vieira', 'Machado',
 ]
 
 const LOCATIONS = [
   'São Paulo, SP', 'São Paulo, SP', 'São Paulo, SP', 'Rio de Janeiro, RJ', 'Curitiba, PR',
   'Belo Horizonte, MG', 'Florianópolis, SC', 'Porto Alegre, RS', 'Campinas, SP', 'Recife, PE',
-  'Salvador, BA', 'Fortaleza, CE', 'Remoto · Brasil', 'Remoto · Brasil'
+  'Salvador, BA', 'Fortaleza, CE', 'Remoto · Brasil', 'Remoto · Brasil',
 ] as const
 
 interface SpecProfile {
@@ -58,9 +58,9 @@ const SPECS: Record<Specialty, SpecProfile> = {
     bios: [
       'Especialista em aplicações web escaláveis e experiências digitais de alta performance.',
       'Interfaces acessíveis, design systems e ganho real de Core Web Vitals.',
-      'Migrações de legado para arquiteturas modernas sem perder velocidade de entrega.'
+      'Migrações de legado para arquiteturas modernas sem perder velocidade de entrega.',
     ],
-    price: [110, 230]
+    price: [110, 230],
   },
   'Back-end': {
     roles: ['Back-end Engineer', 'Senior Back-end Engineer', 'Back-end Engineer · Python'],
@@ -68,64 +68,64 @@ const SPECS: Record<Specialty, SpecProfile> = {
     bios: [
       'APIs de alta carga com foco em observabilidade e custo de infraestrutura.',
       'Serviços para produtos com regras de negócio densas e integrações críticas.',
-      'Arquitetura de serviços resilientes, com testes e deploys previsíveis.'
+      'Arquitetura de serviços resilientes, com testes e deploys previsíveis.',
     ],
-    price: [130, 260]
+    price: [130, 260],
   },
   'Full Stack': {
     roles: ['Full Stack Engineer', 'Senior Full Stack Engineer'],
     techs: ['Next.js', 'Prisma', 'tRPC', 'React', 'Node.js', 'PostgreSQL', 'Docker'],
     bios: [
       'Produto do zero ao ar: front, back e integrações, com escopo negociado semana a semana.',
-      'MVPs rápidos com base sólida para evoluir sem reescrever tudo.'
+      'MVPs rápidos com base sólida para evoluir sem reescrever tudo.',
     ],
-    price: [150, 250]
+    price: [150, 250],
   },
-  Mobile: {
+  'Mobile': {
     roles: ['Mobile Engineer', 'React Native Engineer', 'iOS Engineer'],
     techs: ['React Native', 'Swift', 'Kotlin', 'Flutter', 'Expo', 'TypeScript'],
     bios: [
       'Apps com atenção a performance, uso offline e acessibilidade.',
-      'Publicação nas lojas, monitoramento de crashes e releases contínuas.'
+      'Publicação nas lojas, monitoramento de crashes e releases contínuas.',
     ],
-    price: [120, 220]
+    price: [120, 220],
   },
   'UX/UI Designer': {
     roles: ['Product Designer · UX/UI', 'UX Researcher', 'UI Designer'],
     techs: ['Figma', 'Design System', 'Pesquisa', 'Usabilidade', 'Prototipação', 'Analytics'],
     bios: [
       'Desenho fluxos de produto e design systems para times que precisam lançar rápido.',
-      'Descoberta, entrevistas e testes de usabilidade para decisões com evidência.'
+      'Descoberta, entrevistas e testes de usabilidade para decisões com evidência.',
     ],
-    price: [130, 250]
+    price: [130, 250],
   },
-  DevOps: {
+  'DevOps': {
     roles: ['DevOps / SRE', 'Platform Engineer', 'Cloud Engineer'],
     techs: ['Kubernetes', 'Terraform', 'AWS', 'Docker', 'GitHub Actions', 'Prometheus'],
     bios: [
       'Automatizo deploys e reduzo incidentes com infraestrutura como código.',
-      'Plataformas internas e developer experience: menos atrito entre código e produção.'
+      'Plataformas internas e developer experience: menos atrito entre código e produção.',
     ],
-    price: [170, 290]
+    price: [170, 290],
   },
   'Data Engineer': {
     roles: ['Data Engineer', 'Analytics Engineer', 'Data Scientist'],
     techs: ['Python', 'dbt', 'BigQuery', 'Airflow', 'Spark', 'SQL'],
     bios: [
       'Pipelines de dados confiáveis e modelagem analítica para produtos orientados a métrica.',
-      'Do dado bruto ao dashboard: qualidade, governança e custo sob controle.'
+      'Do dado bruto ao dashboard: qualidade, governança e custo sob controle.',
     ],
-    price: [160, 280]
+    price: [160, 280],
   },
-  QA: {
+  'QA': {
     roles: ['QA Engineer', 'SDET', 'QA Analyst'],
     techs: ['Playwright', 'Cypress', 'CI/CD', 'Jest', 'k6', 'TypeScript'],
     bios: [
       'Estratégia de testes automatizados e qualidade contínua em pipelines de entrega.',
-      'Testes de ponta a ponta estáveis e relatórios que o time realmente usa.'
+      'Testes de ponta a ponta estáveis e relatórios que o time realmente usa.',
     ],
-    price: [100, 190]
-  }
+    price: [100, 190],
+  },
 }
 
 // The 12 professionals shown in the original design come first.
@@ -141,13 +141,13 @@ const FEATURED: { name: string, specialty: Specialty, role: string, bio: string,
   { name: 'Henrique Dias', specialty: 'Front-end', role: 'Front-end Engineer', bio: 'Interfaces acessíveis com Vue e Nuxt, migrações legadas e ganho real de performance.', techs: ['Vue', 'Nuxt', 'Tailwind'], rating: 4.6, reviews: 58, location: 'Campinas, SP', years: 4, price: 130, match: 80, resp: 6 },
   { name: 'Sofia Menezes', specialty: 'UX/UI Designer', role: 'UX Researcher', bio: 'Descoberta, entrevistas e testes de usabilidade para decisões de produto com evidência.', techs: ['Pesquisa', 'Usabilidade', 'Analytics'], rating: 5, reviews: 29, location: 'Salvador, BA', years: 6, price: 190, match: 78, resp: 2 },
   { name: 'Vitor Nakamura', specialty: 'DevOps', role: 'Platform Engineer', bio: 'Plataformas internas e developer experience: menos atrito entre código e produção.', techs: ['Go', 'Docker', 'GitHub Actions'], rating: 4.8, reviews: 71, location: 'Remoto · Brasil', years: 12, price: 260, match: 76, resp: 4 },
-  { name: 'Bianca Lopes', specialty: 'Back-end', role: 'Back-end Engineer · Python', bio: 'Serviços em Django e FastAPI para produtos com regras de negócio densas.', techs: ['Python', 'FastAPI', 'Redis'], rating: 4.7, reviews: 49, location: 'Fortaleza, CE', years: 5, price: 155, match: 74, resp: 3 }
+  { name: 'Bianca Lopes', specialty: 'Back-end', role: 'Back-end Engineer · Python', bio: 'Serviços em Django e FastAPI para produtos com regras de negócio densas.', techs: ['Python', 'FastAPI', 'Redis'], rating: 4.7, reviews: 49, location: 'Fortaleza, CE', years: 5, price: 155, match: 74, resp: 3 },
 ]
 
 // First names that map to the "women" portrait set; everything else uses "men"
 const FEMALE_NAMES = new Set([
   'Juliana', 'Marina', 'Letícia', 'Aline', 'Sofia', 'Bianca', 'Camila', 'Fernanda', 'Beatriz',
-  'Larissa', 'Amanda', 'Carolina', 'Patrícia', 'Renata', 'Isabela'
+  'Larissa', 'Amanda', 'Carolina', 'Patrícia', 'Renata', 'Isabela',
 ])
 
 // randomuser.me hosts 100 portraits per set; the index is deterministic so a person keeps the same photo
@@ -168,32 +168,32 @@ const toProfessional = (id: number, fields: Omit<Professional, 'id' | 'initials'
   id,
   initials: initialsOf(fields.name),
   photo: photoFor(fields.name, id),
-  ...fields
+  ...fields,
 })
 
 const AVAILABILITY_OPTIONS = [
   '15h por semana · imediata',
   '20h por semana · imediata',
   '30h por semana · imediata',
-  '40h por semana · a partir de 2 semanas'
+  '40h por semana · a partir de 2 semanas',
 ]
 const WORKING_HOURS_OPTIONS = [
   'Seg a sex, 8h–17h (BRT)',
   'Seg a sex, 9h–18h (BRT)',
   'Seg a sex, 10h–19h (BRT)',
-  'Flexível, com overlap no horário comercial (BRT)'
+  'Flexível, com overlap no horário comercial (BRT)',
 ]
 const CONTRACT_TYPE_OPTIONS = [
   'PJ · projeto fechado ou hora',
   'PJ · apenas projeto fechado',
   'PJ · apenas por hora',
-  'CLT ou PJ · a combinar'
+  'CLT ou PJ · a combinar',
 ]
 const LANGUAGE_OPTIONS = [
   'Português (nativo) · Inglês (fluente)',
   'Português (nativo) · Inglês (intermediário)',
   'Português (nativo) · Inglês (avançado)',
-  'Português (nativo) · Inglês (fluente) · Espanhol (intermediário)'
+  'Português (nativo) · Inglês (fluente) · Espanhol (intermediário)',
 ]
 
 function build(): ProfessionalDetail[] {
@@ -213,7 +213,7 @@ function build(): ProfessionalDetail[] {
       years: f.years,
       price: f.price,
       match: f.match,
-      responseHours: f.resp
+      responseHours: f.resp,
     })
     list.push(buildDetail(base, mulberry32(id * 104729)))
   })
@@ -238,7 +238,7 @@ function build(): ProfessionalDetail[] {
       years,
       price: Math.round((profile.price[0] + (profile.price[1] - profile.price[0]) * (0.3 * rand() + 0.7 * Math.min(years / 14, 1))) / 5) * 5,
       match: between(rand, 55, 95),
-      responseHours: between(rand, 1, 8)
+      responseHours: between(rand, 1, 8),
     })
     list.push(buildDetail(base, mulberry32(id * 104729)))
   }
@@ -254,13 +254,13 @@ const REVIEWERS: { author: string, role: string }[] = [
   { author: 'Eduardo Bastos', role: 'CTO · Fintech' },
   { author: 'Carla Nogueira', role: 'Head of Design' },
   { author: 'Paulo Ventura', role: 'Engineering Manager' },
-  { author: 'Renata Guedes', role: 'Founder · SaaS' }
+  { author: 'Renata Guedes', role: 'Founder · SaaS' },
 ]
 const REVIEW_TEXTS = [
   'Excelente profissional, entregou o projeto com muita qualidade e dentro do prazo.',
   'Assumiu uma base complicada e em poucas semanas tudo estava estável. Comunicação impecável.',
   'Muito forte em detalhe e boas práticas. Trouxe soluções que nem tínhamos pedido.',
-  'Conversas diretas sobre escopo e prazo, sem surpresa no final. Voltaria a contratar.'
+  'Conversas diretas sobre escopo e prazo, sem surpresa no final. Voltaria a contratar.',
 ]
 const REVIEW_DATES = ['MAR 2026', 'JAN 2026', 'NOV 2025', 'SET 2025']
 
@@ -270,19 +270,19 @@ function buildDetail(p: Professional, rand: () => number): ProfessionalDetail {
   const about = [
     `Sou ${p.role.toLowerCase()} com ${p.years} ${p.years === 1 ? 'ano' : 'anos'} de experiência em produtos digitais. ${p.bio}`,
     `Meu foco é ${tech}, com atenção a qualidade, prazos claros e comunicação direta durante todo o projeto.`,
-    'Trabalho bem em projetos de médio e longo prazo, seja como reforço pontual de um time de produto ou como responsável técnico de uma entrega do zero.'
+    'Trabalho bem em projetos de médio e longo prazo, seja como reforço pontual de um time de produto ou como responsável técnico de uma entrega do zero.',
   ]
 
   const services: ProfessionalService[] = [
     { title: `Atuação como ${p.specialty}`, desc: 'Atuação contínua no seu time, por sprint ou por demanda.', price: `A partir de R$ ${p.price}/h` },
     { title: 'Projeto fechado', desc: 'Escopo, prazo e valor definidos antes de começar.', price: `A partir de R$ ${(p.price * 30).toLocaleString('pt-BR')}` },
-    { title: 'Consultoria', desc: 'Diagnóstico técnico e plano de ação para o seu time.', price: `R$ ${Math.round(p.price * 1.3 / 5) * 5}/h` }
+    { title: 'Consultoria', desc: 'Diagnóstico técnico e plano de ação para o seu time.', price: `R$ ${Math.round(p.price * 1.3 / 5) * 5}/h` },
   ]
 
   const projects: ProfessionalProject[] = [
     { name: 'Cockpit Financeiro', desc: 'Painel de conciliação em tempo real para uma fintech de crédito.', techs: p.techs, image: projectImageFor(p.id, 0) },
     { name: 'Nuvem Retail', desc: 'Reestruturação de plataforma de e-commerce com ganho expressivo de performance.', techs: [...p.techs].reverse(), image: projectImageFor(p.id, 1) },
-    { name: 'Atlas Platform', desc: 'Base compartilhada usada por dezenas de pessoas desenvolvedoras.', techs: p.techs.slice(0, 2), image: projectImageFor(p.id, 2) }
+    { name: 'Atlas Platform', desc: 'Base compartilhada usada por dezenas de pessoas desenvolvedoras.', techs: p.techs.slice(0, 2), image: projectImageFor(p.id, 2) },
   ]
 
   const reviewsList: ProfessionalReview[] = [0, 1, 2].map((i) => {
@@ -293,7 +293,7 @@ function buildDetail(p: Professional, rand: () => number): ProfessionalDetail {
       text: REVIEW_TEXTS[(p.id + i) % REVIEW_TEXTS.length]!,
       author: reviewer.author,
       role: reviewer.role,
-      initials: initialsOf(reviewer.author)
+      initials: initialsOf(reviewer.author),
     }
   })
 
@@ -307,6 +307,6 @@ function buildDetail(p: Professional, rand: () => number): ProfessionalDetail {
     availability: pick(rand, AVAILABILITY_OPTIONS),
     workingHours: pick(rand, WORKING_HOURS_OPTIONS),
     contractType: pick(rand, CONTRACT_TYPE_OPTIONS),
-    languages: pick(rand, LANGUAGE_OPTIONS)
+    languages: pick(rand, LANGUAGE_OPTIONS),
   }
 }

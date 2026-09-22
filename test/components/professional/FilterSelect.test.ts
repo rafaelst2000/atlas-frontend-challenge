@@ -6,12 +6,12 @@ import FilterSelect from '~/components/professional/FilterSelect.vue'
 
 const OPTIONS = [
   { value: 'ate-100', label: 'Até R$ 100/h' },
-  { value: '100-180', label: 'R$ 100–180/h' }
+  { value: '100-180', label: 'R$ 100–180/h' },
 ] as const
 
 function render(props: Record<string, unknown> = {}) {
   return renderSuspended(FilterSelect, {
-    props: { label: 'Faixa de preço', placeholder: 'Qualquer', options: OPTIONS, ...props }
+    props: { label: 'Faixa de preço', placeholder: 'Qualquer', options: OPTIONS, ...props },
   })
 }
 

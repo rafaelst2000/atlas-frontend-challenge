@@ -8,7 +8,7 @@ import { makeProfessionalDetail } from '~~/test/fixtures'
 describe('ProfessionalProfileSidebar', () => {
   it('renders the info panel as a labelled complementary landmark', async () => {
     await renderSuspended(ProfileSidebar, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByRole('complementary', { name: 'Informações' })).toBeTruthy()
@@ -16,7 +16,7 @@ describe('ProfessionalProfileSidebar', () => {
 
   it('builds the experience row from the professional data', async () => {
     await renderSuspended(ProfileSidebar, {
-      props: { professional: makeProfessionalDetail({ years: 7, delivered: 34 }) }
+      props: { professional: makeProfessionalDetail({ years: 7, delivered: 34 }) },
     })
 
     expect(screen.getByText('7 anos · 34 projetos entregues')).toBeTruthy()
@@ -29,9 +29,9 @@ describe('ProfessionalProfileSidebar', () => {
           availability: '10h por semana · a combinar',
           workingHours: 'Fins de semana (BRT)',
           contractType: 'CLT ou PJ · a combinar',
-          languages: 'Português (nativo)'
-        })
-      }
+          languages: 'Português (nativo)',
+        }),
+      },
     })
 
     expect(screen.getByText('Disponibilidade')).toBeTruthy()
@@ -46,7 +46,7 @@ describe('ProfessionalProfileSidebar', () => {
 
   it('renders the protected-hiring note', async () => {
     await renderSuspended(ProfileSidebar, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByRole('heading', { name: 'Contratação protegida' })).toBeTruthy()
@@ -54,7 +54,7 @@ describe('ProfessionalProfileSidebar', () => {
 
   it('offers a quote CTA', async () => {
     await renderSuspended(ProfileSidebar, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByRole('button', { name: 'Solicitar orçamento' })).toBeTruthy()

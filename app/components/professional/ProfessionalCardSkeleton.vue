@@ -1,5 +1,8 @@
 <template>
-  <div class="flex min-h-98 flex-col gap-3.5 rounded-card bg-card p-5 shadow-card" aria-hidden="true">
+  <div
+    class="flex min-h-98 flex-col gap-3.5 rounded-card bg-card p-5 shadow-card"
+    aria-hidden="true"
+  >
     <div class="flex items-center gap-3">
       <div class="skeleton size-11.5 rounded-xl" />
       <div class="flex flex-1 flex-col gap-2">

@@ -14,5 +14,5 @@ export default {
     if (to.path === from.path) return false
 
     return { top: 0 }
-  }
+  },
 } satisfies RouterConfig

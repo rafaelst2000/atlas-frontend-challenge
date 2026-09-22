@@ -29,10 +29,10 @@ export const professionals = pgTable('professionals', {
   availability: text('availability').notNull(),
   workingHours: text('working_hours').notNull(),
   contractType: text('contract_type').notNull(),
-  languages: text('languages').notNull()
+  languages: text('languages').notNull(),
 }, t => [
   index('professionals_specialty_idx').on(t.specialty),
   index('professionals_price_idx').on(t.price),
   index('professionals_rating_idx').on(t.rating),
-  index('professionals_match_idx').on(t.match)
+  index('professionals_match_idx').on(t.match),
 ])

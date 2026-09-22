@@ -8,14 +8,14 @@ import ProfessionalFiltersSheet from '~/components/professional/ProfessionalFilt
 const mocks = vi.hoisted(() => ({
   filters: {} as Record<string, string | undefined>,
   update: vi.fn(),
-  clear: vi.fn()
+  clear: vi.fn(),
 }))
 
 mockNuxtImport('useProfessionalFilters', () => () => ({
   filters: computed(() => mocks.filters),
   activeCount: computed(() => 0),
   update: mocks.update,
-  clear: mocks.clear
+  clear: mocks.clear,
 }))
 
 beforeEach(() => {

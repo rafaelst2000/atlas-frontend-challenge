@@ -8,7 +8,7 @@ import { makeProfessionalDetail } from '~~/test/fixtures'
 describe('ProfessionalProfileContent', () => {
   it('renders every about paragraph', async () => {
     await renderSuspended(ProfileContent, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByText('Primeiro parágrafo sobre mim.')).toBeTruthy()
@@ -17,7 +17,7 @@ describe('ProfessionalProfileContent', () => {
 
   it('renders every technology', async () => {
     await renderSuspended(ProfileContent, {
-      props: { professional: makeProfessionalDetail({ techs: ['Vue', 'Nuxt', 'Vitest'] }) }
+      props: { professional: makeProfessionalDetail({ techs: ['Vue', 'Nuxt', 'Vitest'] }) },
     })
 
     expect(screen.getByText('Vue')).toBeTruthy()
@@ -27,7 +27,7 @@ describe('ProfessionalProfileContent', () => {
 
   it('renders each service with its description and price', async () => {
     await renderSuspended(ProfileContent, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByRole('heading', { name: 'Atuação como Front-end' })).toBeTruthy()
@@ -38,7 +38,7 @@ describe('ProfessionalProfileContent', () => {
 
   it('labels each section with its own heading', async () => {
     await renderSuspended(ProfileContent, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByRole('heading', { name: 'Sobre mim' })).toBeTruthy()

@@ -19,7 +19,11 @@ defineEmits<{ 'update:modelValue': [value: string | undefined] }>()
       @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value || undefined)"
     >
       <option value="">{{ placeholder }}</option>
-      <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
+      <option
+        v-for="option in options"
+        :key="option.value"
+        :value="option.value"
+      >{{ option.label }}</option>
     </select>
   </label>
 </template>

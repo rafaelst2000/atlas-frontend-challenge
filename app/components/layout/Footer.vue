@@ -26,30 +26,28 @@
                 <path d="m16 6 5 6-5 6" />
               </svg>
             </span>
-            <span class="text-base font-bold tracking-[-0.02em] text-primary"
-              >DevMatch</span
-            >
+            <span class="text-base font-bold tracking-[-0.02em] text-primary">DevMatch</span>
           </div>
           <p class="max-w-65 text-[13px] leading-relaxed text-body">
             O marketplace de profissionais de tecnologia avaliados por quem
             contrata.
           </p>
         </div>
-        <nav class="flex flex-col gap-2.5" aria-label="Produto">
-          <span class="font-mono text-label tracking-[0.06em] text-accent"
-            >[PRODUTO]</span
-          >
-          <NuxtLink to="/" class="text-[13px] text-body hover:text-primary"
-            >Profissionais</NuxtLink
-          >
+        <nav
+          class="flex flex-col gap-2.5"
+          aria-label="Produto"
+        >
+          <span class="font-mono text-label tracking-[0.06em] text-accent">[PRODUTO]</span>
+          <NuxtLink
+            to="/"
+            class="text-[13px] text-body hover:text-primary"
+          >Profissionais</NuxtLink>
         </nav>
       </div>
       <div
         class="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-subtle pt-4.5"
       >
-        <span class="font-mono text-label text-tertiary"
-          >© 2026 DEVMATCH TECNOLOGIA LTDA</span
-        >
+        <span class="font-mono text-label text-tertiary">© 2026 DEVMATCH TECNOLOGIA LTDA</span>
         <span
           class="inline-flex items-center gap-2 font-mono text-label text-success"
         >

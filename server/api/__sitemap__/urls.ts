@@ -5,6 +5,6 @@ export default defineSitemapEventHandler(async () => {
   return rows.map(({ id }) => ({
     loc: `/professionals/${id}`,
     changefreq: 'weekly' as const,
-    priority: 0.7
+    priority: 0.7,
   }))
 })

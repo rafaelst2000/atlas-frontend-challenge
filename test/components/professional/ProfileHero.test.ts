@@ -8,7 +8,7 @@ import { makeProfessionalDetail } from '~~/test/fixtures'
 describe('ProfessionalProfileHero', () => {
   it('renders the professional as the page heading, with role, location and price', async () => {
     await renderSuspended(ProfileHero, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getByRole('heading', { level: 1, name: 'Rafael Martins' })).toBeTruthy()
@@ -20,7 +20,7 @@ describe('ProfessionalProfileHero', () => {
 
   it('renders one filled star per whole rating point', async () => {
     const { html } = await renderSuspended(ProfileHero, {
-      props: { professional: makeProfessionalDetail({ rating: 3 }) }
+      props: { professional: makeProfessionalDetail({ rating: 3 }) },
     })
 
     const filled = html().match(/fill="var\(--color-accent\)"/g) ?? []
@@ -31,7 +31,7 @@ describe('ProfessionalProfileHero', () => {
 
   it('offers a single quote CTA, with no favourite toggle', async () => {
     await renderSuspended(ProfileHero, {
-      props: { professional: makeProfessionalDetail() }
+      props: { professional: makeProfessionalDetail() },
     })
 
     expect(screen.getAllByRole('button', { name: 'Solicitar orçamento' })).toHaveLength(1)
@@ -40,7 +40,7 @@ describe('ProfessionalProfileHero', () => {
 
   it('uses singular wording for one year and one response hour', async () => {
     await renderSuspended(ProfileHero, {
-      props: { professional: makeProfessionalDetail({ years: 1, responseHours: 1 }) }
+      props: { professional: makeProfessionalDetail({ years: 1, responseHours: 1 }) },
     })
 
     expect(screen.getByText('1 ano de experiência')).toBeTruthy()
@@ -49,7 +49,7 @@ describe('ProfessionalProfileHero', () => {
 
   it('uses plural wording for several years and hours', async () => {
     await renderSuspended(ProfileHero, {
-      props: { professional: makeProfessionalDetail({ years: 7, responseHours: 2 }) }
+      props: { professional: makeProfessionalDetail({ years: 7, responseHours: 2 }) },
     })
 
     expect(screen.getByText('7 anos de experiência')).toBeTruthy()

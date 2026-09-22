@@ -13,7 +13,7 @@ export async function useProfessionalDetail(id: string): Promise<ProfessionalDet
     throw createError({
       statusCode: notFound ? 404 : 500,
       statusMessage: notFound ? 'Profissional não encontrado' : 'Não foi possível carregar o profissional',
-      fatal: true
+      fatal: true,
     })
   }
   if (!data.value) {

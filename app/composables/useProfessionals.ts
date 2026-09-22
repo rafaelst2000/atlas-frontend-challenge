@@ -14,7 +14,7 @@ export function useProfessionals() {
 
   const { data: professionalsPage, status: fetchStatus, error: fetchError, refresh } = useFetch<ProfessionalsPage>('/api/professionals', {
     query: filters,
-    default: () => EMPTY_PAGE
+    default: () => EMPTY_PAGE,
   })
 
   const additionalProfessionals = shallowRef<Professional[]>([])
@@ -35,7 +35,9 @@ export function useProfessionals() {
   const isLoading = computed(() => fetchStatus.value === 'pending')
 
   const totalState = useState<number>('professionals-total')
-  watchEffect(() => { totalState.value = professionalsPage.value.total })
+  watchEffect(() => {
+    totalState.value = professionalsPage.value.total
+  })
 
   async function loadMore() {
     if (loadingMore.value || !hasMore.value) return
@@ -49,7 +51,7 @@ export function useProfessionals() {
     try {
       const nextPageResult = await $fetch<ProfessionalsPage>('/api/professionals', {
         query: { ...filters.value, page },
-        signal: controller.signal
+        signal: controller.signal,
       })
       additionalProfessionals.value = [...additionalProfessionals.value, ...nextPageResult.items]
       nextPage.value = page + 1
@@ -71,6 +73,6 @@ export function useProfessionals() {
     loadMore,
     hasError: computed(() => !!fetchError.value),
     hasLoadMoreError: loadMoreError,
-    refresh
+    refresh,
   }
 }

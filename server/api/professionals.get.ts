@@ -24,7 +24,7 @@ const LIST_COLUMNS = {
   years: professionals.years,
   price: professionals.price,
   match: professionals.match,
-  responseHours: professionals.responseHours
+  responseHours: professionals.responseHours,
 }
 
 export default defineEventHandler(async (event): Promise<ProfessionalsPage> => {
@@ -38,14 +38,14 @@ export default defineEventHandler(async (event): Promise<ProfessionalsPage> => {
     spec: str('spec'),
     price: str('price'),
     rating: str('rating'),
-    exp: str('exp')
+    exp: str('exp'),
   })
 
   const db = useDb()
   const [items, [filtered], [catalog]] = await Promise.all([
     db.select(LIST_COLUMNS).from(professionals).where(where).orderBy(...orderFor(sort)).limit(PAGE_SIZE).offset((page - 1) * PAGE_SIZE),
     db.select({ total: count() }).from(professionals).where(where),
-    db.select({ total: count() }).from(professionals)
+    db.select({ total: count() }).from(professionals),
   ])
 
   const total = filtered?.total ?? 0
@@ -55,6 +55,6 @@ export default defineEventHandler(async (event): Promise<ProfessionalsPage> => {
     page,
     pageSize: PAGE_SIZE,
     totalPages: Math.max(1, Math.ceil(total / PAGE_SIZE)),
-    catalogTotal: catalog?.total ?? 0
+    catalogTotal: catalog?.total ?? 0,
   }
 })

@@ -9,14 +9,14 @@ const mocks = vi.hoisted(() => ({
   filters: {} as Record<string, string | undefined>,
   activeCount: 0,
   update: vi.fn(),
-  clear: vi.fn()
+  clear: vi.fn(),
 }))
 
 mockNuxtImport('useProfessionalFilters', () => () => ({
   filters: computed(() => mocks.filters),
   activeCount: computed(() => mocks.activeCount),
   update: mocks.update,
-  clear: mocks.clear
+  clear: mocks.clear,
 }))
 
 beforeEach(() => {

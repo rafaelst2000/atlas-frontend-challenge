@@ -8,7 +8,7 @@ import { makeProfessional } from '~~/test/fixtures'
 describe('ProfessionalCard', () => {
   it('shows the professional identity, price and rating', async () => {
     await renderSuspended(ProfessionalCard, {
-      props: { professional: makeProfessional() }
+      props: { professional: makeProfessional() },
     })
 
     expect(screen.getByRole('heading', { name: 'Rafael Martins' })).toBeTruthy()
@@ -20,7 +20,7 @@ describe('ProfessionalCard', () => {
 
   it('lists every technology', async () => {
     await renderSuspended(ProfessionalCard, {
-      props: { professional: makeProfessional({ techs: ['Vue', 'Nuxt'] }) }
+      props: { professional: makeProfessional({ techs: ['Vue', 'Nuxt'] }) },
     })
 
     const techs = screen.getByRole('list', { name: 'Tecnologias' })
@@ -30,7 +30,7 @@ describe('ProfessionalCard', () => {
 
   it('links to the professional profile with a descriptive label', async () => {
     await renderSuspended(ProfessionalCard, {
-      props: { professional: makeProfessional({ id: 42, name: 'Ana Souza' }) }
+      props: { professional: makeProfessional({ id: 42, name: 'Ana Souza' }) },
     })
 
     const link = screen.getByRole('link', { name: 'Ver perfil de Ana Souza' })
@@ -39,14 +39,14 @@ describe('ProfessionalCard', () => {
 
   it('pluralizes the experience label', async () => {
     await renderSuspended(ProfessionalCard, {
-      props: { professional: makeProfessional({ years: 1 }) }
+      props: { professional: makeProfessional({ years: 1 }) },
     })
     expect(screen.getByText('1 ano de experiência')).toBeTruthy()
   })
 
   it('uses the plural form for more than one year', async () => {
     await renderSuspended(ProfessionalCard, {
-      props: { professional: makeProfessional({ years: 7 }) }
+      props: { professional: makeProfessional({ years: 7 }) },
     })
     expect(screen.getByText('7 anos de experiência')).toBeTruthy()
   })

@@ -12,7 +12,7 @@ const mocks = vi.hoisted(() => ({
   // Replaced by the mock factory below with a reactive version, so a test can
   // change the URL query after mount (the component watches it to re-sync the
   // input). Until the factory runs, setting the plain value is enough.
-  setFilters(filters: Record<string, string | undefined>) { mocks.filters = filters }
+  setFilters(filters: Record<string, string | undefined>) { mocks.filters = filters },
 }))
 
 mockNuxtImport('useProfessionalFilters', () => {
@@ -25,7 +25,7 @@ mockNuxtImport('useProfessionalFilters', () => {
     filters: computed(() => state.value),
     activeCount: computed(() => 0),
     update: mocks.update,
-    clear: mocks.clear
+    clear: mocks.clear,
   })
 })
 

@@ -8,14 +8,14 @@ const PRICE_RANGES: Record<string, (col: typeof professionals.price) => SQL> = {
   'ate-100': col => lte(col, 100),
   '100-180': col => and(gte(col, 100), lte(col, 180))!,
   '180-250': col => and(gte(col, 180), lte(col, 250))!,
-  'acima-250': col => gt(col, 250)
+  'acima-250': col => gt(col, 250),
 }
 
 const EXPERIENCE_RANGES: Record<string, (col: typeof professionals.years) => SQL> = {
   '1-3': col => and(gte(col, 1), lte(col, 3))!,
   '3-6': col => and(gte(col, 3), lte(col, 6))!,
   '6+': col => gte(col, 6),
-  '10+': col => gte(col, 10)
+  '10+': col => gte(col, 10),
 }
 
 const ORDER: Record<SortValue, SQL[]> = {
@@ -23,7 +23,7 @@ const ORDER: Record<SortValue, SQL[]> = {
   'price-asc': [asc(professionals.price), asc(professionals.id)],
   'price-desc': [desc(professionals.price), asc(professionals.id)],
   'rating': [desc(professionals.rating), desc(professionals.reviews), asc(professionals.id)],
-  'experience': [desc(professionals.years), asc(professionals.id)]
+  'experience': [desc(professionals.years), asc(professionals.id)],
 }
 
 export const orderFor = (sort: SortValue = 'relevance') => ORDER[sort] ?? ORDER.relevance

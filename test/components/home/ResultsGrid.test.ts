@@ -10,14 +10,14 @@ import { makeProfessional } from '~~/test/fixtures'
 const mocks = vi.hoisted(() => ({
   filters: {} as Record<string, string | undefined>,
   update: vi.fn(),
-  clear: vi.fn()
+  clear: vi.fn(),
 }))
 
 mockNuxtImport('useProfessionalFilters', () => () => ({
   filters: computed(() => mocks.filters),
   activeCount: computed(() => 0),
   update: mocks.update,
-  clear: mocks.clear
+  clear: mocks.clear,
 }))
 
 const BASE_PROPS: {
@@ -35,7 +35,7 @@ const BASE_PROPS: {
   hasMore: false,
   loadingMore: false,
   hasError: false,
-  hasLoadMoreError: false
+  hasLoadMoreError: false,
 }
 
 function render(props: Partial<typeof BASE_PROPS> = {}) {
@@ -141,7 +141,7 @@ describe('HomeResultsGrid', () => {
     it('renders one card per professional and reports how many are shown', async () => {
       const professionals = [
         makeProfessional({ id: 1, name: 'Rafael Martins' }),
-        makeProfessional({ id: 2, name: 'Ana Souza' })
+        makeProfessional({ id: 2, name: 'Ana Souza' }),
       ]
       await render({ professionals, total: 10 })
 

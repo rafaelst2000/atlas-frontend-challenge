@@ -10,7 +10,7 @@ const { projects, reviewsList } = makeProfessionalDetail()
 describe('ProfessionalPortfolioAndReviews', () => {
   it('renders each project with its description and technologies', async () => {
     await renderSuspended(ProfessionalPortfolioAndReviews, {
-      props: { projects, reviews: reviewsList }
+      props: { projects, reviews: reviewsList },
     })
 
     expect(screen.getByRole('heading', { name: 'Cockpit Financeiro' })).toBeTruthy()
@@ -22,7 +22,7 @@ describe('ProfessionalPortfolioAndReviews', () => {
 
   it('renders a real screenshot per project instead of a placeholder', async () => {
     await renderSuspended(ProfessionalPortfolioAndReviews, {
-      props: { projects, reviews: reviewsList }
+      props: { projects, reviews: reviewsList },
     })
 
     const shot = screen.getByRole('img', { name: 'Captura de tela do projeto Cockpit Financeiro' })
@@ -32,7 +32,7 @@ describe('ProfessionalPortfolioAndReviews', () => {
 
   it('renders each review with score, author and date', async () => {
     await renderSuspended(ProfessionalPortfolioAndReviews, {
-      props: { projects, reviews: reviewsList }
+      props: { projects, reviews: reviewsList },
     })
 
     expect(screen.getByText('“Excelente profissional.”')).toBeTruthy()
@@ -45,7 +45,7 @@ describe('ProfessionalPortfolioAndReviews', () => {
 
   it('labels both sections', async () => {
     await renderSuspended(ProfessionalPortfolioAndReviews, {
-      props: { projects, reviews: reviewsList }
+      props: { projects, reviews: reviewsList },
     })
 
     expect(screen.getByRole('heading', { name: 'Projetos recentes' })).toBeTruthy()
@@ -54,7 +54,7 @@ describe('ProfessionalPortfolioAndReviews', () => {
 
   it('renders nothing but the section shells when there is no portfolio or review', async () => {
     await renderSuspended(ProfessionalPortfolioAndReviews, {
-      props: { projects: [], reviews: [] }
+      props: { projects: [], reviews: [] },
     })
 
     expect(screen.getAllByRole('list')).toHaveLength(2)

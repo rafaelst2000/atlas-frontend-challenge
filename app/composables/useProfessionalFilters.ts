@@ -21,14 +21,14 @@ export function useProfessionalFilters() {
   })
 
   const activeCount = computed(
-    () => FILTER_KEYS.filter(key => key !== 'q' && key !== 'sort' && filters.value[key]).length
+    () => FILTER_KEYS.filter(key => key !== 'q' && key !== 'sort' && filters.value[key]).length,
   )
 
   function update(patch: Partial<Record<FilterKey, string | undefined>>) {
     const query = { ...route.query }
     for (const [key, value] of Object.entries(patch)) {
       if (value) query[key] = value
-      else delete query[key]
+      else Reflect.deleteProperty(query, key)
     }
     return router.replace({ query })
   }

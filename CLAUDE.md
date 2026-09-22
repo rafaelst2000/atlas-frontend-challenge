@@ -20,11 +20,14 @@ npx nuxi typecheck     # types (TS pinned to 5.x — vue-tsc doesn't support TS 
 npm run test           # Vitest
 npm run test:coverage  # + coverage; fails below 90% on any single component
 
+npm run lint            # ESLint (@nuxt/eslint, stylistic: true — lint and formatting in one config)
+npm run lint:fix        # apply automatic fixes
+
 npm run db:push        # sync the Drizzle schema to Neon
 npm run db:seed        # truncate + reseed the 524 professionals
 ```
 
-No lint or formatter is configured — typecheck, tests and build are the automated checks.
+`typecheck`, `lint`, tests and build are the automated checks; all four also run in CI (`.github/workflows/ci.yml`) on every push/PR to `main`.
 
 ## Skills and commands
 

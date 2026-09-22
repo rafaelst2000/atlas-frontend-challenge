@@ -8,7 +8,7 @@ const {
   loadMore,
   hasError,
   hasLoadMoreError,
-  refresh
+  refresh,
 } = useProfessionals()
 
 useSeoMeta({
@@ -17,7 +17,7 @@ useSeoMeta({
   ogTitle: 'DevMatch · Profissionais de tecnologia avaliados',
   ogDescription: 'Encontre o profissional de tecnologia ideal para o seu projeto.',
   ogType: 'website',
-  twitterCard: 'summary'
+  twitterCard: 'summary',
 })
 const siteUrl = useSiteConfig().url
 useHead({
@@ -29,9 +29,9 @@ useHead({
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       'name': 'DevMatch',
-      'url': siteUrl
-    })
-  }]
+      'url': siteUrl,
+    }),
+  }],
 })
 </script>
 

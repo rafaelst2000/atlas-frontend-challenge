@@ -18,7 +18,7 @@ useSeoMeta({
   ogType: 'profile',
   ogUrl: url,
   ogImage: professional.photo,
-  twitterCard: 'summary'
+  twitterCard: 'summary',
 })
 useHead({
   link: [{ rel: 'canonical', href: url }],
@@ -40,22 +40,34 @@ useHead({
           '@type': 'AggregateRating',
           'ratingValue': professional.rating,
           'reviewCount': professional.reviews,
-          'bestRating': 5
-        }
-      }
-    })
-  }]
+          'bestRating': 5,
+        },
+      },
+    }),
+  }],
 })
 </script>
 
 <template>
   <main class="mx-auto max-w-300 px-5 pb-32 pt-5 md:pb-10">
-    <nav aria-label="Breadcrumb" class="mb-4.5 flex flex-wrap items-center gap-2 text-[12.5px] text-tertiary">
-      <NuxtLink to="/" class="text-body hover:text-primary">Profissionais</NuxtLink>
+    <nav
+      aria-label="Breadcrumb"
+      class="mb-4.5 flex flex-wrap items-center gap-2 text-[12.5px] text-tertiary"
+    >
+      <NuxtLink
+        to="/"
+        class="text-body hover:text-primary"
+      >Profissionais</NuxtLink>
       <span aria-hidden="true">/</span>
-      <NuxtLink :to="{ path: '/', query: { spec: professional.specialty } }" class="text-body hover:text-primary">{{ professional.specialty }}</NuxtLink>
+      <NuxtLink
+        :to="{ path: '/', query: { spec: professional.specialty } }"
+        class="text-body hover:text-primary"
+      >{{ professional.specialty }}</NuxtLink>
       <span aria-hidden="true">/</span>
-      <span class="text-primary" aria-current="page">{{ professional.name }}</span>
+      <span
+        class="text-primary"
+        aria-current="page"
+      >{{ professional.name }}</span>
     </nav>
 
     <ProfessionalProfileHero :professional="professional" />
@@ -71,7 +83,12 @@ useHead({
         <strong class="block text-[17px] font-bold tracking-[-0.02em] text-primary">{{ formatPrice(professional.price) }}<span class="text-xs font-normal text-tertiary">/h</span></strong>
         <span class="text-label text-tertiary">Resposta em ~{{ professional.responseHours }}h</span>
       </div>
-      <button type="button" class="btn btn-primary flex-1 !py-3.25">Solicitar orçamento</button>
+      <button
+        type="button"
+        class="btn btn-primary flex-1 !py-3.25"
+      >
+        Solicitar orçamento
+      </button>
     </div>
   </main>
 </template>

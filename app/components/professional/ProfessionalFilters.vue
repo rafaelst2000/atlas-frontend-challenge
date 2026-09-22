@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  EXPERIENCE_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SORT_OPTIONS, SPECIALTIES
+  EXPERIENCE_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SORT_OPTIONS, SPECIALTIES,
 } from '#shared/professional'
 
 const { filters, activeCount, update, clear } = useProfessionalFilters()
@@ -11,14 +11,38 @@ const sheetOpen = ref(false)
 </script>
 
 <template>
-  <section aria-labelledby="filtros-heading" class="mx-auto max-w-300 px-5 pb-5 pt-2">
-    <h2 id="filtros-heading" class="section-label !mb-3 !text-xs">[Filtros]</h2>
+  <section
+    aria-labelledby="filtros-heading"
+    class="mx-auto max-w-300 px-5 pb-5 pt-2"
+  >
+    <h2
+      id="filtros-heading"
+      class="section-label !mb-3 !text-xs"
+    >
+      [Filtros]
+    </h2>
 
     <div class="flex gap-2.5 md:hidden">
-      <button type="button" class="flex flex-1 items-center justify-center gap-2 rounded-button border border-medium bg-card p-3 text-sm font-semibold text-primary" @click="sheetOpen = true">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16" /><path d="M7 12h10" /><path d="M10 17h4" /></svg>
+      <button
+        type="button"
+        class="flex flex-1 items-center justify-center gap-2 rounded-button border border-medium bg-card p-3 text-sm font-semibold text-primary"
+        @click="sheetOpen = true"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--color-accent)"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          aria-hidden="true"
+        ><path d="M4 7h16" /><path d="M7 12h10" /><path d="M10 17h4" /></svg>
         Filtros
-        <span v-if="activeCount" class="font-mono text-label text-accent">{{ activeCount }}</span>
+        <span
+          v-if="activeCount"
+          class="font-mono text-label text-accent"
+        >{{ activeCount }}</span>
       </button>
       <select
         class="flex-1 cursor-pointer rounded-button border border-medium bg-card p-3 text-[13px] text-primary"
@@ -26,21 +50,59 @@ const sheetOpen = ref(false)
         :value="filters.sort ?? 'relevance'"
         @change="update({ sort: ($event.target as HTMLSelectElement).value === 'relevance' ? undefined : ($event.target as HTMLSelectElement).value })"
       >
-        <option v-for="option in SORT_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
+        <option
+          v-for="option in SORT_OPTIONS"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.label }}
+        </option>
       </select>
     </div>
 
     <div class="hidden flex-wrap items-center gap-2.5 rounded-card bg-card p-3.5 shadow-card md:flex">
-      <ProfessionalFilterSelect label="Especialidade" placeholder="Especialidade" :options="specOptions" :model-value="filters.spec" @update:model-value="update({ spec: $event })" />
-      <ProfessionalFilterSelect label="Faixa de preço" placeholder="Faixa de preço" :options="PRICE_OPTIONS" :model-value="filters.price" @update:model-value="update({ price: $event })" />
-      <ProfessionalFilterSelect label="Avaliação mínima" placeholder="Avaliação mínima" :options="RATING_OPTIONS" :model-value="filters.rating" @update:model-value="update({ rating: $event })" />
-      <ProfessionalFilterSelect label="Experiência" placeholder="Experiência" :options="EXPERIENCE_OPTIONS" :model-value="filters.exp" @update:model-value="update({ exp: $event })" />
-      <button type="button" class="ml-auto rounded-button border border-subtle px-4 py-2.5 text-[13px] font-medium text-body transition-colors hover:text-primary" @click="clear()">
+      <ProfessionalFilterSelect
+        label="Especialidade"
+        placeholder="Especialidade"
+        :options="specOptions"
+        :model-value="filters.spec"
+        @update:model-value="update({ spec: $event })"
+      />
+      <ProfessionalFilterSelect
+        label="Faixa de preço"
+        placeholder="Faixa de preço"
+        :options="PRICE_OPTIONS"
+        :model-value="filters.price"
+        @update:model-value="update({ price: $event })"
+      />
+      <ProfessionalFilterSelect
+        label="Avaliação mínima"
+        placeholder="Avaliação mínima"
+        :options="RATING_OPTIONS"
+        :model-value="filters.rating"
+        @update:model-value="update({ rating: $event })"
+      />
+      <ProfessionalFilterSelect
+        label="Experiência"
+        placeholder="Experiência"
+        :options="EXPERIENCE_OPTIONS"
+        :model-value="filters.exp"
+        @update:model-value="update({ exp: $event })"
+      />
+      <button
+        type="button"
+        class="ml-auto rounded-button border border-subtle px-4 py-2.5 text-[13px] font-medium text-body transition-colors hover:text-primary"
+        @click="clear()"
+      >
         Limpar filtros
       </button>
     </div>
 
-    <div class="mt-3 hidden flex-wrap gap-2 md:flex" role="group" aria-label="Especialidade">
+    <div
+      class="mt-3 hidden flex-wrap gap-2 md:flex"
+      role="group"
+      aria-label="Especialidade"
+    >
       <button
         v-for="spec in SPECIALTIES"
         :key="spec"
@@ -54,6 +116,9 @@ const sheetOpen = ref(false)
       </button>
     </div>
 
-    <LazyProfessionalFiltersSheet v-if="sheetOpen" @close="sheetOpen = false" />
+    <LazyProfessionalFiltersSheet
+      v-if="sheetOpen"
+      @close="sheetOpen = false"
+    />
   </section>
 </template>
