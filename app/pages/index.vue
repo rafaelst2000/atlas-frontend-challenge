@@ -103,7 +103,7 @@ useHead({
             <span class="sr-only">Buscar profissionais</span>
             <input v-model="search" type="search" placeholder="Busque por nome, profissão ou tecnologia..." class="min-w-0 flex-1 bg-transparent py-3 text-[15px] text-primary outline-none placeholder:text-tertiary" autocomplete="off">
           </label>
-          <button type="submit" class="btn btn-primary ml-auto w-full max-w-[180px] flex-[1_1_100%] !bg-surface !py-[13px]">Buscar</button>
+          <button type="submit" class="btn btn-primary ml-auto hidden w-full max-w-[180px] flex-[1_1_100%] !bg-surface !py-[13px] md:inline-flex">Buscar</button>
         </form>
 
         <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
