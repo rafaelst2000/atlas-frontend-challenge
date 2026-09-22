@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen overflow-x-clip bg-base">
-    <LayoutAppHeader />
+    <LayoutHeader />
     <slot />
-    <LayoutAppFooter />
+    <LayoutFooter />
   </div>
 </template>
