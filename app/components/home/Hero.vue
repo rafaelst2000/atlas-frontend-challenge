@@ -3,7 +3,6 @@ defineProps<{ catalogTotal: number }>()
 
 const { filters, update } = useProfessionalFilters()
 
-// Debounced search: keeps typing (INP) cheap and avoids a request per keystroke
 const search = ref(filters.value.q ?? '')
 let timer: ReturnType<typeof setTimeout> | undefined
 watch(search, (value) => {

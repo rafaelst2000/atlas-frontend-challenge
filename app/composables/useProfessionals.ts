@@ -2,13 +2,6 @@ import type { Professional, ProfessionalsPage } from '#types/professional'
 
 const EMPTY_PAGE: ProfessionalsPage = { items: [], total: 0, page: 1, pageSize: 12, totalPages: 1, catalogTotal: 0 }
 
-/**
- * Fetches the professionals list for the current URL filters (SSR-friendly,
- * refetches automatically when filters change) and layers "load more"
- * pagination on top. An in-flight "load more" request is aborted when the
- * filters change, so a slow response for a stale search can't land after
- * the list has already been reset for the new one.
- */
 export function useProfessionals() {
   const { filters } = useProfessionalFilters()
 

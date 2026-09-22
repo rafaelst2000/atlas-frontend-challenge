@@ -7,9 +7,6 @@ import type { Professional, ProfessionalsPage } from '#types/professional'
 
 const PAGE_SIZE = 12
 
-// The listing only needs card-level fields; the profile detail columns
-// (about/services/projects/reviewsList/...) would otherwise be fetched and
-// discarded on every one of the 12 rows in a page.
 const LIST_COLUMNS = {
   id: professionals.id,
   name: professionals.name,

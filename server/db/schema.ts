@@ -1,6 +1,4 @@
 import { index, integer, jsonb, pgTable, real, serial, text } from 'drizzle-orm/pg-core'
-// Relative import on purpose: this file is also loaded directly by scripts/seed.ts
-// via plain tsx, outside Nuxt's build, so the #shared/@types aliases wouldn't resolve here.
 import type { ProfessionalProject, ProfessionalReview, ProfessionalService } from '../../types/professional'
 
 export const professionals = pgTable('professionals', {
@@ -19,8 +17,6 @@ export const professionals = pgTable('professionals', {
   price: integer('price').notNull(),
   match: integer('match').notNull(),
   responseHours: integer('response_hours').notNull(),
-  // Profile detail content: generated once by scripts/generate-professionals.ts and
-  // seeded, not synthesized per-request — see devmatch-patterns' code-patterns.md.
   about: text('about').array().notNull(),
   services: jsonb('services').$type<ProfessionalService[]>().notNull(),
   projects: jsonb('projects').$type<ProfessionalProject[]>().notNull(),

@@ -34,7 +34,6 @@ export function buildWhere(filters: ProfessionalFilters): SQL | undefined {
 
   const q = filters.q?.trim()
   if (q) {
-    // unaccent + ILIKE: accent- and case-insensitive search over name, role and technologies
     const pattern = `%${escapeLike(q)}%`
     conditions.push(sql`unaccent(${professionals.name} || ' ' || ${professionals.role} || ' ' || array_to_string(${professionals.techs}, ' ')) ILIKE unaccent(${pattern})`)
   }

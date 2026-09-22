@@ -1,7 +1,3 @@
-// Seed-time only: produces the deterministic 524-professional dataset that
-// `scripts/seed.ts` persists to Neon. Nothing under server/ imports this —
-// once seeded, every field it computes lives in a real column and the API
-// only ever does a plain SELECT (see devmatch-patterns' code-patterns.md).
 import type { Specialty } from '../shared/professional'
 import type {
   Professional,
@@ -128,7 +124,6 @@ const SPECS: Record<Specialty, SpecProfile> = {
   },
 }
 
-// The 12 professionals shown in the original design come first.
 const FEATURED: { name: string, specialty: Specialty, role: string, bio: string, techs: string[], rating: number, reviews: number, location: string, years: number, price: number, match: number, resp: number }[] = [
   { name: 'Rafael Martins', specialty: 'Front-end', role: 'Senior Front-end Engineer', bio: 'Especialista em aplicações web escaláveis e experiências digitais de alta performance.', techs: ['React', 'TypeScript', 'Next.js'], rating: 4.9, reviews: 87, location: 'São Paulo, SP', years: 7, price: 180, match: 96, resp: 2 },
   { name: 'Juliana Prado', specialty: 'UX/UI Designer', role: 'Product Designer · UX/UI', bio: 'Desenho fluxos de produto e design systems para times que precisam lançar rápido.', techs: ['Figma', 'Design System', 'Pesquisa'], rating: 5, reviews: 64, location: 'Curitiba, PR', years: 9, price: 210, match: 93, resp: 1 },
@@ -144,26 +139,21 @@ const FEATURED: { name: string, specialty: Specialty, role: string, bio: string,
   { name: 'Bianca Lopes', specialty: 'Back-end', role: 'Back-end Engineer · Python', bio: 'Serviços em Django e FastAPI para produtos com regras de negócio densas.', techs: ['Python', 'FastAPI', 'Redis'], rating: 4.7, reviews: 49, location: 'Fortaleza, CE', years: 5, price: 155, match: 74, resp: 3 },
 ]
 
-// First names that map to the "women" portrait set; everything else uses "men"
 const FEMALE_NAMES = new Set([
   'Juliana', 'Marina', 'Letícia', 'Aline', 'Sofia', 'Bianca', 'Camila', 'Fernanda', 'Beatriz',
   'Larissa', 'Amanda', 'Carolina', 'Patrícia', 'Renata', 'Isabela',
 ])
 
-// randomuser.me hosts 100 portraits per set; the index is deterministic so a person keeps the same photo
 const photoFor = (name: string, id: number) => {
   const set = FEMALE_NAMES.has(name.split(' ')[0]!) ? 'women' : 'men'
   return `https://randomuser.me/api/portraits/${set}/${id % 100}.jpg`
 }
 
-// picsum.photos serves a stable image per seed; distinct per professional and per project
 const projectImageFor = (id: number, index: number) => `https://picsum.photos/seed/devmatch-${id}-${index}/480/320`
 
 const initialsOf = (name: string) =>
   name.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()
 
-// `id`/`initials`/`photo` are always derived the same way; every professional
-// (featured or procedural) is built through this so that derivation lives in one place.
 const toProfessional = (id: number, fields: Omit<Professional, 'id' | 'initials' | 'photo'>): Professional => ({
   id,
   initials: initialsOf(fields.name),
@@ -246,7 +236,6 @@ function build(): ProfessionalDetail[] {
   return list
 }
 
-/** Deterministic dataset used to seed the database (`npm run db:seed`); every row is already full detail content, nothing is synthesized at request time. */
 export const generateProfessionals = build
 
 const REVIEWERS: { author: string, role: string }[] = [

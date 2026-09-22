@@ -9,7 +9,6 @@ function createDb() {
   if (!url) {
     throw createError({ statusCode: 500, statusMessage: 'DATABASE_URL is not configured' })
   }
-  // Neon's HTTP driver is stateless: ideal for serverless functions (no connection pool to exhaust)
   return drizzle(neon(url), { schema })
 }
 

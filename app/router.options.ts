@@ -1,6 +1,5 @@
 import type { RouterConfig } from '@nuxt/schema'
 
-// Smooth-scroll to hash anchors (e.g. "Quero contratar" -> #profissionais), unless the user prefers reduced motion
 export default {
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
@@ -10,7 +9,6 @@ export default {
       return { el: to.hash, behavior: prefersReducedMotion ? 'auto' : 'smooth' }
     }
 
-    // Same page, only query (filters) changed: keep scroll position
     if (to.path === from.path) return false
 
     return { top: 0 }

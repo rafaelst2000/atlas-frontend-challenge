@@ -3,10 +3,6 @@ import type { ProfessionalFilters } from '#types/professional'
 const FILTER_KEYS = ['q', 'spec', 'price', 'rating', 'exp', 'sort'] as const
 type FilterKey = (typeof FILTER_KEYS)[number]
 
-/**
- * Filters live in the URL query so results are shareable, crawlable and
- * restored on back/forward navigation. The URL is the single source of truth.
- */
 export function useProfessionalFilters() {
   const route = useRoute()
   const router = useRouter()

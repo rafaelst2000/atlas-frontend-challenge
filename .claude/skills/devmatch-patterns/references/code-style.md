@@ -15,20 +15,16 @@ The bar: someone reading the line in isolation, without scrolling up for context
 
 ## Comments
 
-Default to none. Only add a comment when it explains a non-obvious **why** — a security rationale, a workaround for a specific constraint, a performance tradeoff, a decision that would otherwise look arbitrary. Never restate what the next line already says.
-
-Kept (explains why, not visible from the code alone):
+No comments in `app/`, `server/` or `scripts/` — full stop, not even a "why" comment. This was a deliberate tightening of an earlier, more permissive rule (non-obvious-why comments were allowed); every one of those, including genuinely load-bearing explanations, was stripped in that pass:
 ```ts
 // Neon's HTTP driver is stateless: ideal for serverless functions (no connection pool to exhaust)
 return drizzle(neon(url), { schema })
 ```
-Removed (just restates the line under it):
+became just:
 ```ts
-// If the photo fails to load, fall back to the initials avatar
-const failed = ref(false)
+return drizzle(neon(url), { schema })
 ```
-
-If you can delete a comment and a future reader would still understand the code the same way, delete it.
+If a decision needs explaining, it goes in the commit message, the README, or a skill reference — not inline in `app/`/`server/`/`scripts/` code. This pass didn't touch `nuxt.config.ts`, other root config files, or `test/` — nothing in this codebase says whether the same bar applies there; ask before assuming either way.
 
 ## Formatting (enforced by ESLint — run `npm run lint`/`lint:fix`, don't hand-roll it)
 

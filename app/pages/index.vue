@@ -21,7 +21,6 @@ useSeoMeta({
 })
 const siteUrl = useSiteConfig().url
 useHead({
-  // Filtered/sorted views are not separate indexable pages
   link: [{ rel: 'canonical', href: `${siteUrl}/` }],
   script: [{
     type: 'application/ld+json',
