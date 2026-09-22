@@ -24,9 +24,9 @@ export default defineNuxtConfig({
     ]
   },
 
-  // Remote portraits are resized and served as WebP by the image optimizer (Vercel provider in production)
+  // Remote portraits and project screenshots are resized and served as WebP by the image optimizer (Vercel provider in production)
   image: {
-    domains: ['randomuser.me'],
+    domains: ['randomuser.me', 'picsum.photos'],
     format: ['webp']
   },
 

@@ -78,6 +78,7 @@ export interface ProfessionalProject {
   name: string
   desc: string
   techs: string[]
+  image: string
 }
 
 export interface ProfessionalReview {
@@ -95,6 +96,10 @@ export interface ProfessionalDetail extends Professional {
   projects: ProfessionalProject[]
   reviewsList: ProfessionalReview[]
   delivered: number
+  availability: string
+  workingHours: string
+  contractType: string
+  languages: string
 }
 
 export interface ProfessionalsPage {

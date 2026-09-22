@@ -11,9 +11,7 @@ defineProps<{ projects: ProfessionalProject[], reviews: ProfessionalReview[] }>(
       <h2 id="portfolio" class="mb-3.5 text-[clamp(22px,4.5vw,30px)] font-bold tracking-tight text-primary">Projetos recentes</h2>
       <ul class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))]">
         <li v-for="project in projects" :key="project.name" class="card overflow-hidden">
-          <div class="flex h-42.5 items-center justify-center border-b border-subtle p-4 [background:repeating-linear-gradient(135deg,#0e0c0a_0px,#0e0c0a_8px,#131110_8px,#131110_16px)]" aria-hidden="true">
-            <span class="text-center font-mono text-[10.5px] tracking-[0.06em] text-tertiary">[ SCREENSHOT DO PRODUTO ]</span>
-          </div>
+          <NuxtImg :src="project.image" :alt="`Captura de tela do projeto ${project.name}`" width="480" height="320" loading="lazy" format="webp" class="h-42.5 w-full border-b border-subtle object-cover" />
           <div class="flex flex-col gap-2.25 p-4.5">
             <h3 class="text-base font-semibold tracking-[-0.02em] text-primary">{{ project.name }}</h3>
             <p class="text-[13px] leading-[1.6] text-body">{{ project.desc }}</p>

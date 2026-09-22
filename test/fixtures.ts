@@ -32,14 +32,18 @@ export function makeProfessionalDetail(
       { title: 'Projeto fechado', desc: 'Escopo e prazo definidos.', price: 'A partir de R$ 5.400' }
     ],
     projects: [
-      { name: 'Cockpit Financeiro', desc: 'Painel de conciliação em tempo real.', techs: ['React', 'TypeScript'] },
-      { name: 'Nuvem Retail', desc: 'Reestruturação de e-commerce.', techs: ['Next.js'] }
+      { name: 'Cockpit Financeiro', desc: 'Painel de conciliação em tempo real.', techs: ['React', 'TypeScript'], image: 'https://picsum.photos/seed/devmatch-1-0/480/320' },
+      { name: 'Nuvem Retail', desc: 'Reestruturação de e-commerce.', techs: ['Next.js'], image: 'https://picsum.photos/seed/devmatch-1-1/480/320' }
     ],
     reviewsList: [
       { score: '5.0', date: 'MAR 2026', text: 'Excelente profissional.', author: 'Mariana Silva', role: 'Product Manager', initials: 'MS' },
       { score: '4.8', date: 'JAN 2026', text: 'Comunicação impecável.', author: 'Eduardo Bastos', role: 'CTO · Fintech', initials: 'EB' }
     ],
     delivered: 34,
+    availability: '30h por semana · imediata',
+    workingHours: 'Seg a sex, 9h–18h (BRT)',
+    contractType: 'PJ · projeto fechado ou hora',
+    languages: 'Português (nativo) · Inglês (fluente)',
     ...overrides
   }
 }

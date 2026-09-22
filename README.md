@@ -33,7 +33,7 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 ## Decisões técnicas
 
 **Dados e arquitetura**
-- Os dados ficam em **Postgres (Neon)**, acessados com **Drizzle ORM** pelo driver HTTP serverless (sem pool de conexões, ideal para a Vercel). O seed (`npm run db:seed`) gera 524 profissionais de forma determinística.
+- Os dados ficam em **Postgres (Neon)**, acessados com **Drizzle ORM** pelo driver HTTP serverless (sem pool de conexões, ideal para a Vercel). O seed (`npm run db:seed`) gera 524 profissionais de forma determinística — **incluindo o conteúdo da página de perfil** (sobre, serviços, projetos, avaliações, disponibilidade, horário, tipo de contratação, idiomas): tudo é gerado uma vez no seed e persistido como coluna real, não sintetizado a cada request nem mockado no componente. A API de detalhe (`GET /api/professionals/:id`) é um `SELECT` direto; a de listagem seleciona só as colunas que o card precisa, sem carregar o conteúdo do perfil à toa.
 - A API (`GET /api/professionals` e `GET /api/professionals/:id`) faz busca (`unaccent` + `ILIKE`, ignorando acentos), filtros, ordenação e paginação **no banco**, com índices nas colunas usadas. O cliente nunca recebe o catálogo inteiro.
 - Tipos e constantes de filtros ficam em `shared/` e são usados por servidor e cliente.
 - Os filtros vivem na **query string** (`/?spec=QA&sort=rating`): URL compartilhável, botão voltar funcional e uma única fonte de verdade (`useProfessionalFilters`).
@@ -48,7 +48,7 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 **Performance e Core Web Vitals**
 - **LCP:** conteúdo principal renderizado no servidor; fontes autohospedadas com `@nuxt/fonts` (sem stylesheet de terceiros bloqueante) e fallbacks com métricas ajustadas.
 - **CLS:** skeletons com altura reservada, grid estável e `width`/`height` explícitos em todas as fotos.
-- **Imagens:** fotos dos profissionais (coluna `photo` no banco) servidas por `@nuxt/image`: redimensionadas por densidade (`1x`/`2x`), em WebP, com `loading="lazy"` nos cards e `eager` + `fetchpriority="high"` só na foto do perfil (imagem principal da página). Se a foto falhar, o avatar de iniciais aparece como fallback. Na Vercel, o otimizador nativo é usado automaticamente.
+- **Imagens:** fotos dos profissionais (coluna `photo` no banco) e capturas de tela dos projetos do portfólio (coluna `projects`, uma imagem por projeto) servidas por `@nuxt/image`: redimensionadas por densidade (`1x`/`2x`), em WebP, com `loading="lazy"` nos cards e `eager` + `fetchpriority="high"` só na foto do perfil (imagem principal da página). Se a foto falhar, o avatar de iniciais aparece como fallback. Na Vercel, o otimizador nativo é usado automaticamente.
 - **INP:** busca com debounce de 300 ms, listas com `shallowRef`, sem watchers desnecessários.
 - **Menos JS:** o painel de filtros mobile é carregado sob demanda (`LazyProfessionalFiltersSheet`), e portfólio e avaliações do perfil usam hidratação preguiçosa (`hydrate-on-visible`). Breakpoints são resolvidos só com CSS.
 - **Cache:** `routeRules` com `swr` para páginas e API públicas.

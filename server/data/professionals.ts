@@ -152,15 +152,43 @@ const photoFor = (name: string, id: number) => {
   return `https://randomuser.me/api/portraits/${set}/${id % 100}.jpg`
 }
 
+// picsum.photos serves a stable image per seed; distinct per professional and per project
+const projectImageFor = (id: number, index: number) => `https://picsum.photos/seed/devmatch-${id}-${index}/480/320`
+
 const initialsOf = (name: string) =>
   name.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()
 
-function build(): Professional[] {
-  const list: Professional[] = []
+const AVAILABILITY_OPTIONS = [
+  '15h por semana · imediata',
+  '20h por semana · imediata',
+  '30h por semana · imediata',
+  '40h por semana · a partir de 2 semanas'
+]
+const WORKING_HOURS_OPTIONS = [
+  'Seg a sex, 8h–17h (BRT)',
+  'Seg a sex, 9h–18h (BRT)',
+  'Seg a sex, 10h–19h (BRT)',
+  'Flexível, com overlap no horário comercial (BRT)'
+]
+const CONTRACT_TYPE_OPTIONS = [
+  'PJ · projeto fechado ou hora',
+  'PJ · apenas projeto fechado',
+  'PJ · apenas por hora',
+  'CLT ou PJ · a combinar'
+]
+const LANGUAGE_OPTIONS = [
+  'Português (nativo) · Inglês (fluente)',
+  'Português (nativo) · Inglês (intermediário)',
+  'Português (nativo) · Inglês (avançado)',
+  'Português (nativo) · Inglês (fluente) · Espanhol (intermediário)'
+]
+
+function build(): ProfessionalDetail[] {
+  const list: ProfessionalDetail[] = []
 
   FEATURED.forEach((f, index) => {
     const id = index + 1
-    list.push({
+    const base: Professional = {
       id,
       name: f.name,
       initials: initialsOf(f.name),
@@ -176,7 +204,8 @@ function build(): Professional[] {
       price: f.price,
       match: f.match,
       responseHours: f.resp
-    })
+    }
+    list.push(buildDetail(base, mulberry32(id * 104729)))
   })
 
   const specKeys = Object.keys(SPECS) as Specialty[]
@@ -187,7 +216,7 @@ function build(): Professional[] {
     const name = `${pick(rand, FIRST_NAMES)} ${pick(rand, LAST_NAMES)}`
     const techs = [...profile.techs].sort(() => rand() - 0.5).slice(0, 3)
     const years = between(rand, 1, 14)
-    list.push({
+    const base: Professional = {
       id,
       name,
       initials: initialsOf(name),
@@ -203,13 +232,14 @@ function build(): Professional[] {
       price: Math.round((profile.price[0] + (profile.price[1] - profile.price[0]) * (0.3 * rand() + 0.7 * Math.min(years / 14, 1))) / 5) * 5,
       match: between(rand, 55, 95),
       responseHours: between(rand, 1, 8)
-    })
+    }
+    list.push(buildDetail(base, mulberry32(id * 104729)))
   }
 
   return list
 }
 
-/** Deterministic dataset used to seed the database (`npm run db:seed`). */
+/** Deterministic dataset used to seed the database (`npm run db:seed`); every row is already full detail content, nothing is synthesized at request time. */
 export const generateProfessionals = build
 
 const REVIEWERS: { author: string, role: string }[] = [
@@ -227,8 +257,7 @@ const REVIEW_TEXTS = [
 ]
 const REVIEW_DATES = ['MAR 2026', 'JAN 2026', 'NOV 2025', 'SET 2025']
 
-export function buildDetail(p: Professional): ProfessionalDetail {
-  const rand = mulberry32(p.id * 104729)
+function buildDetail(p: Professional, rand: () => number): ProfessionalDetail {
   const tech = p.techs.join(', ')
 
   const about = [
@@ -244,9 +273,9 @@ export function buildDetail(p: Professional): ProfessionalDetail {
   ]
 
   const projects: ProfessionalProject[] = [
-    { name: 'Cockpit Financeiro', desc: 'Painel de conciliação em tempo real para uma fintech de crédito.', techs: p.techs },
-    { name: 'Nuvem Retail', desc: 'Reestruturação de plataforma de e-commerce com ganho expressivo de performance.', techs: [...p.techs].reverse() },
-    { name: 'Atlas Platform', desc: 'Base compartilhada usada por dezenas de pessoas desenvolvedoras.', techs: p.techs.slice(0, 2) }
+    { name: 'Cockpit Financeiro', desc: 'Painel de conciliação em tempo real para uma fintech de crédito.', techs: p.techs, image: projectImageFor(p.id, 0) },
+    { name: 'Nuvem Retail', desc: 'Reestruturação de plataforma de e-commerce com ganho expressivo de performance.', techs: [...p.techs].reverse(), image: projectImageFor(p.id, 1) },
+    { name: 'Atlas Platform', desc: 'Base compartilhada usada por dezenas de pessoas desenvolvedoras.', techs: p.techs.slice(0, 2), image: projectImageFor(p.id, 2) }
   ]
 
   const reviewsList: ProfessionalReview[] = [0, 1, 2].map((i) => {
@@ -261,5 +290,16 @@ export function buildDetail(p: Professional): ProfessionalDetail {
     }
   })
 
-  return { ...p, about, services, projects, reviewsList, delivered: between(rand, 12, 60) }
+  return {
+    ...p,
+    about,
+    services,
+    projects,
+    reviewsList,
+    delivered: between(rand, 12, 60),
+    availability: pick(rand, AVAILABILITY_OPTIONS),
+    workingHours: pick(rand, WORKING_HOURS_OPTIONS),
+    contractType: pick(rand, CONTRACT_TYPE_OPTIONS),
+    languages: pick(rand, LANGUAGE_OPTIONS)
+  }
 }

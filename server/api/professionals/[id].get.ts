@@ -1,7 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { professionals } from '../../db/schema'
-import { buildDetail } from '../../data/professionals'
-import type { Professional } from '#shared/professional'
+import type { ProfessionalDetail } from '#shared/professional'
 
 export default defineEventHandler(async (event) => {
   const id = Number(getRouterParam(event, 'id'))
@@ -12,5 +11,5 @@ export default defineEventHandler(async (event) => {
   if (!row) {
     throw createError({ statusCode: 404, statusMessage: 'Profissional não encontrado' })
   }
-  return buildDetail(row as Professional)
+  return row as ProfessionalDetail
 })

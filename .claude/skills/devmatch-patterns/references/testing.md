@@ -82,7 +82,7 @@ There's no global query-client mock to reach for (no React Query here) — the n
 
 - **Composables** (`app/composables/`) — the three above; `useProfessionalFilters`'s query parsing/writing (`update`, `clear`, `activeCount`) is pure enough to test without mounting anything.
 - **SQL query builder** (`server/utils/professionalQuery.ts`) — `buildWhere`/`orderFor` given a set of filters, and `escapeLike` specifically: a search term containing `%`, `_` or `\` must not behave as a SQL wildcard (this is a security property, not just a happy-path check).
-- **Data generator** (`server/data/professionals.ts`) — `generateProfessionals()` must be deterministic (same output on every run, since the seed script and any test relying on catalog size depend on that); `buildDetail()` happy path.
+- **Data generator** (`server/data/professionals.ts`) — `generateProfessionals()` must be deterministic (same output on every run, since the seed script and any test relying on catalog size depend on that) and every row must already carry its full profile detail content (about/services/projects/reviews/availability/...) — that generation happens once here, not per-request.
 - **Components** — the loading/error/empty/success `v-if` chains (`HomeResultsGrid.vue` is the one with all four states in one place), form interaction (the hero search, the filter selects), and the mobile filter sheet's dialog behavior (`role="dialog"`, `aria-modal`, Escape to close).
 - **API routes** (`server/api/professionals/`) — status codes and shape for the found/not-found/paginated cases.
 

@@ -4,11 +4,11 @@ import type { ProfessionalDetail } from '#shared/professional'
 const props = defineProps<{ professional: ProfessionalDetail }>()
 
 const infos = computed(() => [
-  { label: 'Disponibilidade', value: '30h por semana · imediata' },
-  { label: 'Horário de atendimento', value: 'Seg a sex, 9h–18h (BRT)' },
-  { label: 'Tipo de contratação', value: 'PJ · projeto fechado ou hora' },
+  { label: 'Disponibilidade', value: props.professional.availability },
+  { label: 'Horário de atendimento', value: props.professional.workingHours },
+  { label: 'Tipo de contratação', value: props.professional.contractType },
   { label: 'Experiência', value: `${props.professional.years} anos · ${props.professional.delivered} projetos entregues` },
-  { label: 'Idiomas', value: 'Português (nativo) · Inglês (fluente)' }
+  { label: 'Idiomas', value: props.professional.languages }
 ])
 </script>
 

@@ -20,6 +20,16 @@ describe('ProfessionalPortfolioAndReviews', () => {
     expect(screen.getByText('Next.js')).toBeTruthy()
   })
 
+  it('renders a real screenshot per project instead of a placeholder', async () => {
+    await renderSuspended(ProfessionalPortfolioAndReviews, {
+      props: { projects, reviews: reviewsList }
+    })
+
+    const shot = screen.getByRole('img', { name: 'Captura de tela do projeto Cockpit Financeiro' })
+    expect(shot.getAttribute('src')).toContain('picsum.photos')
+    expect(screen.queryByText(/SCREENSHOT DO PRODUTO/)).toBeNull()
+  })
+
   it('renders each review with score, author and date', async () => {
     await renderSuspended(ProfessionalPortfolioAndReviews, {
       props: { projects, reviews: reviewsList }

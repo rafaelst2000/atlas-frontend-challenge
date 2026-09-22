@@ -6,6 +6,27 @@ import { SORT_OPTIONS } from '#shared/professional'
 
 const PAGE_SIZE = 12
 
+// The listing only needs card-level fields; the profile detail columns
+// (about/services/projects/reviewsList/...) would otherwise be fetched and
+// discarded on every one of the 12 rows in a page.
+const LIST_COLUMNS = {
+  id: professionals.id,
+  name: professionals.name,
+  initials: professionals.initials,
+  photo: professionals.photo,
+  role: professionals.role,
+  specialty: professionals.specialty,
+  bio: professionals.bio,
+  techs: professionals.techs,
+  rating: professionals.rating,
+  reviews: professionals.reviews,
+  location: professionals.location,
+  years: professionals.years,
+  price: professionals.price,
+  match: professionals.match,
+  responseHours: professionals.responseHours
+}
+
 export default defineEventHandler(async (event): Promise<ProfessionalsPage> => {
   const query = getQuery(event)
   const str = (key: string) => (typeof query[key] === 'string' && query[key] ? (query[key] as string) : undefined)
@@ -22,7 +43,7 @@ export default defineEventHandler(async (event): Promise<ProfessionalsPage> => {
 
   const db = useDb()
   const [items, [filtered], [catalog]] = await Promise.all([
-    db.select().from(professionals).where(where).orderBy(...orderFor(sort)).limit(PAGE_SIZE).offset((page - 1) * PAGE_SIZE),
+    db.select(LIST_COLUMNS).from(professionals).where(where).orderBy(...orderFor(sort)).limit(PAGE_SIZE).offset((page - 1) * PAGE_SIZE),
     db.select({ total: count() }).from(professionals).where(where),
     db.select({ total: count() }).from(professionals)
   ])

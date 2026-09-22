@@ -22,15 +22,33 @@ describe('ProfessionalProfileSidebar', () => {
     expect(screen.getByText('7 anos · 34 projetos entregues')).toBeTruthy()
   })
 
-  it('renders the static info rows and the protected-hiring note', async () => {
+  it('renders each info row label with the value from the professional, not a hardcoded one', async () => {
+    await renderSuspended(ProfileSidebar, {
+      props: {
+        professional: makeProfessionalDetail({
+          availability: '10h por semana · a combinar',
+          workingHours: 'Fins de semana (BRT)',
+          contractType: 'CLT ou PJ · a combinar',
+          languages: 'Português (nativo)'
+        })
+      }
+    })
+
+    expect(screen.getByText('Disponibilidade')).toBeTruthy()
+    expect(screen.getByText('10h por semana · a combinar')).toBeTruthy()
+    expect(screen.getByText('Horário de atendimento')).toBeTruthy()
+    expect(screen.getByText('Fins de semana (BRT)')).toBeTruthy()
+    expect(screen.getByText('Tipo de contratação')).toBeTruthy()
+    expect(screen.getByText('CLT ou PJ · a combinar')).toBeTruthy()
+    expect(screen.getByText('Idiomas')).toBeTruthy()
+    expect(screen.getByText('Português (nativo)')).toBeTruthy()
+  })
+
+  it('renders the protected-hiring note', async () => {
     await renderSuspended(ProfileSidebar, {
       props: { professional: makeProfessionalDetail() }
     })
 
-    expect(screen.getByText('Disponibilidade')).toBeTruthy()
-    expect(screen.getByText('Horário de atendimento')).toBeTruthy()
-    expect(screen.getByText('Tipo de contratação')).toBeTruthy()
-    expect(screen.getByText('Idiomas')).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'Contratação protegida' })).toBeTruthy()
   })
 
