@@ -24,9 +24,11 @@ export default defineNuxtConfig({
     ]
   },
 
-  // Remote portraits and project screenshots are resized and served as WebP by the image optimizer (Vercel provider in production)
+  // Remote portraits and project screenshots are resized and served as WebP by the image optimizer (Vercel provider in production).
+  // picsum.photos redirects (302) to fastly.picsum.photos to actually serve the bytes — the image
+  // optimizer validates the redirect target's host too, so both domains need to be allow-listed.
   image: {
-    domains: ['randomuser.me', 'picsum.photos'],
+    domains: ['randomuser.me', 'picsum.photos', 'fastly.picsum.photos'],
     format: ['webp']
   },
 
