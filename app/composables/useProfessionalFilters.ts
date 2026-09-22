@@ -12,12 +12,12 @@ export function useProfessionalFilters() {
   const router = useRouter()
 
   const filters = computed<ProfessionalFilters>(() => {
-    const out: Record<string, string> = {}
+    const parsedFilters: Record<string, string> = {}
     for (const key of FILTER_KEYS) {
       const value = route.query[key]
-      if (typeof value === 'string' && value) out[key] = value
+      if (typeof value === 'string' && value) parsedFilters[key] = value
     }
-    return out as ProfessionalFilters
+    return parsedFilters as ProfessionalFilters
   })
 
   // Everything except search text and sort counts as an "active filter"

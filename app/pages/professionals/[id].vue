@@ -5,16 +5,16 @@ import { formatPrice } from '#shared/professional'
 const route = useRoute()
 const id = route.params.id as string
 
-const { data: pro } = await useFetch<ProfessionalDetail>(`/api/professionals/${id}`, { key: `professional-${id}` })
+const { data: professionalRef } = await useFetch<ProfessionalDetail>(`/api/professionals/${id}`, { key: `professional-${id}` })
 
-if (!pro.value) {
+if (!professionalRef.value) {
   throw createError({ statusCode: 404, statusMessage: 'Profissional não encontrado', fatal: true })
 }
 
-const p = pro.value
-const url = `${useSiteConfig().url}/professionals/${p.id}`
-const title = `${p.name} · ${p.role} | DevMatch`
-const description = `${p.name}, ${p.role} em ${p.location}. ${p.years} anos de experiência, nota ${p.rating.toFixed(1)} (${p.reviews} avaliações) e valor a partir de ${formatPrice(p.price)}/h.`
+const professional = professionalRef.value
+const url = `${useSiteConfig().url}/professionals/${professional.id}`
+const title = `${professional.name} · ${professional.role} | DevMatch`
+const description = `${professional.name}, ${professional.role} em ${professional.location}. ${professional.years} anos de experiência, nota ${professional.rating.toFixed(1)} (${professional.reviews} avaliações) e valor a partir de ${formatPrice(professional.price)}/h.`
 
 useSeoMeta({
   title,
@@ -23,7 +23,7 @@ useSeoMeta({
   ogDescription: description,
   ogType: 'profile',
   ogUrl: url,
-  ogImage: p.photo,
+  ogImage: professional.photo,
   twitterCard: 'summary'
 })
 useHead({
@@ -35,17 +35,17 @@ useHead({
       '@type': 'ProfilePage',
       'mainEntity': {
         '@type': 'Person',
-        'name': p.name,
-        'jobTitle': p.role,
-        'description': p.bio,
-        'image': p.photo,
+        'name': professional.name,
+        'jobTitle': professional.role,
+        'description': professional.bio,
+        'image': professional.photo,
         'url': url,
-        'knowsAbout': p.techs,
-        'address': { '@type': 'PostalAddress', 'addressLocality': p.location },
+        'knowsAbout': professional.techs,
+        'address': { '@type': 'PostalAddress', 'addressLocality': professional.location },
         'aggregateRating': {
           '@type': 'AggregateRating',
-          'ratingValue': p.rating,
-          'reviewCount': p.reviews,
+          'ratingValue': professional.rating,
+          'reviewCount': professional.reviews,
           'bestRating': 5
         }
       }
@@ -59,23 +59,23 @@ useHead({
     <nav aria-label="Breadcrumb" class="mb-4.5 flex flex-wrap items-center gap-2 text-[12.5px] text-tertiary">
       <NuxtLink to="/" class="text-body hover:text-primary">Profissionais</NuxtLink>
       <span aria-hidden="true">/</span>
-      <NuxtLink :to="{ path: '/', query: { spec: p.specialty } }" class="text-body hover:text-primary">{{ p.specialty }}</NuxtLink>
+      <NuxtLink :to="{ path: '/', query: { spec: professional.specialty } }" class="text-body hover:text-primary">{{ professional.specialty }}</NuxtLink>
       <span aria-hidden="true">/</span>
-      <span class="text-primary" aria-current="page">{{ p.name }}</span>
+      <span class="text-primary" aria-current="page">{{ professional.name }}</span>
     </nav>
 
-    <ProfessionalProfileHero :p="p" />
+    <ProfessionalProfileHero :professional="professional" />
 
     <div class="mt-5 flex flex-wrap items-start gap-5">
-      <ProfessionalProfileContent :p="p" />
-      <ProfessionalProfileSidebar :p="p" />
+      <ProfessionalProfileContent :professional="professional" />
+      <ProfessionalProfileSidebar :professional="professional" />
     </div>
 
     <!-- Mobile sticky CTA (CSS-only breakpoint: no client JS to decide visibility) -->
     <div class="fixed inset-x-0 bottom-0 z-[400] flex items-center gap-3 border-t border-subtle bg-base/90 px-4 pb-[calc(12px+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl md:hidden">
       <div class="min-w-0">
-        <strong class="block text-[17px] font-bold tracking-[-0.02em] text-primary">{{ formatPrice(p.price) }}<span class="text-xs font-normal text-tertiary">/h</span></strong>
-        <span class="text-label text-tertiary">Resposta em ~{{ p.responseHours }}h</span>
+        <strong class="block text-[17px] font-bold tracking-[-0.02em] text-primary">{{ formatPrice(professional.price) }}<span class="text-xs font-normal text-tertiary">/h</span></strong>
+        <span class="text-label text-tertiary">Resposta em ~{{ professional.responseHours }}h</span>
       </div>
       <button type="button" class="btn btn-primary flex-1 !py-3.25">Solicitar orçamento</button>
     </div>

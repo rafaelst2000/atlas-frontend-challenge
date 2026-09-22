@@ -27,7 +27,7 @@ const sheetOpen = ref(false)
         :value="filters.sort ?? 'relevance'"
         @change="update({ sort: ($event.target as HTMLSelectElement).value === 'relevance' ? undefined : ($event.target as HTMLSelectElement).value })"
       >
-        <option v-for="o in SORT_OPTIONS" :key="o.value" :value="o.value">{{ o.label }}</option>
+        <option v-for="option in SORT_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
       </select>
     </div>
 

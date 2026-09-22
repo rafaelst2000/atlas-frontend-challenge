@@ -3,7 +3,7 @@ import type { Professional } from '#shared/professional'
 import { SORT_OPTIONS } from '#shared/professional'
 
 defineProps<{
-  items: Professional[]
+  professionals: Professional[]
   total: number
   isLoading: boolean
   hasMore: boolean
@@ -15,7 +15,7 @@ defineEmits<{ 'load-more': [] }>()
 const { filters, update, clear } = useProfessionalFilters()
 
 const sortValue = computed(() => filters.value.sort ?? 'relevance')
-const sortLabel = computed(() => SORT_OPTIONS.find(o => o.value === sortValue.value)?.label ?? '')
+const sortLabel = computed(() => SORT_OPTIONS.find(option => option.value === sortValue.value)?.label ?? '')
 const hasFilters = computed(() => Object.keys(filters.value).some(key => key !== 'sort'))
 </script>
 
@@ -30,20 +30,20 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
     <div class="hidden items-center gap-2 md:flex">
       <label for="sort" class="text-[13px] text-tertiary">Ordenar por</label>
       <select id="sort" class="cursor-pointer rounded-button border border-medium bg-card px-3.5 py-2.5 text-[13px] text-primary" :value="sortValue" @change="update({ sort: ($event.target as HTMLSelectElement).value === 'relevance' ? undefined : ($event.target as HTMLSelectElement).value })">
-        <option v-for="o in SORT_OPTIONS" :key="o.value" :value="o.value">{{ o.label }}</option>
+        <option v-for="option in SORT_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
       </select>
     </div>
   </section>
 
   <section class="mx-auto max-w-300 px-5 pb-10 pt-5">
-    <div v-if="isLoading && !items.length" class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
-      <ProfessionalCardSkeleton v-for="n in 6" :key="n" />
+    <div v-if="isLoading && !professionals.length" class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
+      <ProfessionalCardSkeleton v-for="index in 6" :key="index" />
     </div>
 
-    <div v-else-if="items.length" :class="{ 'opacity-60 transition-opacity': isLoading }">
+    <div v-else-if="professionals.length" :class="{ 'opacity-60 transition-opacity': isLoading }">
       <ul class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
-        <li v-for="p in items" :key="p.id" class="flex [&>*]:w-full">
-          <ProfessionalCard :professional="p" />
+        <li v-for="professional in professionals" :key="professional.id" class="flex [&>*]:w-full">
+          <ProfessionalCard :professional="professional" />
         </li>
       </ul>
 
@@ -51,7 +51,7 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
         <button v-if="hasMore" type="button" class="btn btn-primary w-full max-w-70 !py-3.5" :disabled="loadingMore" @click="$emit('load-more')">
           {{ loadingMore ? 'Carregando...' : 'Carregar mais profissionais' }}
         </button>
-        <p class="font-mono text-label tracking-[0.04em] text-tertiary">MOSTRANDO {{ items.length }} DE {{ total }}</p>
+        <p class="font-mono text-label tracking-[0.04em] text-tertiary">MOSTRANDO {{ professionals.length }} DE {{ total }}</p>
       </div>
     </div>
 

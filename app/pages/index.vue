@@ -3,34 +3,34 @@ import type { Professional, ProfessionalsPage } from '#shared/professional'
 
 const { filters } = useProfessionalFilters()
 
-const { data, status } = await useFetch<ProfessionalsPage>('/api/professionals', {
+const { data: professionalsPage, status: fetchStatus } = await useFetch<ProfessionalsPage>('/api/professionals', {
   query: filters,
   default: () => ({ items: [], total: 0, page: 1, pageSize: 12, totalPages: 1, catalogTotal: 0 })
 })
 
 // Extra pages are appended on demand ("Carregar mais") and reset whenever filters change
-const extra = shallowRef<Professional[]>([])
+const additionalProfessionals = shallowRef<Professional[]>([])
 const nextPage = ref(2)
 const loadingMore = ref(false)
 
 watch(filters, () => {
-  extra.value = []
+  additionalProfessionals.value = []
   nextPage.value = 2
 })
 
-const items = computed(() => [...data.value.items, ...extra.value])
-const hasMore = computed(() => items.value.length < data.value.total)
-const isLoading = computed(() => status.value === 'pending')
+const professionals = computed(() => [...professionalsPage.value.items, ...additionalProfessionals.value])
+const hasMore = computed(() => professionals.value.length < professionalsPage.value.total)
+const isLoading = computed(() => fetchStatus.value === 'pending')
 const totalState = useState<number>('professionals-total')
-watchEffect(() => { totalState.value = data.value.total })
+watchEffect(() => { totalState.value = professionalsPage.value.total })
 
 async function loadMore() {
   loadingMore.value = true
   try {
-    const next = await $fetch<ProfessionalsPage>('/api/professionals', {
+    const nextPageResult = await $fetch<ProfessionalsPage>('/api/professionals', {
       query: { ...filters.value, page: nextPage.value }
     })
-    extra.value = [...extra.value, ...next.items]
+    additionalProfessionals.value = [...additionalProfessionals.value, ...nextPageResult.items]
     nextPage.value += 1
   }
   finally {
@@ -64,13 +64,13 @@ useHead({
 
 <template>
   <main>
-    <HomeHero :catalog-total="data.catalogTotal" />
+    <HomeHero :catalog-total="professionalsPage.catalogTotal" />
 
     <ProfessionalFilters />
 
     <HomeResultsGrid
-      :items="items"
-      :total="data.total"
+      :professionals="professionals"
+      :total="professionalsPage.total"
       :is-loading="isLoading"
       :has-more="hasMore"
       :loading-more="loadingMore"

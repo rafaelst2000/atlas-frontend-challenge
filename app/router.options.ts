@@ -6,8 +6,8 @@ export default {
     if (savedPosition) return savedPosition
 
     if (to.hash) {
-      const reduce = import.meta.client && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      return { el: to.hash, behavior: reduce ? 'auto' : 'smooth' }
+      const prefersReducedMotion = import.meta.client && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      return { el: to.hash, behavior: prefersReducedMotion ? 'auto' : 'smooth' }
     }
 
     // Same page, only query (filters) changed: keep scroll position
