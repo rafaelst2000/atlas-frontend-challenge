@@ -27,6 +27,7 @@ This project is judged on SEO, performance and Core Web Vitals (LCP, CLS, INP). 
 - **INP:** debounce search input, avoid heavy work in handlers, keep reactive state small (`shallowRef` for big lists), no unnecessary watchers.
 - Lazy-load below-the-fold or interaction-only UI with the `Lazy` prefix **plus** a hydration strategy (`hydrate-on-visible`, `hydrate-on-idle`, `hydrate-on-interaction`); mobile filter sheet and similar overlays must be lazy. Without the `Lazy` prefix the strategy is silently ignored and the component hydrates eagerly — the build warns with `NUXT_B3006`, so read its output.
 - Respect `prefers-reduced-motion`; animations use `transform`/`opacity` only.
+- `<NuxtLink>`'s default prefetch fires on **visibility**, not click intent — fine for a handful of nav links, wasteful for a `<NuxtLink>` repeated once per item in a long/infinite list (every `ProfessionalCard`'s "Ver perfil"): scrolling past dozens of cards silently fetches each profile's full payload, most of which are never opened. Use `prefetch-on="interaction"` (hover/focus) on any link that's repeated per list item.
 - Images: `<NuxtImg>` with `loading="lazy"` by default, `fetchpriority="high"` + `eager` only on the LCP image (the profile avatar), explicit `width`/`height`, and WebP via the `image.format` config. Remote hosts must be allow-listed in `nuxt.config.ts`'s `image.domains`. Prefer SVG/inline for icons; no icon fonts.
 - No third-party scripts unless deferred and justified.
 

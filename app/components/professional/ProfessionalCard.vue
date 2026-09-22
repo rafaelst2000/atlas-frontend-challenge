@@ -48,7 +48,7 @@ defineProps<{ professional: Professional }>()
         <strong class="text-lg font-bold tracking-[-0.02em] text-primary">{{ formatPrice(professional.price) }}</strong>
         <span class="text-xs text-tertiary">/h</span>
       </div>
-      <NuxtLink :to="`/professionals/${professional.id}`" class="btn btn-secondary btn-sm" :aria-label="`Ver perfil de ${professional.name}`">
+      <NuxtLink :to="`/professionals/${professional.id}`" prefetch-on="interaction" class="btn btn-secondary btn-sm" :aria-label="`Ver perfil de ${professional.name}`">
         Ver perfil
       </NuxtLink>
     </div>
