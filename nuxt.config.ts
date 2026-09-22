@@ -46,6 +46,11 @@ export default defineNuxtConfig({
     // Public catalog pages are cacheable at the edge and revalidated in the background
     '/': { swr: 300 },
     '/professionals/**': { swr: 3600 },
+    // Both the bare list route and its nested detail route need an entry: on Vercel's
+    // preset, '/**' alone compiles to a regex requiring a trailing slash + segment
+    // (`/api/professionals/(?:.*)`), which never matches `/api/professionals` itself —
+    // that 404'd in production (the list endpoint) while `/api/professionals/1` worked fine.
+    '/api/professionals': { swr: 300, headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
     '/api/professionals/**': { swr: 300, headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
     // Old Portuguese route kept as a permanent redirect for anyone with an indexed/bookmarked link
     '/profissionais/**': { redirect: { to: '/professionals/**', statusCode: 301 } }

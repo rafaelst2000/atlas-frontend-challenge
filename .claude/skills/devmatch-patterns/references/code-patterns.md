@@ -66,6 +66,10 @@ Tailwind CSS v4 via `@tailwindcss/vite` — there's no `tailwind.config`; every 
 
 Plain Nuxt file-based routing under `app/pages/` — no route registry, no permission gating (the catalog is public). A dynamic segment is a bracketed filename (`professionals/[id].vue`). Renaming a route means renaming the file/folder and updating every hardcoded link, the sitemap source (`server/api/__sitemap__/urls.ts`), and any `routeRules` entry in `nuxt.config.ts` — grep for the old path string to catch all of them.
 
+**A `routeRules` key ending in `/**` covers everything *nested under* that path, not the bare path itself — on Vercel specifically, it compiles to a regex that requires a trailing slash.** `'/api/professionals/**'` alone 404'd the bare `/api/professionals` list endpoint in production (`/api/professionals/1` worked fine) while every local `node-server` build looked correct, because Vercel translates `swr`/ISR route rules into its own rewrite regexes at build time and `node-server` doesn't reproduce that layer at all. If a route needs caching/ISR at both a parent path and everything nested under it, give both an explicit entry (`'/api/professionals'` **and** `'/api/professionals/**'`).
+
+**Verify anything routing- or caching-related with the actual Vercel build, not the default one**: `rm -rf .output .nuxt .vercel && NITRO_PRESET=vercel npm run build`, then inspect `.vercel/output/config.json`'s `routes` array (or the `__isr_route` rewrite entries) for the path in question. Plain `npm run build` uses Nitro's `node-server` preset, which never generates this layer — it will build and even serve every route correctly locally while the real Vercel deployment 404s. `.vercel/` is git-ignored; it's disposable, regenerate it whenever this needs re-checking.
+
 ## i18n
 
 There isn't one. All UI copy is hardcoded Portuguese directly in templates; the product is single-locale (`pt-BR`, set via `<html lang="pt-BR">` and `site.defaultLocale`). Don't introduce a translation layer for a one-locale challenge submission.
