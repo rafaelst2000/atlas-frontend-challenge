@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import type { ProfessionalDetail } from '#shared/professional'
 import { formatPrice } from '#shared/professional'
 
 const route = useRoute()
 const id = route.params.id as string
 
-const { data: professionalRef } = await useFetch<ProfessionalDetail>(`/api/professionals/${id}`, { key: `professional-${id}` })
+const professional = await useProfessionalDetail(id)
 
-if (!professionalRef.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Profissional não encontrado', fatal: true })
-}
-
-const professional = professionalRef.value
 const url = `${useSiteConfig().url}/professionals/${professional.id}`
 const title = `${professional.name} · ${professional.role} | DevMatch`
 const description = `${professional.name}, ${professional.role} em ${professional.location}. ${professional.years} anos de experiência, nota ${professional.rating.toFixed(1)} (${professional.reviews} avaliações) e valor a partir de ${formatPrice(professional.price)}/h.`

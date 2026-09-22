@@ -1,42 +1,15 @@
 <script setup lang="ts">
-import type { Professional, ProfessionalsPage } from '#shared/professional'
-
-const { filters } = useProfessionalFilters()
-
-const { data: professionalsPage, status: fetchStatus } = await useFetch<ProfessionalsPage>('/api/professionals', {
-  query: filters,
-  default: () => ({ items: [], total: 0, page: 1, pageSize: 12, totalPages: 1, catalogTotal: 0 })
-})
-
-// Extra pages are appended on demand ("Carregar mais") and reset whenever filters change
-const additionalProfessionals = shallowRef<Professional[]>([])
-const nextPage = ref(2)
-const loadingMore = ref(false)
-
-watch(filters, () => {
-  additionalProfessionals.value = []
-  nextPage.value = 2
-})
-
-const professionals = computed(() => [...professionalsPage.value.items, ...additionalProfessionals.value])
-const hasMore = computed(() => professionals.value.length < professionalsPage.value.total)
-const isLoading = computed(() => fetchStatus.value === 'pending')
-const totalState = useState<number>('professionals-total')
-watchEffect(() => { totalState.value = professionalsPage.value.total })
-
-async function loadMore() {
-  loadingMore.value = true
-  try {
-    const nextPageResult = await $fetch<ProfessionalsPage>('/api/professionals', {
-      query: { ...filters.value, page: nextPage.value }
-    })
-    additionalProfessionals.value = [...additionalProfessionals.value, ...nextPageResult.items]
-    nextPage.value += 1
-  }
-  finally {
-    loadingMore.value = false
-  }
-}
+const {
+  professionals,
+  professionalsPage,
+  isLoading,
+  hasMore,
+  loadingMore,
+  loadMore,
+  hasError,
+  hasLoadMoreError,
+  refresh
+} = useProfessionals()
 
 useSeoMeta({
   title: 'DevMatch · Encontre profissionais de tecnologia avaliados',
@@ -74,7 +47,10 @@ useHead({
       :is-loading="isLoading"
       :has-more="hasMore"
       :loading-more="loadingMore"
+      :has-error="hasError"
+      :has-load-more-error="hasLoadMoreError"
       @load-more="loadMore"
+      @retry="refresh"
     />
   </main>
 </template>
