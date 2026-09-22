@@ -13,7 +13,13 @@ npm run dev            # http://localhost:3000
 npm run build      # build de produção
 npm run preview    # serve o build
 npx nuxi typecheck # checagem de tipos
+
+npm run test           # suíte de testes (Vitest)
+npm run test:watch     # modo watch
+npm run test:coverage  # testes + relatório de cobertura (falha abaixo de 90% por componente)
 ```
+
+Não há lint configurado: `typecheck`, testes e build são as checagens automatizadas do projeto.
 
 Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticamente; a URL do site (canonical, sitemap e robots) vem de `NUXT_PUBLIC_SITE_URL` ou, na falta dela, de `VERCEL_PROJECT_PRODUCTION_URL`, que a Vercel injeta.
 
@@ -22,6 +28,7 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 - **Listagem** com 524 profissionais, busca por nome, profissão ou tecnologia, 4 filtros (especialidade, faixa de preço, avaliação mínima e experiência), 5 ordenações e botão "Carregar mais" (12 por página).
 - **Perfil** em página dedicada (`/professionals/:id`) com sobre, tecnologias, serviços, portfólio, avaliações e CTA fixo no mobile.
 - Design system "Dark Luxury" ([`DESIGN.md`](DESIGN.md)), mobile first e responsivo.
+- **93 testes** (Vitest + `@nuxt/test-utils` + Testing Library) cobrindo todos os componentes a 100%, com piso de cobertura de 90% por arquivo imposto na configuração — mais os testes do construtor de SQL, incluindo o escape de curingas do `LIKE`.
 
 ## Decisões técnicas
 
@@ -53,6 +60,6 @@ Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a 
 
 ## Melhorias futuras
 
-- Testes automatizados (Vitest para a lógica de filtros, Playwright para os fluxos principais) e lint.
+- Testes end-to-end (Playwright) para os fluxos principais, e lint/format (ESLint + Prettier) — hoje a consistência de estilo é manual.
 - Persistência real dos favoritos e formulário de orçamento.
 - Upload de fotos reais (Vercel Blob) no lugar dos retratos de exemplo e medição contínua de Web Vitals em produção.

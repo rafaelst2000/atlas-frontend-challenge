@@ -5,6 +5,15 @@ description: Design and build websites and web apps in the "Dark Luxury" style �
 
 # Dark Luxury Design Skill
 
+> **Reading this inside the DevMatch repo?** This is the generic, portable version of the design system — it describes how to build a Dark Luxury site from scratch, in any stack. For DevMatch, `DESIGN.md` and the `@theme` block of `app/assets/css/main.css` are the source of truth, and they win wherever the two disagree. Concretely, in this repo:
+>
+> - **Don't add a Google Fonts `<link>`/`@import`.** Fonts are self-hosted by `@nuxt/fonts` (see the `nuxt-seo-performance` skill). The `@import url(...)` in Step 2 below is for a plain-HTML build.
+> - **Tokens live in `@theme`, not `:root`.** Use the Tailwind utilities they generate (`bg-card`, `text-primary`, `rounded-card`, `shadow-glow`) instead of `var(--…)` in inline styles.
+> - **Some classes below don't exist here.** `.display-headline`, `.hl-highlight`, `.card-featured`, `.reveal`, `.marquee` and the `--text-h1/h2/h3`/`--text-display` tokens were removed as dead code — this app never used them. Re-add one only if you're actually building the section that needs it.
+> - **Skip Step 1 and Step 6's stack notes.** The accent, background, fonts and page structure are already decided and built; the React/`style={{}}` guidance doesn't apply to a Vue + Tailwind codebase.
+>
+> Everything else — the ten rules, the anti-pattern checklist, the shadow/orb/button anatomy — applies as written.
+
 ---
 
 ## Step 1 — Clarify First

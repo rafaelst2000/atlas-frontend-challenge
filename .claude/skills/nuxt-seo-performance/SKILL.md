@@ -25,13 +25,13 @@ This project is judged on SEO, performance and Core Web Vitals (LCP, CLS, INP). 
 - **LCP:** keep the above-the-fold markup server-rendered and light; no render-blocking CSS/JS; fonts are self-hosted by `@nuxt/fonts` (no Google Fonts `<link>`).
 - **CLS:** reserve space for everything that loads later (skeletons with fixed heights, explicit `width`/`height` on media, `font-display` swap with metric fallbacks).
 - **INP:** debounce search input, avoid heavy work in handlers, keep reactive state small (`shallowRef` for big lists), no unnecessary watchers.
-- Lazy-load below-the-fold or interaction-only UI with the `Lazy` prefix plus hydration strategies (`hydrate-on-visible`, `hydrate-on-idle`, `hydrate-on-interaction`); mobile filter sheet and similar overlays must be lazy.
+- Lazy-load below-the-fold or interaction-only UI with the `Lazy` prefix **plus** a hydration strategy (`hydrate-on-visible`, `hydrate-on-idle`, `hydrate-on-interaction`); mobile filter sheet and similar overlays must be lazy. Without the `Lazy` prefix the strategy is silently ignored and the component hydrates eagerly — the build warns with `NUXT_B3006`, so read its output.
 - Respect `prefers-reduced-motion`; animations use `transform`/`opacity` only.
-- Images (if any): `<NuxtImg>`/`<NuxtPicture>` with `loading="lazy"`, `fetchpriority="high"` only on the LCP image, modern formats. Prefer SVG/inline for icons; no icon fonts.
+- Images: `<NuxtImg>` with `loading="lazy"` by default, `fetchpriority="high"` + `eager` only on the LCP image (the profile avatar), explicit `width`/`height`, and WebP via the `image.format` config. Remote hosts must be allow-listed in `nuxt.config.ts`'s `image.domains`. Prefer SVG/inline for icons; no icon fonts.
 - No third-party scripts unless deferred and justified.
 
 ## Accessibility (affects SEO and UX)
 - Buttons are `<button>`, inputs have labels, focus states visible, `aria-label` on icon-only buttons, sufficient contrast (design tokens already comply), `aria-live` for result counts.
 
 ## Verify before finishing
-Run `npm run build` (it must pass) and, for UI changes, check the built output with `npm run preview` (Lighthouse/DevTools for LCP, CLS, INP). The `/check` command runs the standard verification.
+Run the `/check` command — it is the standard gate (typecheck → `npm run test:coverage` → `npm run build` → a review of the diff against this checklist). For UI changes, also inspect the built output with `npm run preview` (Lighthouse/DevTools for LCP, CLS, INP), since those numbers can't be read off the source.

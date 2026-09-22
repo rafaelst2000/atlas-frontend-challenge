@@ -9,6 +9,7 @@ DevMatch has no legacy code to route around — Nuxt 4's app-dir convention is t
 - **`app/`** — `pages/` (file-based routing), `components/` (grouped by domain folder), `composables/`, `layouts/`, `assets/css/main.css` (Tailwind theme + component classes), `router.options.ts`, `error.vue`.
 - **`server/`** — Nitro. `api/` (route handlers), `data/` (the deterministic professional generator + detail-content builder), `db/` (Drizzle schema), `utils/` (`db.ts` client, `professionalQuery.ts` SQL filter/sort builder).
 - **`shared/`** — isomorphic types and constants (`professional.ts`), imported from both sides via `#shared/professional`. Anything a page and an API route both need to agree on (a `Specialty`, a filter shape, `formatPrice`) belongs here, not duplicated.
+- **`test/`** — every test, mirroring the tree it covers, plus `fixtures.ts`. Nothing here ships; see `testing.md`.
 
 ## Composables, not a service layer
 
@@ -47,6 +48,8 @@ Keep this in mind when naming a new file — starting the filename with the fold
 Pages stay thin orchestrators: fetch + SEO meta in `<script setup>`, composition of section components in the template (see `app/pages/index.vue` and `app/pages/professionals/[id].vue` — `HomeHero`/`HomeResultsGrid`, `ProfessionalProfileHero`/`ProfessionalProfileContent`/`ProfessionalProfileSidebar`). Only extract a section into its own component when it has real visual/logical identity — don't fragment a page that's only ever rendered once into pieces nothing else reuses.
 
 Loading / error / empty / success states are plain `v-if`/`v-else-if`/`v-else` chains in the component that owns them (see `HomeResultsGrid.vue`) — there's no `Conditional`-style helper here, and at this scale one isn't needed.
+
+**Lazy hydration needs the `Lazy` prefix.** `<Foo hydrate-on-visible />` does *nothing* — Nuxt only applies a hydration strategy to `<LazyFoo hydrate-on-visible />`. This shipped broken once (the profile page's portfolio/reviews block was eagerly hydrated for weeks while the README claimed otherwise); the build does warn (`NUXT_B3006`), so read build output instead of grepping it for "error".
 
 ## Styling
 
