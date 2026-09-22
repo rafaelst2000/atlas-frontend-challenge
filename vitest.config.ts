@@ -6,6 +6,20 @@ import { defineVitestConfig } from '@nuxt/test-utils/config'
 // a `// @vitest-environment nuxt` pragma at the top of the file.
 export default defineVitestConfig({
   test: {
-    environment: 'node'
+    environment: 'node',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      // Components are the contract with the user; they carry a hard floor.
+      include: ['app/components/**/*.vue'],
+      thresholds: {
+        // perFile, so one very well covered component can't carry a neglected one
+        perFile: true,
+        statements: 90,
+        branches: 90,
+        functions: 90,
+        lines: 90
+      }
+    }
   }
 })

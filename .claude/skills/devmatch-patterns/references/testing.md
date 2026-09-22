@@ -1,6 +1,18 @@
 # Testing — DevMatch Frontend
 
-The toolkit is installed and configured (`vitest.config.ts`); coverage is still thin — two proof-of-concept tests exist (`server/utils/professionalQuery.test.ts`, `app/components/professional/ProfessionalAvatar.test.ts`). Everything below is still the plan to follow as more tests get added.
+The toolkit is installed and configured (`vitest.config.ts`).
+
+## Coverage: components have a hard floor of 90%
+
+**Every component under `app/components/` must keep statements, branches, functions and lines at or above 90%.** This is enforced, not aspirational: `vitest.config.ts` sets `coverage.thresholds` to 90 across all four metrics with `perFile: true`, scoped to `app/components/**/*.vue`, so `npm run test:coverage` fails the run when *any single component* drops below it — a well-covered component can't carry a neglected one.
+
+What this means in practice:
+
+- A new component ships with its test file in the same change — not "later".
+- Every `v-if`/`v-else-if`/`v-else` branch, every `v-for` empty-vs-populated case, and every emitted event needs to be exercised, since branches are part of the threshold.
+- If a branch is genuinely unreachable in a test (a defensive fallback, say), prefer deleting the dead branch over writing a contrived test for it — see `code-patterns.md` on not keeping unused code around.
+
+Non-component code (composables, `server/`) isn't under the threshold, but the "what to cover" list below still applies to it.
 
 ## Stack
 
@@ -21,6 +33,27 @@ See `ProfessionalAvatar.test.ts` for the shape: the pragma, then `renderSuspende
 ## The rule to carry over: never mount without the Nuxt context
 
 Every component here relies on Nuxt auto-imports (composables, `<NuxtLink>`, `<NuxtImg>`, other components) and, for most of them, on the URL query via `useProfessionalFilters` or a `useFetch` call. A bare `@vue/test-utils` `mount()` won't resolve any of that. Always go through `@nuxt/test-utils`'s suspended helpers.
+
+## Fixtures
+
+Test data lives in `test/fixtures.ts` (`makeProfessional`, `makeProfessionalDetail`), imported as `~~/test/fixtures`. Both take an overrides object, so a test states only the field it actually cares about (`makeProfessional({ years: 1 })`) instead of restating a whole professional.
+
+## Mocking a composable
+
+Use `mockNuxtImport` with `vi.hoisted` for the shared spies/state, and **return real `computed`/`ref` values from the factory** — a plain `{ value }` object is not a ref, so Vue won't unwrap it in the template and `filters.spec` silently reads `undefined`:
+
+```ts
+const mocks = vi.hoisted(() => ({ filters: {}, update: vi.fn(), clear: vi.fn() }))
+
+mockNuxtImport('useProfessionalFilters', () => () => ({
+  filters: computed(() => mocks.filters),
+  activeCount: computed(() => 0),
+  update: mocks.update,
+  clear: mocks.clear
+}))
+```
+
+If a test needs the mocked value to change *after* mount (to exercise a `watch`), build the reactive source inside the factory and expose a setter on `mocks` — see `Hero.test.ts`, which uses that to prove the search input re-syncs when the query is cleared elsewhere.
 
 ## Mocking the data layer
 
@@ -49,7 +82,7 @@ Colocated next to the source file, `<Name>.test.ts` (or `.test.ts` next to a `.v
 
 ## Running
 
-Run only the file(s) for what you're working on (`npx vitest run <path>`) — not the full suite (`npm run test`), unless asked.
+Run only the file(s) for what you're working on (`npx vitest run <path>`) — not the full suite (`npm run test`), unless asked. `npm run test:coverage` runs everything and enforces the 90% component floor; run it before committing a change that touches a component.
 
 ## Hygiene
 
