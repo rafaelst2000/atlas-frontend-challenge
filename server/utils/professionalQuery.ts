@@ -2,7 +2,7 @@ import { and, asc, desc, eq, gt, gte, lte, sql, type SQL } from 'drizzle-orm'
 import type { ProfessionalFilters, SortValue } from '#shared/professional'
 import { professionals } from '../db/schema'
 
-const escapeLike = (value: string) => value.replace(/[\\%_]/g, char => `\\${char}`)
+export const escapeLike = (value: string) => value.replace(/[\\%_]/g, char => `\\${char}`)
 
 const PRICE_RANGES: Record<string, (col: typeof professionals.price) => SQL> = {
   'ate-100': col => lte(col, 100),

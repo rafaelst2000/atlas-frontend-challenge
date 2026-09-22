@@ -54,4 +54,4 @@ No Prettier/ESLint config exists in this repo, so nothing runs on save or on com
 
 ## Tooling
 
-No lint or formatter is configured in this repo yet (`npx nuxi typecheck` is the only automated check, run via the `/check` command alongside `npm run build`). Don't assume ESLint/Prettier rules are being enforced — style consistency here is manual, per this file. If lint/format tooling is added later, update this file to describe what it actually enforces instead of duplicating rules the tool would catch automatically.
+No lint or formatter is configured in this repo yet — `npx nuxi typecheck` (run via the `/check` command alongside `npm run build`) and `npm run test` (Vitest — see `testing.md`) are the only automated checks. Don't assume ESLint/Prettier rules are being enforced — style consistency here is manual, per this file. If lint/format tooling is added later, update this file to describe what it actually enforces instead of duplicating rules the tool would catch automatically.

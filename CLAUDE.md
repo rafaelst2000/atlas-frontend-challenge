@@ -23,7 +23,7 @@ npm run generate   # static generation
 npm run preview    # preview the production build
 ```
 
-Typecheck with `npx nuxi typecheck` (TypeScript is pinned to 5.x because `vue-tsc` does not work with TS 7). No test or lint tooling is configured yet. The `/check` command runs typecheck, build and the SEO/performance review; `/a11y` runs a WCAG 2.2 AA audit (and applies fixes, unless `--report` is passed) over `app/`.
+Typecheck with `npx nuxi typecheck` (TypeScript is pinned to 5.x because `vue-tsc` does not work with TS 7). No lint tooling is configured yet. `npm run test` runs Vitest (`npm run test:watch` for the loop); see the `devmatch-patterns` skill's `testing.md` for the stack and conventions. The `/check` command runs typecheck, build and the SEO/performance review; `/a11y` runs a WCAG 2.2 AA audit (and applies fixes, unless `--report` is passed) over `app/`.
 
 ## Structure
 

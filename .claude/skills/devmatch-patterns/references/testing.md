@@ -1,12 +1,22 @@
 # Testing — DevMatch Frontend
 
-**Not implemented yet.** No test runner or testing library is installed in this repo today — this file documents the plan for when it is, so the first tests land consistently instead of everyone picking their own stack. Update this file the moment real tooling/config exists, and remove this notice.
+The toolkit is installed and configured (`vitest.config.ts`); coverage is still thin — two proof-of-concept tests exist (`server/utils/professionalQuery.test.ts`, `app/components/professional/ProfessionalAvatar.test.ts`). Everything below is still the plan to follow as more tests get added.
 
-## Planned stack
+## Stack
 
-- **Vitest** — matches the Vite/Nuxt toolchain already in use, no separate config to maintain.
-- **`@nuxt/test-utils`** for anything that needs Nuxt's runtime context (auto-imported composables/components, `useFetch`, routing) — `mountSuspended`/`renderSuspended`, not a bare `@vue/test-utils` `mount`, so components don't silently lose the context they rely on in the app.
-- **`@testing-library/vue`** on top of that for querying — by role/label text, not by class name or component internals, so tests keep working through markup refactors.
+- **Vitest** (`npm run test` / `npm run test:watch`) — matches the Vite/Nuxt toolchain already in use.
+- **`@nuxt/test-utils`** for anything that needs Nuxt's runtime context (auto-imported composables/components, `useFetch`, routing) — `mountSuspended`/`renderSuspended` from `@nuxt/test-utils/runtime`, not a bare `@vue/test-utils` `mount`, so components don't silently lose the context they rely on in the app.
+- **`@testing-library/vue`** on top of that for querying (`screen`, `getByRole`, `getByLabelText`, ...) — by role/label text, not by class name or component internals, so tests keep working through markup refactors.
+
+## Environment: per-file, not global
+
+`vitest.config.ts` defaults to `environment: 'node'` (fast, no DOM) — that's right for pure logic (`professionalQuery.test.ts` doesn't need a DOM at all). A file that needs Nuxt's context (auto-imports, `<NuxtImg>`, `<NuxtLink>`, composables) opts in with a pragma as its **first line**:
+
+```ts
+// @vitest-environment nuxt
+```
+
+See `ProfessionalAvatar.test.ts` for the shape: the pragma, then `renderSuspended(Component, { props })` from `@nuxt/test-utils/runtime`, then querying with `screen` from `@testing-library/vue`. There's no `@testing-library/jest-dom` installed, so assert with plain Vitest matchers (`toBeTruthy()`, `toBe(...)`) rather than `toBeInTheDocument()` — Testing Library's `getBy*` queries already throw if nothing matches, so a query call itself is most of the assertion.
 
 ## The rule to carry over: never mount without the Nuxt context
 
@@ -33,10 +43,14 @@ There's no global query-client mock to reach for (no React Query here) — the n
 
 There's no design-system package here to blanket-cover the way Zenity covers `@zenity-ui`. Add an `axe-core`-based check (e.g. via `vitest-axe`) for a component only when it introduces real accessible surface of its own: a form with inputs/labels (search bar, filter selects), a modal/dialog triggered by an action (`ProfessionalFiltersSheet`), a page shell with landmarks/heading hierarchy. Skip it for a component that only composes other already-covered pieces without adding structural HTML of its own.
 
+## File naming
+
+Colocated next to the source file, `<Name>.test.ts` (or `.test.ts` next to a `.vue` file for a component test) — not a separate `__tests__`/`test/` folder.
+
 ## Running
 
-Run only the spec(s) for what you're working on (`npx vitest run <path>`) — not the full suite, unless asked.
+Run only the file(s) for what you're working on (`npx vitest run <path>`) — not the full suite (`npm run test`), unless asked.
 
 ## Hygiene
 
-No `console.log` left in a spec file. There's no pre-commit hook enforcing this yet (see `git-workflow.md`) — it's a manual check on the diff, same as everywhere else in this repo.
+No `console.log` left in a test file. There's no pre-commit hook enforcing this yet (see `git-workflow.md`) — it's a manual check on the diff, same as everywhere else in this repo.
