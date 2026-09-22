@@ -1,3 +1,7 @@
+// Seed-time only: produces the deterministic 524-professional dataset that
+// `scripts/seed.ts` persists to Neon. Nothing under server/ imports this —
+// once seeded, every field it computes lives in a real column and the API
+// only ever does a plain SELECT (see devmatch-patterns' code-patterns.md).
 import type {
   Professional,
   ProfessionalDetail,
@@ -5,7 +9,7 @@ import type {
   ProfessionalReview,
   ProfessionalService,
   Specialty
-} from '../../shared/professional'
+} from '../shared/professional'
 
 const TOTAL = 524
 
@@ -158,6 +162,15 @@ const projectImageFor = (id: number, index: number) => `https://picsum.photos/se
 const initialsOf = (name: string) =>
   name.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()
 
+// `id`/`initials`/`photo` are always derived the same way; every professional
+// (featured or procedural) is built through this so that derivation lives in one place.
+const toProfessional = (id: number, fields: Omit<Professional, 'id' | 'initials' | 'photo'>): Professional => ({
+  id,
+  initials: initialsOf(fields.name),
+  photo: photoFor(fields.name, id),
+  ...fields
+})
+
 const AVAILABILITY_OPTIONS = [
   '15h por semana · imediata',
   '20h por semana · imediata',
@@ -188,11 +201,8 @@ function build(): ProfessionalDetail[] {
 
   FEATURED.forEach((f, index) => {
     const id = index + 1
-    const base: Professional = {
-      id,
+    const base = toProfessional(id, {
       name: f.name,
-      initials: initialsOf(f.name),
-      photo: photoFor(f.name, id),
       role: f.role,
       specialty: f.specialty,
       bio: f.bio,
@@ -204,7 +214,7 @@ function build(): ProfessionalDetail[] {
       price: f.price,
       match: f.match,
       responseHours: f.resp
-    }
+    })
     list.push(buildDetail(base, mulberry32(id * 104729)))
   })
 
@@ -216,11 +226,8 @@ function build(): ProfessionalDetail[] {
     const name = `${pick(rand, FIRST_NAMES)} ${pick(rand, LAST_NAMES)}`
     const techs = [...profile.techs].sort(() => rand() - 0.5).slice(0, 3)
     const years = between(rand, 1, 14)
-    const base: Professional = {
-      id,
+    const base = toProfessional(id, {
       name,
-      initials: initialsOf(name),
-      photo: photoFor(name, id),
       role: pick(rand, profile.roles),
       specialty,
       bio: pick(rand, profile.bios),
@@ -232,7 +239,7 @@ function build(): ProfessionalDetail[] {
       price: Math.round((profile.price[0] + (profile.price[1] - profile.price[0]) * (0.3 * rand() + 0.7 * Math.min(years / 14, 1))) / 5) * 5,
       match: between(rand, 55, 95),
       responseHours: between(rand, 1, 8)
-    }
+    })
     list.push(buildDetail(base, mulberry32(id * 104729)))
   }
 

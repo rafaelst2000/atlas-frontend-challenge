@@ -19,7 +19,7 @@ export const professionals = pgTable('professionals', {
   price: integer('price').notNull(),
   match: integer('match').notNull(),
   responseHours: integer('response_hours').notNull(),
-  // Profile detail content: generated once by server/data/professionals.ts and
+  // Profile detail content: generated once by scripts/generate-professionals.ts and
   // seeded, not synthesized per-request — see devmatch-patterns' code-patterns.md.
   about: text('about').array().notNull(),
   services: jsonb('services').$type<ProfessionalService[]>().notNull(),

@@ -48,7 +48,7 @@ No Prettier/ESLint config exists in this repo, so nothing runs on save or on com
 
 ## Imports
 
-- `#shared/professional` from anything under `app/` or `server/api|utils/`. Files under `server/data/` import it with a **relative path** instead (`../../shared/professional`) on purpose: `server/data/professionals.ts` is also imported directly by `scripts/seed.ts`, a plain `tsx`-run Node script that never goes through Nuxt's build, so the `#shared` alias wouldn't resolve there.
+- `#shared/professional` from anything under `app/` or `server/api|utils/`. Files that a plain `tsx` script also loads directly — `server/db/schema.ts` and everything under `scripts/` (the data generator, `seed.ts`) — import it with a **relative path** instead on purpose: `tsx` never goes through Nuxt's build, so the `#shared` alias wouldn't resolve there.
 - Composables and components under `app/` are Nuxt-auto-imported — don't write an `import` statement for `useProfessionalFilters`, `<ProfessionalCard>`, etc.
 - No import-order tool is configured; group type-only imports with the value imports they come from (`import type { X } from '...'` right next to `import { Y } from '...'` of the same module) rather than enforcing a strict alphabetical or external-before-internal order.
 
