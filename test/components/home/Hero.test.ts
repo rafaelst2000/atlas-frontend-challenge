@@ -137,6 +137,17 @@ describe('HomeHero', () => {
       expect(mocks.update).toHaveBeenCalledWith({ q: 'nux' })
     })
 
+    it('clears the query when the input is emptied, rather than searching for ""', async () => {
+      mocks.setFilters({ q: 'nuxt' })
+      await renderSuspended(Hero, { props: { catalogTotal: 0 } })
+
+      await fireEvent.update(screen.getByLabelText('Buscar profissionais'), '   ')
+      await nextTick()
+      vi.advanceTimersByTime(300)
+
+      expect(mocks.update).toHaveBeenCalledWith({ q: undefined })
+    })
+
     it('drops a pending search when the component goes away', async () => {
       const { unmount } = await renderSuspended(Hero, { props: { catalogTotal: 0 } })
 
