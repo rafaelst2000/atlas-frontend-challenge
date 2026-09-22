@@ -48,7 +48,12 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'pt-BR' },
-      meta: [{ name: 'theme-color', content: '#0a0907' }]
+      meta: [{ name: 'theme-color', content: '#0a0907' }],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+      ]
     }
   }
 })
