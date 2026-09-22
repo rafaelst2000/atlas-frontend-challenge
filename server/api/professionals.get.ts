@@ -1,6 +1,6 @@
 import { count } from 'drizzle-orm'
-import { professionals } from '../../db/schema'
-import { buildWhere, orderFor } from '../../utils/professionalQuery'
+import { professionals } from '../db/schema'
+import { buildWhere, orderFor } from '../utils/professionalQuery'
 import type { Professional, ProfessionalsPage, SortValue } from '#shared/professional'
 import { SORT_OPTIONS } from '#shared/professional'
 
