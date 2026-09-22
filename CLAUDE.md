@@ -36,13 +36,13 @@ npm run db:seed        # truncate + reseed the 524 professionals
 | `devmatch-patterns` skill | Structure, composables, data layer, naming, comments, git workflow, testing. Applies to any code change; its `references/` split the topics. |
 | `nuxt-seo-performance` skill | Any route, component, image, font, data fetch or third-party script — SEO and Core Web Vitals. |
 | `dark-luxury-design` skill | Building new UI. `DESIGN.md` and `app/assets/css/main.css` win over it wherever they differ. |
-| `/check` | The verification gate: typecheck → tests + coverage → build → review the diff against the SEO/performance checklist. |
+| `/check` | The verification gate: typecheck → lint → tests + coverage → build → review the diff against the SEO/performance checklist. |
 | `/a11y` | WCAG 2.2 AA audit of `app/`, applying fixes; `--report` to only report. |
 | `/generate-frontend-doc`, `/generate-claude-doc` | Write a doc into `docs/frontend/` or `docs/claude/`. |
 
 ## Structure
 
-Nuxt 4 app-dir: `app/` (pages, components grouped by domain folder, composables, layouts), `server/` (Nitro API + Drizzle data layer), `shared/` (isomorphic types via `#shared/*`), `test/` (mirrors the tree it covers; nothing here ships). Details in `devmatch-patterns` → `code-patterns.md`.
+Nuxt 4 app-dir: `app/` (pages, components grouped by domain folder, composables, layouts), `server/` (Nitro API + Drizzle data layer), `shared/` (isomorphic runtime values via `#shared/*`), `types/` (pure interfaces via `#types/*`), `test/` (mirrors the tree it covers; nothing here ships). Details in `devmatch-patterns` → `code-patterns.md`.
 
 `.env` holds `DATABASE_URL` (pooled, runtime) and `DATABASE_URL_UNPOOLED` (drizzle-kit and seed). It is git-ignored — never commit or print credentials.
 

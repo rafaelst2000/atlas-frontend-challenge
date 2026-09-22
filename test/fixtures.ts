@@ -1,4 +1,4 @@
-import type { Professional, ProfessionalDetail } from '#shared/professional'
+import type { Professional, ProfessionalDetail } from '#types/professional'
 
 export function makeProfessional(overrides: Partial<Professional> = {}): Professional {
   return {

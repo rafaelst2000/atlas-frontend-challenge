@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProfessionalDetail } from '#shared/professional'
+import type { ProfessionalDetail } from '#types/professional'
 import { formatPrice } from '#shared/professional'
 
 const props = defineProps<{ professional: ProfessionalDetail }>()

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProfessionalProject, ProfessionalReview } from '#shared/professional'
+import type { ProfessionalProject, ProfessionalReview } from '#types/professional'
 
 defineProps<{ projects: ProfessionalProject[], reviews: ProfessionalReview[] }>()
 </script>

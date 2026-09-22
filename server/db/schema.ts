@@ -1,7 +1,7 @@
 import { index, integer, jsonb, pgTable, real, serial, text } from 'drizzle-orm/pg-core'
 // Relative import on purpose: this file is also loaded directly by scripts/seed.ts
-// via plain tsx, outside Nuxt's build, so the #shared alias wouldn't resolve here.
-import type { ProfessionalProject, ProfessionalReview, ProfessionalService } from '../../shared/professional'
+// via plain tsx, outside Nuxt's build, so the #shared/@types aliases wouldn't resolve here.
+import type { ProfessionalProject, ProfessionalReview, ProfessionalService } from '../../types/professional'
 
 export const professionals = pgTable('professionals', {
   id: serial('id').primaryKey(),

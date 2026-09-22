@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, screen } from '@testing-library/vue'
 import { mockNuxtImport, renderSuspended } from '@nuxt/test-utils/runtime'
-import type { Professional } from '#shared/professional'
+import type { Professional } from '#types/professional'
 import ResultsGrid from '~/components/home/ResultsGrid.vue'
 import { makeProfessional } from '~~/test/fixtures'
 

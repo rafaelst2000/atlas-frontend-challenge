@@ -1,5 +1,6 @@
 import { and, asc, desc, eq, gt, gte, lte, sql, type SQL } from 'drizzle-orm'
-import type { ProfessionalFilters, SortValue } from '#shared/professional'
+import type { SortValue } from '#shared/professional'
+import type { ProfessionalFilters } from '#types/professional'
 import { professionals } from '../db/schema'
 
 export const escapeLike = (value: string) => value.replace(/[\\%_]/g, char => `\\${char}`)

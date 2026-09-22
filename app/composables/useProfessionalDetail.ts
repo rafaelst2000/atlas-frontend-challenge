@@ -1,4 +1,4 @@
-import type { ProfessionalDetail } from '#shared/professional'
+import type { ProfessionalDetail } from '#types/professional'
 
 /**
  * Fetches a single professional's detail. A 404 from the API (unknown id)

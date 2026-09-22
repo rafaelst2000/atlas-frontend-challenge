@@ -1,4 +1,4 @@
-import type { Professional, ProfessionalsPage } from '#shared/professional'
+import type { Professional, ProfessionalsPage } from '#types/professional'
 
 const EMPTY_PAGE: ProfessionalsPage = { items: [], total: 0, page: 1, pageSize: 12, totalPages: 1, catalogTotal: 0 }
 

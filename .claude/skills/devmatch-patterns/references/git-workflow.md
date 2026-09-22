@@ -5,7 +5,7 @@ This is a single-contributor technical-challenge submission: one branch, no PRs,
 ## Commits
 
 - **Conventional Commits** for every commit message (`feat:`, `fix:`, `refactor:`, `chore:`, `docs:`, `test:`, ...). This was an explicit, deliberate choice for this project — don't fall back to free-form messages.
-- Before committing, all three must pass: `npx nuxi typecheck`, `npm run test:coverage` (tests green *and* every component at or above the 90% floor) and `npm run build`. The `/check` command runs exactly that sequence plus an SEO/performance review of the diff — prefer it over running the three by hand.
+- Before committing, all four must pass: `npx nuxi typecheck`, `npm run lint`, `npm run test:coverage` (tests green *and* every component at or above the 90% floor) and `npm run build`. The `/check` command runs exactly that sequence plus an SEO/performance review of the diff — prefer it over running them by hand. The same four also run in CI (`.github/workflows/ci.yml`) on every push/PR to `main`.
 - Prefer a new commit over amending, unless explicitly asked to amend — matches the general repo-safety default, not something specific to this project.
 
 ## Branch

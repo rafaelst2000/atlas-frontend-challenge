@@ -8,7 +8,8 @@ DevMatch has no legacy code to route around — Nuxt 4's app-dir convention is t
 
 - **`app/`** — `pages/` (file-based routing), `components/` (grouped by domain folder), `composables/`, `layouts/`, `assets/css/main.css` (Tailwind theme + component classes), `router.options.ts`, `error.vue`.
 - **`server/`** — Nitro, runtime code only. `api/` (route handlers), `db/` (Drizzle schema), `utils/` (`db.ts` client, `professionalQuery.ts` SQL filter/sort builder). The deterministic professional generator (`generate-professionals.ts`) lives in `scripts/`, not here — nothing under `server/` imports it, since its whole output is seeded into Neon once, not computed at request time.
-- **`shared/`** — isomorphic types and constants (`professional.ts`), imported from both sides via `#shared/professional`. Anything a page and an API route both need to agree on (a `Specialty`, a filter shape, `formatPrice`) belongs here, not duplicated.
+- **`shared/`** — isomorphic runtime values (`professional.ts`: `SPECIALTIES`, `SORT_OPTIONS`, `PRICE_OPTIONS`, `RATING_OPTIONS`, `EXPERIENCE_OPTIONS`, `formatPrice`) and the `Specialty`/`SortValue` types derived from them via `typeof X[number]`, imported from both sides via `#shared/professional`.
+- **`types/`** — pure `interface`/`type` declarations with no runtime value backing them (`Professional`, `ProfessionalDetail`, `ProfessionalService`, `ProfessionalProject`, `ProfessionalReview`, `ProfessionalsPage`, `ProfessionalFilters`), imported via `#types/professional`. Split from `shared/` because a type that's just `typeof someConst[number]` has to live wherever that const lives, but the rest are pure view-model shapes with nothing to co-locate them with.
 - **`test/`** — every test, mirroring the tree it covers, plus `fixtures.ts`. Nothing here ships; see `testing.md`.
 
 ## Composables, not a service layer
@@ -82,4 +83,4 @@ There isn't one. All UI copy is hardcoded Portuguese directly in templates; the 
 
 ## Aliases
 
-Nuxt's own conventions already cover what's needed: `#shared/*` (the `shared/` directory), `~/` (`app/`), `#app`. There's no separate `vite.config.ts` to keep in sync — Tailwind is the only custom Vite plugin, wired directly in `nuxt.config.ts`. Only touch `nuxt.config.ts`'s `alias` if something outside these conventions is genuinely needed.
+Nuxt's own conventions already cover what's needed: `#shared/*` (the `shared/` directory), `~/` (`app/`), `#app`. `types/` isn't a Nuxt-recognized directory, so `#types/*` is a manual entry in `nuxt.config.ts`'s `alias` — named with a `#` prefix, not `@types`, because TypeScript special-cases any import specifier literally starting with `@types/` as a DefinitelyTyped package path and refuses to resolve it (`TS6137`) regardless of what a `paths`/alias entry maps it to. There's no separate `vite.config.ts` to keep in sync — Tailwind is the only custom Vite plugin, wired directly in `nuxt.config.ts`. Only touch `nuxt.config.ts`'s `alias` if something outside these conventions is genuinely needed.

@@ -2,14 +2,14 @@
 // `scripts/seed.ts` persists to Neon. Nothing under server/ imports this —
 // once seeded, every field it computes lives in a real column and the API
 // only ever does a plain SELECT (see devmatch-patterns' code-patterns.md).
+import type { Specialty } from '../shared/professional'
 import type {
   Professional,
   ProfessionalDetail,
   ProfessionalProject,
   ProfessionalReview,
   ProfessionalService,
-  Specialty,
-} from '../shared/professional'
+} from '../types/professional'
 
 const TOTAL = 524
 

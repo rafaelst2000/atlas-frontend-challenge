@@ -30,28 +30,28 @@ const failed = ref(false)
 
 If you can delete a comment and a future reader would still understand the code the same way, delete it.
 
-## Formatting (no formatter enforces this — match it by hand)
+## Formatting (enforced by ESLint — run `npm run lint`/`lint:fix`, don't hand-roll it)
 
-No Prettier/ESLint config exists in this repo, so nothing runs on save or on commit. The style already used consistently across the codebase, to match: single quotes, **no semicolons**, 2-space indent, no trailing comma. Don't introduce double quotes or semicolons into a `.vue`/`.ts` file because an editor's default formatter did it — check the surrounding file's existing style and match it.
+`@nuxt/eslint` with `stylistic: true` (see `nuxt.config.ts`'s `eslint` key) enforces the style, generated from the project's own structure: single quotes, no semicolons, 2-space indent, **trailing commas in multiline literals**. Run `npm run lint:fix` instead of matching it by hand — it also sorts `nuxt.config.ts`'s top-level keys into the order the `nuxt/nuxt-config-keys-order` rule expects.
 
 ## TypeScript
 
 - Strict mode comes from Nuxt's generated config (not overridden) — keep new code fully typed, don't introduce a new `any`.
-- Shared types and constants that both a page and an API route need to agree on live in `shared/professional.ts`, imported via `#shared/professional` — never redeclared locally.
+- Isomorphic runtime values (`SPECIALTIES`, `SORT_OPTIONS`, `formatPrice`, ...) and the types derived from them (`Specialty`, `SortValue`) live in `shared/professional.ts`, imported via `#shared/professional`. Pure `interface`/`type` declarations with no backing value (`Professional`, `ProfessionalDetail`, `ProfessionalFilters`, ...) live in `types/professional.ts`, imported via `#types/professional`. Never redeclare either locally.
 - Props use the generic `defineProps<{...}>()` / `defineEmits<{...}>()` syntax, not the runtime validator object form.
 - Composables return a typed object (each field's type inferred from `ref`/`computed`), never `any`.
 
 ## Hygiene
 
-- No `console.log`/`debugger` left in `app/` or `server/` code — there's no pre-commit hook to catch it, so check the diff yourself. `scripts/seed.ts`'s `console.log` is fine: it's a CLI tool reporting to a human running it, not app code.
+- No `console.log`/`debugger` left in `app/` or `server/` code — ESLint doesn't flag either, so check the diff yourself. `scripts/seed.ts`'s `console.log` is fine: it's a CLI tool reporting to a human running it, not app code.
 - Code identifiers (variables, functions, files, commit messages) are in **English**. UI copy and content shown to the user are in **Portuguese** (`pt-BR`) — don't mix the two up in either direction.
 
 ## Imports
 
-- `#shared/professional` from anything under `app/` or `server/api|utils/`. Files that a plain `tsx` script also loads directly — `server/db/schema.ts` and everything under `scripts/` (the data generator, `seed.ts`) — import it with a **relative path** instead on purpose: `tsx` never goes through Nuxt's build, so the `#shared` alias wouldn't resolve there.
+- `#shared/professional` and `#types/professional` from anything under `app/` or `server/api|utils/`. Files a plain `tsx` script also loads directly — `server/db/schema.ts` and everything under `scripts/` (the data generator, `seed.ts`) — import both with a **relative path** instead on purpose (`../types/professional`, not `#types/professional`): `tsx` never goes through Nuxt's build, so neither alias would resolve there.
 - Composables and components under `app/` are Nuxt-auto-imported — don't write an `import` statement for `useProfessionalFilters`, `<ProfessionalCard>`, etc.
 - No import-order tool is configured; group type-only imports with the value imports they come from (`import type { X } from '...'` right next to `import { Y } from '...'` of the same module) rather than enforcing a strict alphabetical or external-before-internal order.
 
 ## Tooling
 
-No lint or formatter is configured in this repo yet — `npx nuxi typecheck` (run via the `/check` command alongside `npm run build`) and `npm run test` (Vitest — see `testing.md`) are the only automated checks. Don't assume ESLint/Prettier rules are being enforced — style consistency here is manual, per this file. If lint/format tooling is added later, update this file to describe what it actually enforces instead of duplicating rules the tool would catch automatically.
+`npx nuxi typecheck`, `npm run lint`, `npm run test` (Vitest — see `testing.md`) and `npm run build` are the automated checks (also run via the `/check` command, and in CI on every push/PR to `main`). If a lint rule ever needs overriding for a real reason, do it in `eslint.config.mjs` with a comment explaining why, not by disabling it inline.

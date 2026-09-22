@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Professional } from '#shared/professional'
+import type { Professional } from '#types/professional'
 import { formatPrice } from '#shared/professional'
 
 defineProps<{ professional: Professional }>()

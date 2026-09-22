@@ -38,7 +38,7 @@ Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticam
 **Dados e arquitetura**
 - Os dados ficam em **Postgres (Neon)**, acessados com **Drizzle ORM** pelo driver HTTP serverless (sem pool de conexões, ideal para a Vercel). O seed (`npm run db:seed`) gera 524 profissionais de forma determinística — **incluindo o conteúdo da página de perfil** (sobre, serviços, projetos, avaliações, disponibilidade, horário, tipo de contratação, idiomas): tudo é gerado uma vez no seed e persistido como coluna real, não sintetizado a cada request nem mockado no componente. A API de detalhe (`GET /api/professionals/:id`) é um `SELECT` direto; a de listagem seleciona só as colunas que o card precisa, sem carregar o conteúdo do perfil à toa.
 - A API (`GET /api/professionals` e `GET /api/professionals/:id`) faz busca (`unaccent` + `ILIKE`, ignorando acentos), filtros, ordenação e paginação **no banco**, com índices nas colunas usadas. O cliente nunca recebe o catálogo inteiro.
-- Tipos e constantes de filtros ficam em `shared/` e são usados por servidor e cliente.
+- Constantes de filtros ficam em `shared/`, tipos puros (`Professional`, `ProfessionalDetail`, ...) em `types/` — ambos usados por servidor e cliente.
 - Os filtros vivem na **query string** (`/?spec=QA&sort=rating`): URL compartilhável, botão voltar funcional e uma única fonte de verdade (`useProfessionalFilters`).
 
 **SEO**

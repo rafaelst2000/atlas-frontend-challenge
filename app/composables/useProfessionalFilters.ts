@@ -1,4 +1,4 @@
-import type { ProfessionalFilters } from '#shared/professional'
+import type { ProfessionalFilters } from '#types/professional'
 
 const FILTER_KEYS = ['q', 'spec', 'price', 'rating', 'exp', 'sort'] as const
 type FilterKey = (typeof FILTER_KEYS)[number]
