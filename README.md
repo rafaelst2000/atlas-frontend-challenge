@@ -19,7 +19,7 @@ npm run test:watch     # modo watch
 npm run test:coverage  # testes + relatório de cobertura (falha abaixo de 90% por componente)
 ```
 
-Não há lint configurado: `typecheck`, testes e build são as checagens automatizadas do projeto.
+Não há lint configurado: `typecheck`, testes e build são as checagens automatizadas do projeto — rodam em CI ([GitHub Actions](.github/workflows/ci.yml)) a cada push/PR em `main`, além de localmente antes de cada commit.
 
 Em produção (Vercel), a integração do Neon injeta `DATABASE_URL` automaticamente; a URL do site (canonical, sitemap e robots) vem de `NUXT_PUBLIC_SITE_URL` ou, na falta dela, de `VERCEL_PROJECT_PRODUCTION_URL`, que a Vercel injeta.
 
