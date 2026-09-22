@@ -32,16 +32,18 @@ Nuxt 4 layout: application source lives under `app/` (not the repo root), and st
 - `shared/professional.ts`: types plus filter/sort option constants, imported by both sides via `#shared/professional`.
 - Data lives in Neon Postgres via Drizzle (`server/db/schema.ts`, client in `server/utils/db.ts` using the HTTP driver for serverless). `.env` holds `DATABASE_URL` (pooled, runtime) and `DATABASE_URL_UNPOOLED` (drizzle-kit and seed); it is git-ignored, never commit or print credentials. `npm run db:push` syncs the schema and `npm run db:seed` reseeds (truncates) the table from `server/data/professionals.ts`, a deterministic generator (524 professionals, the 12 from the design first) that also builds each profile's detail content.
 - `server/api/professionals/` exposes the list (search, filters, sort and pagination done in SQL by `server/utils/professionalQuery.ts`, search uses the `unaccent` extension) and the detail; `server/api/__sitemap__/urls.ts` feeds the sitemap.
-- Filters live in the URL query (`app/composables/useProfessionalFilters.ts`); the home page (`app/pages/index.vue`) fetches with `useFetch` on that query and appends extra pages on "Carregar mais". Profiles are `app/pages/professionals/[id].vue`.
+- Filters live in the URL query (`app/composables/useProfessionalFilters.ts`). Data fetching is composables, not a service layer: `useProfessionals` (list + "load more" pagination) backs the home page (`app/pages/index.vue`), `useProfessionalDetail` backs the profile page (`app/pages/professionals/[id].vue`).
 - SEO/performance is a first-class requirement: follow the `nuxt-seo-performance` skill (`.claude/skills/nuxt-seo-performance/SKILL.md`) for every route, component and asset.
+- General code conventions (structure, naming, comments, git workflow, the testing plan) are in the `devmatch-patterns` skill (`.claude/skills/devmatch-patterns/SKILL.md`) — this file refines/overrides it wherever the two disagree.
 
 ## Styling / design system
 
-Tailwind CSS v4 is wired through the `@tailwindcss/vite` plugin in `nuxt.config.ts` (no `tailwind.config`). All design tokens live in the `@theme` block of `app/assets/css/main.css`, which also holds the reusable component classes (`.btn`, `.btn-primary`, `.card`, `.section-label`, `.hero-orb`, `.reveal`, ...) and the required body grain texture. Fonts (Inter, JetBrains Mono) are self-hosted by `@nuxt/fonts` (declared in `nuxt.config.ts`); do not add a Google Fonts `<link>`.
+Tailwind CSS v4 is wired through the `@tailwindcss/vite` plugin in `nuxt.config.ts` (no `tailwind.config`). All design tokens live in the `@theme` block of `app/assets/css/main.css`, which also holds the reusable component classes (`.btn`, `.btn-primary`, `.card`, `.section-label`, `.hero-orb`, ...) and the required body grain texture. Fonts (Inter, JetBrains Mono) are self-hosted by `@nuxt/fonts` (declared in `nuxt.config.ts`); do not add a Google Fonts `<link>`.
 
 The "Dark Luxury" design rules are in `DESIGN.md` (root) and `.claude/skills/dark-luxury-design/SKILL.md`; follow them when building UI (no filled amber buttons, cards without borders, `[Label]` section labels, color-contrast headlines, SVG icons only, no emojis). Prefer the token utilities (`bg-card`, `text-primary`, `text-body`, `font-mono`, ...) over hardcoded hex values.
 
 ## Conventions
 
 - Commit messages must follow Conventional Commits (e.g. `feat:`, `chore:`, `docs:`).
-- The default branch is `main`, tracking `origin` (`rafaelst2000/atlas-frontend-challenge`).
+- The default branch is `main`, tracking `origin` (`rafaelst2000/atlas-frontend-challenge`); there's no feature-branch/PR flow.
+- Never `git push` without the user's explicit confirmation for that specific push, even right after a commit they asked for.
