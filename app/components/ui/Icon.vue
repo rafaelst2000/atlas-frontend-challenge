@@ -4,6 +4,9 @@ import { ICONS, type IconName } from '~/utils/icons'
 const props = withDefaults(defineProps<{ name: IconName, size?: number }>(), { size: 14 })
 
 const icon = computed(() => ICONS[props.name])
+const paint = computed(() => icon.value.filled
+  ? { fill: 'currentColor', stroke: 'none' }
+  : { fill: 'none', stroke: 'currentColor' })
 </script>
 
 <template>
@@ -11,8 +14,7 @@ const icon = computed(() => ICONS[props.name])
     :width="size"
     :height="size"
     viewBox="0 0 24 24"
-    :fill="icon.filled ? 'currentColor' : 'none'"
-    :stroke="icon.filled ? 'none' : 'currentColor'"
+    v-bind="paint"
     :stroke-width="icon.strokeWidth"
     stroke-linecap="round"
     stroke-linejoin="round"

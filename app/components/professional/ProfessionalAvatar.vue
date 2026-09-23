@@ -1,5 +1,5 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   src: string
   name: string
   initials: string
@@ -8,12 +8,17 @@ withDefaults(defineProps<{
 }>(), { eager: false })
 
 const failed = ref(false)
+const isLarge = computed(() => props.size >= 80)
+const frameClasses = computed(() => isLarge.value
+  ? 'rounded-card border-accent-border shadow-[0_0_30px_rgba(212,160,60,0.12)]'
+  : 'rounded-xl')
+const initialsClasses = computed(() => isLarge.value ? 'text-[28px]' : 'text-sm')
 </script>
 
 <template>
   <div
     class="shrink-0 overflow-hidden border border-medium bg-surface"
-    :class="size >= 80 ? 'rounded-card border-accent-border shadow-[0_0_30px_rgba(212,160,60,0.12)]' : 'rounded-xl'"
+    :class="frameClasses"
     :style="{ width: `${size}px`, height: `${size}px` }"
   >
     <NuxtImg
@@ -33,7 +38,7 @@ const failed = ref(false)
     <span
       v-else
       class="flex size-full items-center justify-center font-mono text-accent"
-      :class="size >= 80 ? 'text-[28px]' : 'text-sm'"
+      :class="initialsClasses"
       aria-hidden="true"
     >
       {{ initials }}

@@ -5,6 +5,8 @@ import { formatPrice } from '#shared/professional'
 const props = defineProps<{ professional: ProfessionalDetail }>()
 
 const stars = computed(() => Array.from({ length: 5 }, (_, index) => index < Math.round(props.professional.rating)))
+const experienceLabel = computed(() => `${props.professional.years} ${props.professional.years === 1 ? 'ano' : 'anos'} de experiência`)
+const responseLabel = computed(() => `${props.professional.responseHours} ${props.professional.responseHours === 1 ? 'hora' : 'horas'}`)
 </script>
 
 <template>
@@ -61,7 +63,7 @@ const stars = computed(() => Array.from({ length: 5 }, (_, index) => index < Mat
               :size="15"
               class="text-tertiary"
             />
-            <span>{{ professional.years }} {{ professional.years === 1 ? 'ano' : 'anos' }} de experiência</span>
+            <span>{{ experienceLabel }}</span>
           </div>
         </div>
       </div>
@@ -75,7 +77,7 @@ const stars = computed(() => Array.from({ length: 5 }, (_, index) => index < Mat
           Solicitar orçamento
         </UiButton>
         <p class="text-center text-xs text-tertiary">
-          Resposta média em {{ professional.responseHours }} {{ professional.responseHours === 1 ? 'hora' : 'horas' }} · Sem taxa de contato
+          Resposta média em {{ responseLabel }} · Sem taxa de contato
         </p>
       </div>
     </div>

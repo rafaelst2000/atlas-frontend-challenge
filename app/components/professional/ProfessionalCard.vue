@@ -2,7 +2,9 @@
 import type { Professional } from '#types/professional'
 import { formatPrice } from '#shared/professional'
 
-defineProps<{ professional: Professional }>()
+const props = defineProps<{ professional: Professional }>()
+
+const experienceLabel = computed(() => `${props.professional.years} ${props.professional.years === 1 ? 'ano' : 'anos'} de experiência`)
 </script>
 
 <template>
@@ -64,7 +66,7 @@ defineProps<{ professional: Professional }>()
           name="briefcase"
           class="text-tertiary"
         />
-        <span>{{ professional.years }} {{ professional.years === 1 ? 'ano' : 'anos' }} de experiência</span>
+        <span>{{ experienceLabel }}</span>
       </div>
     </div>
 

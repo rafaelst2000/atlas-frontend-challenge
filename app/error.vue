@@ -4,9 +4,13 @@ import type { NuxtError } from '#app'
 const props = defineProps<{ error: NuxtError }>()
 
 const isNotFound = computed(() => props.error.status === 404)
+const badge = computed(() => isNotFound.value ? '[Erro 404]' : '[Erro]')
+const description = computed(() => isNotFound.value
+  ? 'O profissional ou a página que você procura pode ter sido removida, ou o endereço está incorreto.'
+  : 'Não conseguimos carregar essa página agora. Tente novamente em instantes.')
 
 useSeoMeta({
-  title: isNotFound.value ? 'Página não encontrada · DevMatch' : 'Erro · DevMatch',
+  title: () => isNotFound.value ? 'Página não encontrada · DevMatch' : 'Erro · DevMatch',
   robots: 'noindex',
 })
 </script>
@@ -27,7 +31,7 @@ useSeoMeta({
           />
         </div>
 
-        <span class="section-label !mb-4">{{ isNotFound ? '[Erro 404]' : '[Erro]' }}</span>
+        <span class="section-label !mb-4">{{ badge }}</span>
 
         <p class="text-[clamp(64px,14vw,120px)] font-extrabold leading-none tracking-tight text-accent">
           {{ error.status }}
@@ -43,9 +47,7 @@ useSeoMeta({
         </h1>
 
         <p class="mx-auto mt-5 max-w-100 text-[15px] leading-relaxed text-body">
-          {{ isNotFound
-            ? 'O profissional ou a página que você procura pode ter sido removida, ou o endereço está incorreto.'
-            : 'Não conseguimos carregar essa página agora. Tente novamente em instantes.' }}
+          {{ description }}
         </p>
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">

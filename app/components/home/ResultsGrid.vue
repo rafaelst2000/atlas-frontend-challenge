@@ -2,7 +2,7 @@
 import type { Professional } from '#types/professional'
 import { SORT_OPTIONS } from '#shared/professional'
 
-defineProps<{
+const props = defineProps<{
   professionals: Professional[]
   total: number
   isLoading: boolean
@@ -17,8 +17,17 @@ defineEmits<{ 'load-more': [], 'retry': [] }>()
 const { filters, update, clear } = useProfessionalFilters()
 
 const sortValue = computed(() => filters.value.sort ?? 'relevance')
-const sortLabel = computed(() => SORT_OPTIONS.find(option => option.value === sortValue.value)?.label ?? '')
+const sortCaption = computed(() => SORT_OPTIONS.find(option => option.value === sortValue.value)?.label.toUpperCase() ?? '')
 const hasFilters = computed(() => Object.keys(filters.value).some(key => key !== 'sort'))
+const totalLabel = computed(() => `${props.total} ${props.total === 1 ? 'profissional encontrado' : 'profissionais encontrados'}`)
+const loadMoreLabel = computed(() => props.loadingMore ? 'Carregando...' : 'Carregar mais profissionais')
+
+const view = computed(() => {
+  if (props.professionals.length) return 'results'
+  if (props.isLoading) return 'loading'
+  if (props.hasError) return 'error'
+  return 'empty'
+})
 </script>
 
 <template>
@@ -33,10 +42,10 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
         class="text-[clamp(20px,5vw,28px)] font-bold tracking-tight text-primary"
         aria-live="polite"
       >
-        {{ total }} {{ total === 1 ? 'profissional encontrado' : 'profissionais encontrados' }}
+        {{ totalLabel }}
       </h2>
       <p class="meta-line mt-1.5 !whitespace-normal">
-        ORDENADO POR {{ sortLabel.toUpperCase() }} // ATUALIZADO HÁ 4 MIN
+        ORDENADO POR {{ sortCaption }} // ATUALIZADO HÁ 4 MIN
       </p>
     </div>
     <div class="hidden items-center gap-2 md:flex">
@@ -55,7 +64,7 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
 
   <section class="mx-auto max-w-300 px-5 pb-10 pt-5">
     <div
-      v-if="isLoading && !professionals.length"
+      v-if="view === 'loading'"
       class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]"
     >
       <ProfessionalCardSkeleton
@@ -65,7 +74,7 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
     </div>
 
     <UiStatePanel
-      v-else-if="hasError && !professionals.length"
+      v-else-if="view === 'error'"
       icon="alert"
       tone="error"
       title="Não foi possível carregar os profissionais"
@@ -80,7 +89,7 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
     </UiStatePanel>
 
     <div
-      v-else-if="professionals.length"
+      v-else-if="view === 'results'"
       :class="{ 'opacity-60 transition-opacity': isLoading }"
     >
       <ul class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
@@ -100,7 +109,7 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
           :disabled="loadingMore"
           @click="$emit('load-more')"
         >
-          {{ loadingMore ? 'Carregando...' : 'Carregar mais profissionais' }}
+          {{ loadMoreLabel }}
         </UiButton>
         <p
           v-if="hasLoadMoreError"

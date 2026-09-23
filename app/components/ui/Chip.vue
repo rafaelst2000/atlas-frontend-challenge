@@ -22,13 +22,14 @@ const classes = computed(() => [
     : ['border', props.selected ? 'border-accent-border bg-accent-subtle text-accent' : 'border-subtle text-body'],
   props.as === 'button' && !props.selected && 'hover:text-primary',
 ])
+
+const buttonAttrs = computed(() => props.as === 'button' ? { 'type': 'button', 'aria-pressed': props.selected } : {})
 </script>
 
 <template>
   <component
     :is="as"
-    :type="as === 'button' ? 'button' : undefined"
-    :aria-pressed="as === 'button' ? selected : undefined"
+    v-bind="buttonAttrs"
     :class="classes"
   >
     <slot />
