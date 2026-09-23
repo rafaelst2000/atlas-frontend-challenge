@@ -45,6 +45,8 @@ export default defineNuxtConfig({
     '/api/professionals/**': { headers: { 'cache-control': 'public, max-age=60, s-maxage=300' } },
     '/profissionais/**': { redirect: { to: '/professionals/**', statusCode: 301 } },
   },
+
+  features: { inlineStyles: () => true },
   compatibilityDate: '2025-07-15',
 
   vite: {
@@ -56,6 +58,7 @@ export default defineNuxtConfig({
   },
 
   fonts: {
+    defaults: { styles: ['normal'], subsets: ['latin'] },
     families: [
       { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700, 800] },
       { name: 'JetBrains Mono', provider: 'google', weights: [400, 500] },

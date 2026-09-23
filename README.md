@@ -81,7 +81,7 @@ Componentes ficam agrupados por domínio (`professional/`, `home/`, `layout/`), 
 - HTML semântico (um `h1` por página, landmarks, `aria-live` na contagem de resultados, breadcrumb).
 
 **Performance e Core Web Vitals**
-- **LCP:** conteúdo principal renderizado no servidor; fontes autohospedadas com `@nuxt/fonts` (sem stylesheet de terceiros bloqueante) e fallbacks com métricas ajustadas.
+- **LCP:** conteúdo principal renderizado no servidor; fontes autohospedadas com `@nuxt/fonts` (sem stylesheet de terceiros bloqueante), fallbacks com métricas ajustadas, apenas o estilo normal e o subset latin (sem itálico, que o projeto não usa: o CSS caiu de 96 para 9 regras `@font-face`) e o CSS inlinado no HTML, o que tira um round trip bloqueante da primeira pintura. O custo é ~7 KB comprimidos a mais por HTML, aceitável porque a página já vem de cache (`swr`).
 - **CLS:** skeletons com altura reservada, grid estável e `width`/`height` explícitos em todas as fotos.
 - **Imagens:** fotos dos profissionais (coluna `photo` no banco) e capturas de tela dos projetos do portfólio (coluna `projects`, uma imagem por projeto) servidas por `@nuxt/image`: redimensionadas por densidade (`1x`/`2x`), em WebP, com `loading="lazy"` nos cards e `eager` + `fetchpriority="high"` só na foto do perfil (imagem principal da página). Se a foto falhar, o avatar de iniciais aparece como fallback. Na Vercel, o otimizador nativo é usado automaticamente.
 - **INP:** busca com debounce de 300 ms, listas com `shallowRef`, sem watchers desnecessários.
