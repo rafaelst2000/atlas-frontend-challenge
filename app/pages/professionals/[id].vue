@@ -82,12 +82,12 @@ useHead({
         <strong class="block text-[17px] font-bold tracking-[-0.02em] text-primary">{{ formatPrice(professional.price) }}<span class="text-xs font-normal text-tertiary">/h</span></strong>
         <span class="text-label text-tertiary">Resposta em ~{{ professional.responseHours }}h</span>
       </div>
-      <button
-        type="button"
-        class="btn btn-primary flex-1 !py-3.25"
+      <UiButton
+        size="lg"
+        class="flex-1"
       >
         Solicitar orçamento
-      </button>
+      </UiButton>
     </div>
   </main>
 </template>

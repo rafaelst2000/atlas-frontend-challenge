@@ -38,16 +38,11 @@ onBeforeUnmount(() => {
           aria-label="Fechar"
           @click="emit('close')"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--color-primary)"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            aria-hidden="true"
-          ><path d="M6 6l12 12" /><path d="M18 6 6 18" /></svg>
+          <UiIcon
+            name="close"
+            :size="16"
+            class="text-primary"
+          />
         </button>
       </div>
 
@@ -100,13 +95,12 @@ onBeforeUnmount(() => {
         >
           Limpar filtros
         </button>
-        <button
-          type="button"
-          class="btn btn-primary flex-[1.4]"
+        <UiButton
+          class="flex-[1.4]"
           @click="emit('close')"
         >
           Ver {{ total }} resultados
-        </button>
+        </UiButton>
       </div>
     </div>
   </div>

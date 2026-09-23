@@ -7,25 +7,20 @@
         aria-label="DevMatch, página inicial"
       >
         <span class="flex size-6.5 items-center justify-center rounded-lg border border-accent-border bg-accent-subtle">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--color-accent)"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          ><path d="M8 6 3 12l5 6" /><path d="m16 6 5 6-5 6" /></svg>
+          <UiIcon
+            name="code"
+            class="text-accent"
+          />
         </span>
         <span class="text-[17px] font-bold tracking-[-0.02em] text-primary">DevMatch</span>
       </NuxtLink>
 
-      <NuxtLink
+      <UiButton
         to="/#profissionais"
-        class="btn btn-primary btn-sm"
-      >Quero contratar</NuxtLink>
+        size="sm"
+      >
+        Quero contratar
+      </UiButton>
     </div>
   </header>
 </template>

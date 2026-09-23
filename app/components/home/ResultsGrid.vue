@@ -44,20 +44,12 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
         for="sort"
         class="text-[13px] text-tertiary"
       >Ordenar por</label>
-      <select
+      <ProfessionalSortSelect
         id="sort"
-        class="cursor-pointer rounded-button border border-medium bg-card px-3.5 py-2.5 text-[13px] text-primary"
-        :value="sortValue"
-        @change="update({ sort: ($event.target as HTMLSelectElement).value === 'relevance' ? undefined : ($event.target as HTMLSelectElement).value })"
-      >
-        <option
-          v-for="option in SORT_OPTIONS"
-          :key="option.value"
-          :value="option.value"
-        >
-          {{ option.label }}
-        </option>
-      </select>
+        class="px-3.5 py-2.5"
+        :model-value="filters.sort"
+        @update:model-value="update({ sort: $event })"
+      />
     </div>
   </section>
 
@@ -72,37 +64,20 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
       />
     </div>
 
-    <div
+    <UiStatePanel
       v-else-if="hasError && !professionals.length"
-      class="rounded-card bg-card px-6 py-12 text-center shadow-card"
+      icon="alert"
+      tone="error"
+      title="Não foi possível carregar os profissionais"
+      description="Houve uma falha ao buscar os dados. Verifique sua conexão e tente novamente."
     >
-      <div class="mx-auto mb-5 flex size-13 items-center justify-center rounded-xl border border-error/40 bg-error/10">
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--color-error)"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        ><path d="M12 9v4" /><path d="M12 17h.01" /><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" /></svg>
-      </div>
-      <h3 class="text-xl font-bold tracking-[-0.02em] text-primary">
-        Não foi possível carregar os profissionais
-      </h3>
-      <p class="mx-auto mt-2.5 max-w-100 text-sm leading-relaxed text-body">
-        Houve uma falha ao buscar os dados. Verifique sua conexão e tente novamente.
-      </p>
-      <button
-        type="button"
-        class="btn btn-primary mt-6"
+      <UiButton
+        class="mt-6"
         @click="$emit('retry')"
       >
         Tentar novamente
-      </button>
-    </div>
+      </UiButton>
+    </UiStatePanel>
 
     <div
       v-else-if="professionals.length"
@@ -119,15 +94,14 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
       </ul>
 
       <div class="mt-8 flex flex-col items-center gap-4">
-        <button
+        <UiButton
           v-if="hasMore"
-          type="button"
-          class="btn btn-primary w-full max-w-70 !py-3.5"
+          class="w-full max-w-70 !py-3.5"
           :disabled="loadingMore"
           @click="$emit('load-more')"
         >
           {{ loadingMore ? 'Carregando...' : 'Carregar mais profissionais' }}
-        </button>
+        </UiButton>
         <p
           v-if="hasLoadMoreError"
           class="text-sm text-error"
@@ -140,40 +114,19 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
       </div>
     </div>
 
-    <div
+    <UiStatePanel
       v-else
-      class="rounded-card bg-card px-6 py-12 text-center shadow-card"
+      icon="search-minus"
+      title="Nenhum profissional encontrado"
+      description="Tente remover alguns filtros ou buscar por outra tecnologia. Você também pode ampliar a faixa de preço ou a distância."
     >
-      <div class="mx-auto mb-5 flex size-13 items-center justify-center rounded-xl border border-medium bg-surface">
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--color-accent)"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          aria-hidden="true"
-        ><circle
-          cx="11"
-          cy="11"
-          r="7"
-        /><path d="m20 20-3.5-3.5" /><path d="M8.5 11h5" /></svg>
-      </div>
-      <h3 class="text-xl font-bold tracking-[-0.02em] text-primary">
-        Nenhum profissional encontrado
-      </h3>
-      <p class="mx-auto mt-2.5 max-w-100 text-sm leading-relaxed text-body">
-        Tente remover alguns filtros ou buscar por outra tecnologia. Você também pode ampliar a faixa de preço ou a distância.
-      </p>
-      <button
+      <UiButton
         v-if="hasFilters"
-        type="button"
-        class="btn btn-primary mt-6"
+        class="mt-6"
         @click="clear()"
       >
         Limpar filtros
-      </button>
-    </div>
+      </UiButton>
+    </UiStatePanel>
   </section>
 </template>

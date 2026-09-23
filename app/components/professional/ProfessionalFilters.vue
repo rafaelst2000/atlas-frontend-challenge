@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  EXPERIENCE_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SORT_OPTIONS, SPECIALTIES,
+  EXPERIENCE_OPTIONS, PRICE_OPTIONS, RATING_OPTIONS, SPECIALTIES,
 } from '#shared/professional'
 
 const { filters, activeCount, update, clear } = useProfessionalFilters()
@@ -28,36 +28,22 @@ const sheetOpen = ref(false)
         class="flex flex-1 items-center justify-center gap-2 rounded-button border border-medium bg-card p-3 text-sm font-semibold text-primary"
         @click="sheetOpen = true"
       >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--color-accent)"
-          stroke-width="1.7"
-          stroke-linecap="round"
-          aria-hidden="true"
-        ><path d="M4 7h16" /><path d="M7 12h10" /><path d="M10 17h4" /></svg>
+        <UiIcon
+          name="sliders"
+          :size="16"
+          class="text-accent"
+        />
         Filtros
         <span
           v-if="activeCount"
           class="font-mono text-label text-accent"
         >{{ activeCount }}</span>
       </button>
-      <select
-        class="flex-1 cursor-pointer rounded-button border border-medium bg-card p-3 text-[13px] text-primary"
-        aria-label="Ordenar por"
-        :value="filters.sort ?? 'relevance'"
-        @change="update({ sort: ($event.target as HTMLSelectElement).value === 'relevance' ? undefined : ($event.target as HTMLSelectElement).value })"
-      >
-        <option
-          v-for="option in SORT_OPTIONS"
-          :key="option.value"
-          :value="option.value"
-        >
-          {{ option.label }}
-        </option>
-      </select>
+      <ProfessionalSortSelect
+        class="flex-1 p-3"
+        :model-value="filters.sort"
+        @update:model-value="update({ sort: $event })"
+      />
     </div>
 
     <div class="hidden flex-wrap items-center gap-2.5 rounded-card bg-card p-3.5 shadow-card md:flex">

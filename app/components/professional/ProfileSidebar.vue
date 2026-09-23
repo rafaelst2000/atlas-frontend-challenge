@@ -33,12 +33,12 @@ const infos = computed(() => [
           </dd>
         </div>
       </dl>
-      <button
-        type="button"
-        class="btn btn-primary mt-4.5 w-full !bg-surface !py-3.25"
+      <UiButton
+        size="lg"
+        class="mt-4.5 w-full"
       >
         Solicitar orçamento
-      </button>
+      </UiButton>
     </div>
     <div class="rounded-card bg-card p-5.5 shadow-card">
       <h3 class="mb-2 text-[15px] font-semibold text-primary">

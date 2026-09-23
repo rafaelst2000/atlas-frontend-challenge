@@ -23,8 +23,8 @@ describe('ProfessionalProfileHero', () => {
       props: { professional: makeProfessionalDetail({ rating: 3 }) },
     })
 
-    const filled = html().match(/fill="var\(--color-accent\)"/g) ?? []
-    const empty = html().match(/fill="rgba\(212,160,60,0\.35\)"/g) ?? []
+    const filled = html().match(/class="[^"]*\btext-accent\b(?!\/)[^"]*"[^>]*><polygon/g) ?? []
+    const empty = html().match(/class="[^"]*text-accent\/35[^"]*"[^>]*><polygon/g) ?? []
     expect(filled).toHaveLength(3)
     expect(empty).toHaveLength(2)
   })

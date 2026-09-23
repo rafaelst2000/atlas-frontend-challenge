@@ -25,21 +25,10 @@ const suggestions = ['React', 'Front-end', 'Designer UX', 'DevOps']
     />
     <div class="relative mx-auto max-w-205 text-center">
       <p class="hero-badge mb-6 !text-[13px]">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--color-accent)"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        ><circle
-          cx="12"
-          cy="12"
-          r="9"
-        /><path d="m9 12 2 2 4-4" /></svg>
+        <UiIcon
+          name="check-circle"
+          class="text-accent"
+        />
         <span>{{ catalogTotal }} profissionais verificados</span>
       </p>
       <h1 class="text-[clamp(32px,7vw,64px)] font-extrabold leading-[1.08] tracking-tight [text-wrap:pretty]">
@@ -55,21 +44,11 @@ const suggestions = ['React', 'Front-end', 'Designer UX', 'DevOps']
         @submit.prevent="update({ q: search.trim() || undefined })"
       >
         <label class="flex min-w-0 flex-[1_1_220px] items-center gap-2.5 px-3">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--color-tertiary)"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            class="shrink-0"
-            aria-hidden="true"
-          ><circle
-            cx="11"
-            cy="11"
-            r="7"
-          /><path d="m20 20-3.5-3.5" /></svg>
+          <UiIcon
+            name="search"
+            :size="18"
+            class="text-tertiary"
+          />
           <span class="sr-only">Buscar profissionais</span>
           <input
             v-model="search"
@@ -79,12 +58,13 @@ const suggestions = ['React', 'Front-end', 'Designer UX', 'DevOps']
             autocomplete="off"
           >
         </label>
-        <button
+        <UiButton
           type="submit"
-          class="btn btn-primary ml-auto hidden w-full max-w-45 flex-[1_1_100%] !bg-surface !py-3.25 md:inline-flex"
+          size="lg"
+          class="ml-auto hidden w-full max-w-45 flex-[1_1_100%] md:inline-flex"
         >
           Buscar
-        </button>
+        </UiButton>
       </form>
 
       <div class="mt-4 flex flex-wrap items-center justify-center gap-2">

@@ -62,22 +62,11 @@ defineProps<{ professional: ProfessionalDetail }>()
             class="flex size-10.5 items-center justify-center rounded-button border border-medium bg-surface"
             aria-hidden="true"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="var(--color-accent)"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ><rect
-              x="3"
-              y="4"
-              width="18"
-              height="16"
-              rx="2"
-            /><path d="M3 9h18" /><path d="M8 14h5" /></svg>
+            <UiIcon
+              name="calendar"
+              :size="20"
+              class="text-accent"
+            />
           </span>
           <h3 class="text-base font-semibold tracking-[-0.02em] text-primary">
             {{ service.title }}

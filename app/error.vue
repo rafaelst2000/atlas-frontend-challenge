@@ -20,21 +20,11 @@ useSeoMeta({
       />
       <div class="relative mx-auto max-w-140 text-center">
         <div class="mx-auto mb-6 flex size-13 items-center justify-center rounded-xl border border-accent-border bg-accent-subtle">
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--color-accent)"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          ><circle
-            cx="11"
-            cy="11"
-            r="7"
-          /><path d="m21 21-4.3-4.3" /><path d="m8 8 6 6" /><path d="m14 8-6 6" /></svg>
+          <UiIcon
+            name="search-x"
+            :size="22"
+            class="text-accent"
+          />
         </div>
 
         <span class="section-label !mb-4">{{ isNotFound ? '[Erro 404]' : '[Erro]' }}</span>
@@ -59,20 +49,15 @@ useSeoMeta({
         </p>
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="clearError({ redirect: '/' })"
-          >
+          <UiButton @click="clearError({ redirect: '/' })">
             Voltar para o início
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary"
+          </UiButton>
+          <UiButton
+            variant="secondary"
             @click="clearError({ redirect: '/#profissionais' })"
           >
             Ver profissionais
-          </button>
+          </UiButton>
         </div>
       </div>
     </main>
