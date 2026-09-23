@@ -2,19 +2,20 @@
 defineProps<{
   label: string
   options: readonly { value: string, label: string }[]
-  modelValue?: string
   placeholder?: string
 }>()
 
-defineEmits<{ 'update:modelValue': [value: string | undefined] }>()
+const model = defineModel<string>({
+  get: value => value ?? '',
+  set: value => value || undefined,
+})
 </script>
 
 <template>
   <select
+    v-model="model"
     class="ui-select"
-    :value="modelValue ?? ''"
     :aria-label="label"
-    @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value || undefined)"
   >
     <option
       v-if="placeholder"
