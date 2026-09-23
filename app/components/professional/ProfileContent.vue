@@ -92,8 +92,6 @@ defineProps<{ professional: ProfessionalDetail }>()
       </ul>
     </section>
 
-    <!-- Below the fold: rendered on the server, hydrated only when scrolled into view.
-         The Lazy prefix is required — without it Nuxt ignores the hydration strategy. -->
     <LazyProfessionalPortfolioAndReviews
       hydrate-on-visible
       :projects="professional.projects"

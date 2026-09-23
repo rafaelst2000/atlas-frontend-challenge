@@ -77,7 +77,6 @@ useHead({
       <ProfessionalProfileSidebar :professional="professional" />
     </div>
 
-    <!-- Mobile sticky CTA (CSS-only breakpoint: no client JS to decide visibility) -->
     <div class="fixed inset-x-0 bottom-0 z-[400] flex items-center gap-3 border-t border-subtle bg-base/90 px-4 pb-[calc(12px+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl md:hidden">
       <div class="min-w-0">
         <strong class="block text-[17px] font-bold tracking-[-0.02em] text-primary">{{ formatPrice(professional.price) }}<span class="text-xs font-normal text-tertiary">/h</span></strong>
