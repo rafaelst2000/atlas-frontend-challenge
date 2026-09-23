@@ -13,8 +13,6 @@ watch(() => filters.value.q, (value) => {
   if ((value ?? '') !== search.value.trim()) search.value = value ?? ''
 })
 onBeforeUnmount(() => clearTimeout(timer))
-
-const suggestions = ['React', 'Front-end', 'Designer UX', 'DevOps']
 </script>
 
 <template>
@@ -66,18 +64,6 @@ const suggestions = ['React', 'Front-end', 'Designer UX', 'DevOps']
           Buscar
         </UiButton>
       </form>
-
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-        <span class="font-mono text-label tracking-[0.04em] text-tertiary">POPULARES //</span>
-        <UiChip
-          v-for="suggestion in suggestions"
-          :key="suggestion"
-          as="button"
-          @click="search = suggestion; update({ q: suggestion })"
-        >
-          {{ suggestion }}
-        </UiChip>
-      </div>
     </div>
   </section>
 </template>

@@ -95,15 +95,6 @@ describe('HomeHero', () => {
     expect(mocks.update).toHaveBeenCalledWith({ q: undefined })
   })
 
-  it('applies a popular suggestion to both the input and the query', async () => {
-    await renderSuspended(Hero, { props: { catalogTotal: 0 } })
-
-    await fireEvent.click(screen.getByRole('button', { name: 'DevOps' }))
-
-    expect(mocks.update).toHaveBeenCalledWith({ q: 'DevOps' })
-    expect((screen.getByLabelText('Buscar profissionais') as HTMLInputElement).value).toBe('DevOps')
-  })
-
   describe('debounce', () => {
     beforeEach(() => vi.useFakeTimers())
     afterEach(() => vi.useRealTimers())
