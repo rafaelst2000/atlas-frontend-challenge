@@ -89,17 +89,15 @@ const sheetOpen = ref(false)
       role="group"
       aria-label="Especialidade"
     >
-      <button
+      <UiChip
         v-for="spec in SPECIALTIES"
         :key="spec"
-        type="button"
-        class="rounded-full border px-3.5 py-1.75 text-[12.5px] transition-colors"
-        :class="filters.spec === spec ? 'border-accent-border bg-accent-subtle text-accent' : 'border-subtle text-body hover:text-primary'"
-        :aria-pressed="filters.spec === spec"
+        as="button"
+        :selected="filters.spec === spec"
         @click="update({ spec: filters.spec === spec ? undefined : spec })"
       >
         {{ spec }}
-      </button>
+      </UiChip>
     </div>
 
     <LazyProfessionalFiltersSheet

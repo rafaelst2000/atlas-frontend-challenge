@@ -33,13 +33,15 @@ defineProps<{ professional: Professional }>()
       class="flex flex-wrap gap-1.5"
       aria-label="Tecnologias"
     >
-      <li
+      <UiChip
         v-for="tech in professional.techs"
         :key="tech"
-        class="rounded-full border border-subtle px-2.5 py-1.25 font-mono text-label text-body"
+        as="li"
+        size="sm"
+        mono
       >
         {{ tech }}
-      </li>
+      </UiChip>
     </ul>
 
     <div class="flex flex-col gap-1.75 text-[12.5px] text-body">

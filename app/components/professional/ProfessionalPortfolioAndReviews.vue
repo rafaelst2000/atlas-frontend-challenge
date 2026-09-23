@@ -37,13 +37,15 @@ defineProps<{ projects: ProfessionalProject[], reviews: ProfessionalReview[] }>(
               {{ project.desc }}
             </p>
             <ul class="flex flex-wrap gap-1.5">
-              <li
+              <UiChip
                 v-for="tech in project.techs"
                 :key="tech"
-                class="rounded-full border border-subtle px-2.25 py-1 font-mono text-[10.5px] text-body"
+                as="li"
+                size="sm"
+                mono
               >
                 {{ tech }}
-              </li>
+              </UiChip>
             </ul>
           </div>
         </li>

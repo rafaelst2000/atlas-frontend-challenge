@@ -69,15 +69,14 @@ const suggestions = ['React', 'Front-end', 'Designer UX', 'DevOps']
 
       <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
         <span class="font-mono text-label tracking-[0.04em] text-tertiary">POPULARES //</span>
-        <button
+        <UiChip
           v-for="suggestion in suggestions"
           :key="suggestion"
-          type="button"
-          class="rounded-full border border-subtle px-3 py-1.5 text-xs text-body transition-colors hover:text-primary"
+          as="button"
           @click="search = suggestion; update({ q: suggestion })"
         >
           {{ suggestion }}
-        </button>
+        </UiChip>
       </div>
     </div>
   </section>

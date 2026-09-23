@@ -34,13 +34,16 @@ defineProps<{ professional: ProfessionalDetail }>()
         Tecnologias
       </h2>
       <ul class="flex flex-wrap gap-2">
-        <li
+        <UiChip
           v-for="tech in professional.techs"
           :key="tech"
-          class="rounded-full bg-card px-4 py-2.25 font-mono text-[12.5px] text-primary shadow-[inset_0_1px_0_rgba(255,248,230,0.08),0_2px_12px_rgba(0,0,0,0.35)]"
+          as="li"
+          size="lg"
+          variant="raised"
+          mono
         >
           {{ tech }}
-        </li>
+        </UiChip>
       </ul>
     </section>
 

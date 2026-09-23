@@ -50,17 +50,16 @@ onBeforeUnmount(() => {
         Especialidade
       </p>
       <div class="mb-5 flex flex-wrap gap-2">
-        <button
+        <UiChip
           v-for="spec in SPECIALTIES"
           :key="spec"
-          type="button"
-          class="rounded-full border px-3.75 py-2.25 text-[13px]"
-          :class="filters.spec === spec ? 'border-accent-border bg-accent-subtle text-accent' : 'border-subtle text-body'"
-          :aria-pressed="filters.spec === spec"
+          as="button"
+          size="lg"
+          :selected="filters.spec === spec"
           @click="update({ spec: filters.spec === spec ? undefined : spec })"
         >
           {{ spec }}
-        </button>
+        </UiChip>
       </div>
 
       <div class="flex flex-col gap-3.5">
