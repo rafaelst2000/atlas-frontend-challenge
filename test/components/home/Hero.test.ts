@@ -9,9 +9,6 @@ const mocks = vi.hoisted(() => ({
   filters: {} as Record<string, string | undefined>,
   update: vi.fn(),
   clear: vi.fn(),
-  // Replaced by the mock factory below with a reactive version, so a test can
-  // change the URL query after mount (the component watches it to re-sync the
-  // input). Until the factory runs, setting the plain value is enough.
   setFilters(filters: Record<string, string | undefined>) { mocks.filters = filters },
 }))
 

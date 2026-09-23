@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/*
- * Design system: "Dark Luxury" (see DESIGN.md and .claude/skills/dark-luxury-design/SKILL.md).
- * Tokens are exposed as Tailwind utilities, e.g. bg-base, bg-card, text-primary, text-accent,
- * border-subtle, rounded-card, shadow-card, font-mono, ease-out-expo.
- */
 @theme {
   --color-base: #0a0907;
   --color-surface: #100f0d;
@@ -79,7 +74,6 @@
   html {
     background: var(--color-base);
     scroll-behavior: smooth;
-    /* Sticky header height, so anchors do not land underneath it */
     scroll-padding-top: 72px;
   }
 
@@ -95,7 +89,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Grain texture: required by the design system */
   body::before {
     content: "";
     position: fixed;
@@ -110,7 +103,6 @@
 }
 
 @layer components {
-  /* Section label: [Label] in mono amber */
   .section-label {
     display: block;
     margin-bottom: 16px;
@@ -120,11 +112,9 @@
     color: var(--color-accent);
   }
 
-  /* Headlines: contrast through color, never weight */
   .hl-muted { color: var(--color-muted); }
   .hl-bright { color: var(--color-primary); }
 
-  /* Buttons: dark bg + border, never filled amber */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -164,7 +154,6 @@
     background: rgba(255, 255, 255, 0.03);
   }
 
-  /* Cards: no border, elevation via inset highlight + shadow */
   .card {
     background: var(--color-card);
     border-radius: var(--radius-card);
@@ -178,9 +167,6 @@
     box-shadow: var(--shadow-card-hover);
   }
 
-  /* Select: native control (a11y, mobile pickers) restyled with DS tokens.
-     Where `appearance: base-select` exists the option menu is styled too;
-     elsewhere the closed control matches and the OS menu just goes dark. */
   .ui-select {
     appearance: none;
     color-scheme: dark;
@@ -254,7 +240,6 @@
     .ui-select option::checkmark { color: var(--color-accent); }
   }
 
-  /* Monospace technical metadata line */
   .meta-line {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -265,7 +250,6 @@
     text-overflow: ellipsis;
   }
 
-  /* Hero orb: single elliptical glow, bottom-center */
   .hero-orb {
     position: absolute;
     bottom: -80px;

@@ -15,7 +15,7 @@ The bar: someone reading the line in isolation, without scrolling up for context
 
 ## Comments
 
-No comments in `app/`, `server/` or `scripts/` — full stop, not even a "why" comment. This was a deliberate tightening of an earlier, more permissive rule (non-obvious-why comments were allowed); every one of those, including genuinely load-bearing explanations, was stripped in that pass:
+No comments in any source file — `app/` (`.vue`, `.ts` and `.css`), `server/`, `scripts/`, `shared/`, `types/`, `test/` and the root config files — full stop, not even a "why" comment. The only exceptions are functional directives that tooling reads, such as `// @vitest-environment nuxt` and `// @ts-check`. This was a deliberate tightening of an earlier, more permissive rule (non-obvious-why comments were allowed); every one of those, including genuinely load-bearing explanations, was stripped in that pass:
 ```ts
 // Neon's HTTP driver is stateless: ideal for serverless functions (no connection pool to exhaust)
 return drizzle(neon(url), { schema })

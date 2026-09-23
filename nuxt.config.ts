@@ -29,11 +29,6 @@ export default defineNuxtConfig({
     defaultLocale: 'pt-BR',
   },
 
-  // Not a Nuxt-recognized directory (unlike shared/, which gets #shared for free),
-  // so pure view-model types under types/ need an explicit alias. `#types`, not
-  // `@types` — TypeScript special-cases any import specifier starting with
-  // `@types/` as a DefinitelyTyped package path and refuses to resolve it (TS6137),
-  // regardless of what a `paths`/alias entry maps it to.
   alias: {
     '#types': fileURLToPath(new URL('./types', import.meta.url)),
   },
