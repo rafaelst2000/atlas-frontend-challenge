@@ -178,6 +178,82 @@
     box-shadow: var(--shadow-card-hover);
   }
 
+  /* Select: native control (a11y, mobile pickers) restyled with DS tokens.
+     Where `appearance: base-select` exists the option menu is styled too;
+     elsewhere the closed control matches and the OS menu just goes dark. */
+  .ui-select {
+    appearance: none;
+    color-scheme: dark;
+    cursor: pointer;
+    padding: 10px 36px 10px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--color-primary);
+    background-color: var(--color-card);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238d8372' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    border: 1px solid var(--color-medium);
+    border-radius: var(--radius-button);
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+  .ui-select:hover { border-color: rgba(255, 248, 230, 0.28); }
+  .ui-select:focus-visible {
+    outline: none;
+    border-color: var(--color-accent-border);
+    box-shadow: 0 0 0 3px var(--color-accent-subtle);
+  }
+  .ui-select option {
+    background: var(--color-card);
+    color: var(--color-primary);
+  }
+  .ui-select option:checked { color: var(--color-accent); }
+
+  @supports (appearance: base-select) {
+    .ui-select,
+    .ui-select::picker(select) { appearance: base-select; }
+    .ui-select {
+      padding-right: 12px;
+      background-image: none;
+    }
+    .ui-select::picker-icon {
+      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238d8372' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      width: 16px;
+      height: 16px;
+      transition: rotate 200ms var(--ease-out-expo);
+    }
+    .ui-select:open::picker-icon { rotate: 180deg; }
+    .ui-select::picker(select) {
+      margin-top: 6px;
+      padding: 6px;
+      background: var(--color-card);
+      border: 1px solid var(--color-medium);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .ui-select option {
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--color-body);
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease;
+    }
+    .ui-select option:hover {
+      color: var(--color-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .ui-select option:checked {
+      color: var(--color-accent);
+      background: var(--color-accent-subtle);
+    }
+    .ui-select option::checkmark { color: var(--color-accent); }
+  }
+
   /* Monospace technical metadata line */
   .meta-line {
     font-family: var(--font-mono);

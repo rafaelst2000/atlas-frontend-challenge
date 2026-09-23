@@ -21,7 +21,7 @@ describe('ProfessionalSortSelect', () => {
   it('falls back to relevance when nothing is selected', async () => {
     await render()
 
-    expect((screen.getByRole('combobox') as HTMLSelectElement).value).toBe('relevance')
+    expect((screen.getByRole('combobox') as HTMLSelectElement).value).toBe('')
   })
 
   it('reflects the current sort', async () => {
@@ -41,7 +41,7 @@ describe('ProfessionalSortSelect', () => {
   it('emits undefined when relevance is chosen back, since it is the default', async () => {
     const { emitted } = await render({ modelValue: 'rating' })
 
-    await fireEvent.update(screen.getByRole('combobox'), 'relevance')
+    await fireEvent.update(screen.getByRole('combobox'), '')
 
     expect(emitted()['update:modelValue']).toEqual([[undefined]])
   })

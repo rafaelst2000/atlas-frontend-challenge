@@ -56,14 +56,14 @@ scripts/   # Geração determinística do dataset de 524 profissionais + seed
 docs/      # Enunciado do desafio e documentação técnica de apoio
 ```
 
-Componentes ficam agrupados por domínio (`professional/`, `home/`, `layout/`), com `ui/` para blocos genéricos e reutilizáveis (`UiButton`, `UiIcon`, `UiStatePanel`); o acesso à API passa por composables finos (`useProfessionals`, `useProfessionalFilters`, `useProfessionalDetail`) em vez de uma camada de serviço — com só dois endpoints, um composable por recurso já é a abstração inteira necessária.
+Componentes ficam agrupados por domínio (`professional/`, `home/`, `layout/`), com `ui/` para blocos genéricos e reutilizáveis (`UiButton`, `UiIcon`, `UiSelect`, `UiStatePanel`); o acesso à API passa por composables finos (`useProfessionals`, `useProfessionalFilters`, `useProfessionalDetail`) em vez de uma camada de serviço — com só dois endpoints, um composable por recurso já é a abstração inteira necessária.
 
 ## O que foi entregue
 
 - **Listagem** com 524 profissionais, busca por nome, profissão ou tecnologia, 4 filtros (especialidade, faixa de preço, avaliação mínima e experiência), 5 ordenações e botão "Carregar mais" (12 por página).
 - **Perfil** em página dedicada (`/professionals/:id`) com sobre, tecnologias, serviços, portfólio, avaliações e CTA fixo no mobile.
 - Design system "Dark Luxury" ([`DESIGN.md`](DESIGN.md)), mobile first e responsivo.
-- **132 testes** (Vitest + `@nuxt/test-utils` + Testing Library) cobrindo todos os componentes a 100%, com piso de cobertura de 90% por arquivo imposto na configuração — mais os testes do construtor de SQL, incluindo o escape de curingas do `LIKE`.
+- **140 testes** (Vitest + `@nuxt/test-utils` + Testing Library) cobrindo todos os componentes a 100%, com piso de cobertura de 90% por arquivo imposto na configuração — mais os testes do construtor de SQL, incluindo o escape de curingas do `LIKE`.
 
 ## Decisões técnicas
 

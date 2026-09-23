@@ -40,7 +40,7 @@ const sheetOpen = ref(false)
         >{{ activeCount }}</span>
       </button>
       <ProfessionalSortSelect
-        class="flex-1 p-3"
+        class="flex-1 py-3"
         :model-value="filters.sort"
         @update:model-value="update({ sort: $event })"
       />

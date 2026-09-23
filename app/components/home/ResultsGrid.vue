@@ -46,7 +46,7 @@ const hasFilters = computed(() => Object.keys(filters.value).some(key => key !==
       >Ordenar por</label>
       <ProfessionalSortSelect
         id="sort"
-        class="px-3.5 py-2.5"
+        class="py-2.5"
         :model-value="filters.sort"
         @update:model-value="update({ sort: $event })"
       />

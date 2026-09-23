@@ -4,21 +4,17 @@ import { SORT_OPTIONS } from '#shared/professional'
 defineProps<{ modelValue?: string }>()
 
 defineEmits<{ 'update:modelValue': [value: string | undefined] }>()
+
+const explicitSorts = SORT_OPTIONS.filter(option => option.value !== 'relevance')
+const defaultLabel = SORT_OPTIONS.find(option => option.value === 'relevance')!.label
 </script>
 
 <template>
-  <select
-    class="cursor-pointer rounded-button border border-medium bg-card text-[13px] text-primary"
-    aria-label="Ordenar por"
-    :value="modelValue ?? 'relevance'"
-    @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value === 'relevance' ? undefined : ($event.target as HTMLSelectElement).value)"
-  >
-    <option
-      v-for="option in SORT_OPTIONS"
-      :key="option.value"
-      :value="option.value"
-    >
-      {{ option.label }}
-    </option>
-  </select>
+  <UiSelect
+    label="Ordenar por"
+    :placeholder="defaultLabel"
+    :options="explicitSorts"
+    :model-value="modelValue"
+    @update:model-value="$emit('update:modelValue', $event)"
+  />
 </template>
