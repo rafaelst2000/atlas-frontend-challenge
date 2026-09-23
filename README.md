@@ -99,9 +99,3 @@ Componentes ficam agrupados por domínio (`professional/`, `home/`, `layout/`); 
 ## Uso de IA
 
 Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a documentação. Todas as decisões foram revisadas por mim.
-
-## Melhorias futuras
-
-- Testes end-to-end (Playwright) para os fluxos principais.
-- Formulário de orçamento real (hoje o botão "Solicitar orçamento" é apenas visual).
-- Upload de fotos reais (Vercel Blob) no lugar dos retratos de exemplo.
