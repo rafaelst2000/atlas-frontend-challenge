@@ -98,4 +98,9 @@ Componentes ficam agrupados por domínio (`professional/`, `home/`, `layout/`), 
 
 ## Uso de IA
 
-Claude Code (Anthropic) foi usado para apoiar a implementação, a revisão e a documentação. Todas as decisões foram revisadas por mim.
+Duas ferramentas da Anthropic foram usadas, em etapas diferentes:
+
+- **Claude Design:** a partir do enunciado do desafio (`docs/challenge.md`), gerei um protótipo visual que serviu de ponto de partida para o design. O protótipo definiu a direção visual; o design system resultante está documentado em [`DESIGN.md`](DESIGN.md).
+- **Claude Code:** apoiou a implementação, a revisão e a documentação deste repositório. O código (arquitetura, camada de dados, API, componentes, testes e CI) foi construído e evoluído aqui, dentro do projeto, e não exportado de nenhuma ferramenta pronta.
+
+Todas as decisões foram revisadas por mim.
